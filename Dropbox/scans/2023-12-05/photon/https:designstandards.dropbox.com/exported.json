@@ -1,0 +1,21 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://prod.d21qy42gpvwruv.amplifyapp.com/en-US-homepage-sitemap.xml",
+        "https://prod.d21qy42gpvwruv.amplifyapp.com/en-US-category_page-sitemap.xml",
+        "https://prod.d21qy42gpvwruv.amplifyapp.com/en-US-subcategory_page-sitemap.xml",
+        "https://prod.d21qy42gpvwruv.amplifyapp.com/en-US-detail_page-sitemap.xml",
+        "https://prod.d21qy42gpvwruv.amplifyapp.com/en-US-tab_page-sitemap.xml",
+        "https://prod.d21qy42gpvwruv.amplifyapp.com/en-US-page-sitemap.xml",
+        "https://designstandards.dropbox.com"
+    ],
+    "scripts": [],
+    "external": [],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

@@ -1,0 +1,5 @@
+https://learn-stage.dropbox.com/sitemap-landing.xml
+https://learn-stage.dropbox.com/sitemap-course.xml
+https://learn-stage.dropbox.com/sitemap-live-course.xml
+https://learn-stage.dropbox.com/sitemap-video.xml
+https://learn-stage.dropbox.com

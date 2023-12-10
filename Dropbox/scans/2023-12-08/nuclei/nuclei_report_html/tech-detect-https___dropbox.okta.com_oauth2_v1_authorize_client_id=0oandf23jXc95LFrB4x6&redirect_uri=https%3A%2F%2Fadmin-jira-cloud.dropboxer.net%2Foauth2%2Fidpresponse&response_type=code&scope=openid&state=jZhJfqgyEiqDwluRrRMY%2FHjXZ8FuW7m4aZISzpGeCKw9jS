@@ -1,0 +1,124 @@
+### Wappalyzer Technology Detection (tech-detect:nginx) found on https://admin-jira-cloud.dropboxer.net
+
+----
+**Details**: **tech-detect:nginx** matched at https://admin-jira-cloud.dropboxer.net
+
+**Protocol**: HTTP
+
+**Full URL**: https://dropbox.okta.com/oauth2/v1/authorize?client_id=0oandf23jXc95LFrB4x6&redirect_uri=https%3A%2F%2Fadmin-jira-cloud.dropboxer.net%2Foauth2%2Fidpresponse&response_type=code&scope=openid&state=jZhJfqgyEiqDwluRrRMY%2FHjXZ8FuW7m4aZISzpGeCKw9jSrGPkxvFS%2Fw%2BkkgxzpG0TBO3PlRCaytke4x9ZsHWV1eqHwHTaZpruCJvHpJGLkK%2FTE0aPMx%2FSZ0lhrhJdLXjN5f8KRWyC6sjiC%2Fs8oSZLrehqwQttDuUYf9yI1%2BES2BxuCvq8QewUXDM15V9slcTt3A8NM%2Bn6XsTYJifdYOPt3JScMIzjzEePoP2jRrBAWJ%2FLD3IC53
+
+**Timestamp**: Sat Dec 9 08:23:07 +0000 UTC 2023
+
+**Template Information**
+
+| Key | Value |
+| --- | --- |
+| Name | Wappalyzer Technology Detection |
+| Authors | hakluke |
+| Tags | tech |
+| Severity | info |
+
+**Request**
+```http
+GET / HTTP/1.1
+Host: admin-jira-cloud.dropboxer.net
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2866.71 Safari/537.36
+Connection: close
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip
+
+
+```
+
+**Response**
+```http
+HTTP/1.1 400 Bad Request
+Connection: close
+Content-Length: 3447
+Cache-Control: no-cache, no-store
+Content-Language: en
+Content-Security-Policy: default-src 'self' dropbox.okta.com *.oktacdn.com; connect-src 'self' dropbox.okta.com dropbox-admin.okta.com *.oktacdn.com *.mixpanel.com *.mapbox.com app.pendo.io data.pendo.io pendo-static-5634101834153984.storage.googleapis.com pendo-static-5391521872216064.storage.googleapis.com *.mtls.okta.com dropbox.kerberos.okta.com *.authenticatorlocalprod.com:8769 http://localhost:8769 http://127.0.0.1:8769 *.authenticatorlocalprod.com:65111 http://localhost:65111 http://127.0.0.1:65111 *.authenticatorlocalprod.com:65121 http://localhost:65121 http://127.0.0.1:65121 *.authenticatorlocalprod.com:65131 http://localhost:65131 http://127.0.0.1:65131 *.authenticatorlocalprod.com:65141 http://localhost:65141 http://127.0.0.1:65141 *.authenticatorlocalprod.com:65151 http://localhost:65151 http://127.0.0.1:65151 https://oinmanager.okta.com data:; script-src 'unsafe-inline' 'unsafe-eval' 'self' dropbox.okta.com *.oktacdn.com; style-src 'unsafe-inline' 'self' dropbox.okta.com *.oktacdn.com app.pendo.io cdn.pendo.io pendo-static-5634101834153984.storage.googleapis.com pendo-static-5391521872216064.storage.googleapis.com; frame-src 'self' dropbox.okta.com dropbox-admin.okta.com login.okta.com com-okta-authenticator: api-37ec43d7.duosecurity.com; img-src 'self' dropbox.okta.com *.oktacdn.com *.tiles.mapbox.com *.mapbox.com app.pendo.io data.pendo.io cdn.pendo.io pendo-static-5634101834153984.storage.googleapis.com pendo-static-5391521872216064.storage.googleapis.com data: blob:; font-src 'self' dropbox.okta.com data: *.oktacdn.com fonts.gstatic.com
+Content-Type: text/html;charset=utf-8
+Date: Sat, 09 Dec 2023 08:23:07 GMT
+Expires: 0
+P3p: CP="HONK"
+Pragma: no-cache
+Public-Key-Pins-Report-Only: pin-sha256="r5EfzZxQVvQpKo3AgYRaT7X2bDO/kj3ACwmxfdT2zt8="; pin-sha256="MaqlcUgk2mvY/RFSGeSwBRkI+rZ6/dxe/DuQfBT/vnQ="; pin-sha256="72G5IEvDEWn+EThf3qjR7/bQSWaS2ZSLqolhnO6iyJI="; pin-sha256="rrV6CLCCvqnk89gWibYT0JO6fNQ8cCit7GGoiVTjCOg="; max-age=60; report-uri="https://okta.report-uri.com/r/default/hpkp/reportOnly"
+Referrer-Policy: no-referrer
+Server: nginx
+Set-Cookie: sid="";Version=1;Path=/;Max-Age=0
+Set-Cookie: autolaunch_triggered=""; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/
+Set-Cookie: JSESSIONID=063E5DEAE98E37FE828C2E2B0702855C; Path=/; Secure; HttpOnly
+Set-Cookie: t=blue-dark; Path=/
+Set-Cookie: DT=DI1KueYB89JQNKQEDpeiPmgsw;Version=1;Path=/;Max-Age=63072000;Secure;Expires=Mon, 08 Dec 2025 08:23:07 GMT;HttpOnly
+Strict-Transport-Security: max-age=315360000; includeSubDomains
+X-Content-Type-Options: nosniff
+X-Okta-Request-Id: ZXQj6xnvwAzKxgITH2vKSAAACOs
+X-Rate-Limit-Limit: 2000
+X-Rate-Limit-Remaining: 1882
+X-Rate-Limit-Reset: 1702110229
+X-Xss-Protection: 0
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+
+    <title>Dropbox Okta - Bad Request</title>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/sections/errors-v2.css">
+
+    <!-- Styles generated from theme -->
+    <link href="/api/internal/brand/theme/style-sheet?touch-point=ERROR_PAGE&amp;v=43dff4eb61a65f4f97dfc180776e02d13b3acb259b69662414091c035c781ffaecf3a59d10c67150a2909055ec9b7b40" rel="stylesheet" type="text/css">
+
+    <!-- Favicon from theme -->
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+
+    
+
+    <style nonce="QKDIzBURkWr-IQVQ_-tVmi3mBV8pBARX1_81cyhTt0c">
+        #login-bg-image-id {
+            background-image: url('https://ok11static.oktacdn.com/fs/bco/7/fs06sidug2JhbFj6V4x7')
+        }
+    </style>
+</head>
+<body>
+<div id="login-bg-image-id" class="login-bg-image tb--background"></div>
+<div class="widget">
+    <div class="container">
+        <div class="header">
+            <img alt="Dropbox Okta" src="https://ok11static.oktacdn.com/fs/bco/1/fs02m0lug3QQnlxZ14x6" class="org-logo">
+        </div>
+        <div class="illustration">
+            <!-- Show HTTP error code if exists -->
+            <div class="error-code">400</div>
+            <!-- Show generic error image if not  -->
+        </div>
+        <div class="content">
+            <h2 class="o-form-title">Bad Request</h2>
+            <p class="o-form-explain">Your request resulted in an error. The 'redirect_uri' parameter must be a Login redirect URI in the client app settings: https://dropbox-admin.okta.com/admin/app/oidc_client/instance/0oandf23jXc95LFrB4x6#tab-general</p>
+            <a href="/" class="button tb--button">Go to Homepage</a>
+
+            <div class="footer">
+                <a class="non-link">
+                    Technical Details
+                </a> <span class="dropdown-arrow">&#9662;</span>
+                <p class="technical-details">Identity Provider: Unknown, Error Code: invalid_request</p>
+            </div>
+        </div>
+    </div>
+</di.... Truncated ....
+```
+
+
+**CURL command**
+```sh
+curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2866.71 Safari/537.36' 'https://admin-jira-cloud.dropboxer.net'
+```
+
+----
+
+Generated by [Nuclei v3.1.0-dev](https://github.com/projectdiscovery/nuclei)

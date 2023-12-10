@@ -1,0 +1,6 @@
+https://learn.hellosign.com/login
+https://learn.hellosign.com/checkout/
+https://learn.hellosign.com/accounts/
+https://learn.hellosign.com/auth/
+https://learn.hellosign.com/invite/
+https://learn.hellosign.com/signup

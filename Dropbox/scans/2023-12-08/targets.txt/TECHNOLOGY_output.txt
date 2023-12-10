@@ -1,0 +1,19 @@
+{
+  "host": "dropboxforum.com",
+  "technology": "amazon web services",
+  "url": "https://dropboxforum.com:443"
+}
+  "technology": "amazon cloudfront",
+  "technology": "amazon s3",
+  "url": "http://dropboxforum.com:80"
+  "host": "developers.dropbox.com",
+  "url": "http://developers.dropbox.com:80"
+  "url": "https://developers.dropbox.com:443"
+  "technology": "apache",
+  "host": "experience.dropbox.com",
+  "url": "http://experience.dropbox.com:80"
+  "technology": "java",
+  "url": "https://experience.dropbox.com:443"
+  "technology": "react",
+  "technology": "tealium",
+  "technology": "adobe experience manager",

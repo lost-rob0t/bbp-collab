@@ -1,0 +1,19 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://admin-jira.dropboxer.net/",
+        "https://admin-jira.dropboxer.net",
+        "https://admin-jira.dropboxer.net//"
+    ],
+    "scripts": [],
+    "external": [
+        "https://www.okta.com"
+    ],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

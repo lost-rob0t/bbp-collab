@@ -1,0 +1,32 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [
+        "https://api.hellosign.com/account/recoverPassword$",
+        "https://api.hellosign.com/info/",
+        "https://api.hellosign.com/account/logIn$",
+        "https://api.hellosign.com/api/",
+        "https://api.hellosign.com/$",
+        "https://api.hellosign.com/solutions/",
+        "https://api.hellosign.com/",
+        "https://api.hellosign.com/account/signUp$"
+    ],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://api.hellosign.com/account/recoverPassword$",
+        "https://api.hellosign.com/info/",
+        "https://api.hellosign.com/account/logIn$",
+        "https://api.hellosign.com/api/",
+        "https://api.hellosign.com/$",
+        "https://api.hellosign.com/solutions/",
+        "https://api.hellosign.com",
+        "https://api.hellosign.com/",
+        "https://api.hellosign.com/account/signUp$"
+    ],
+    "scripts": [],
+    "external": [],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

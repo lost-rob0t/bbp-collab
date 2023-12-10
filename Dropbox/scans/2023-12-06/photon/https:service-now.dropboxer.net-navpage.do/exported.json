@@ -1,0 +1,15 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://service-now.dropboxer.net/navpage.do"
+    ],
+    "scripts": [],
+    "external": [],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

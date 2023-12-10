@@ -1,0 +1,17 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://apidemo.hellosign.com"
+    ],
+    "scripts": [],
+    "external": [
+        "https://www.dropbox.com/scl/fi/g7xvulq4eyzwtv38r6s5m/HelloSign-API-Demo-Instructions.paper?dl=0&rlkey=a9jcbd0tzly2hg3s9j5cuoc09"
+    ],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

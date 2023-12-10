@@ -1,0 +1,110 @@
+#+TITLE: Notes
+
+* Naming schemes
++ staging: {service}-stg
++ staging: {service}-stage
+
+* Interesting urls :index:
+** https://linux.dropbox.com/
+#+begin_src sh :async t :results output replace
+whatweb https://linux.dropbox.com/
+#+end_src
+
+#+RESULTS:
+: https://linux.dropbox.com/ [200 OK] Country[UNITED STATES][US], HTTPServer[nginx], IP[99.84.208.104], Index-Of, Title[Index of /], UncommonHeaders[x-dropbox-request-id,x-amz-cf-pop,x-amz-cf-id], Via-Proxy[1.1 7f4d5d15a00b6ae82bb7aabc4560d3a6.cloudfront.net (CloudFront)], nginx
+** http://dsimports.dropbox.com/ :unknown:
+
+
+#+DOWNLOADED: screenshot @ 2023-12-01 01:45:03
+[[file:Interesting_urls/2023-12-01_01-45-03_screenshot.png]]
+
+
+#+begin_src sh :async t :results output replace
+whatweb http://dsimports.dropbox.com/
+#+end_src
+
+#+RESULTS:
+: http://dsimports.dropbox.com/ [301 Moved Permanently] CloudFront, Country[UNITED STATES][US], HTTPServer[CloudFront], IP[52.85.132.16], RedirectLocation[https://dsimports.dropbox.com/], Title[301 Moved Permanently], UncommonHeaders[x-amz-cf-pop,x-amz-cf-id], Via-Proxy[1.1 6d327e3d2da66fac5e95b3d2d2e18852.cloudfront.net (CloudFront)]
+: https://dsimports.dropbox.com/ [200 OK] Cookies[connect.sid,heroku-session-affinity], Country[UNITED STATES][US], HTTPServer[Cowboy], HttpOnly[connect.sid], IP[52.85.132.3], UncommonHeaders[report-to,reporting-endpoints,nel,x-request-id,x-content-type-options,x-download-options,x-amz-cf-pop,x-amz-cf-id], Via-Proxy[1.1 vegur, 1.1 67711c5cba0352ee130f60f6cc103e0a.cloudfront.net (CloudFront)], X-Frame-Options[SAMEORIGIN], X-XSS-Protection[0]
+** http://lyncdiscover.dropbox.com/ :microsoft:
+** https://stageisdown.dropbox.com :unknown::testing:
+** http://paper-nonprod-attachments.dropbox.com/ :testing::cdn:
+** https://admin-jira-update.dropboxer.net/ :okta::sass::jira:
+** http://msoid.dropbox.com/ :microsoft::saas:
+** https://embedded.hellosign.com/ :404::unknown:
+** https://forum-stage.dropboxforum.com/ :401:testing:
+** https://community-stg-origin.dropboxforum.com/ :401:testing:
+** http://cdn.helloworks.com/ :cdn:
+** https://api.dropboxer.net/ :api:
+** https://iad-vpn.corp.dropbox.com/ :cisco::vpn:
+
+#+DOWNLOADED: screenshot @ 2023-12-01 01:58:51
+[[file:Interesting_urls/2023-12-01_01-58-51_screenshot.png]]
+** https://amer-east.vpn.dropboxer.net/ :vpn::cisco:
+** https://vpn.dropbox.com/ :vpn::cisco:
+** https://sip.dropbox.com :sip::404:
+
+#+DOWNLOADED: screenshot @ 2023-12-01 02:06:49
+[[file:Interesting_urls/2023-12-01_02-06-49_screenshot.png]]
+** https://bolt.dropbox.com/ :unknown::bolt:
+
+#+DOWNLOADED: screenshot @ 2023-12-01 02:09:05
+[[file:Interesting_urls/2023-12-01_02-09-05_screenshot.png]]
+** https://pithos-canonical-iframe-staging.dropbox.com/ :iframe:
+** http://file-imports.dropbox.com/ :iframe:
+** https://opensource.dropbox.com/ :github::foss:
+** https://portal.helloworks.com/api/graphql :graphql:
+* WAF
+** Cloudflare
++ https://sfdc-docs.hellosign.com/
+
+
+
+* Security Blog
++ https://dropbox.tech/security/
+** Dropbox bug bounty program has paid out over $1,000,000
+*** Leo summery
+• Shared Link Password Bypass
+• Paper Notification CSS Injection
+• Gopher SSRF
+
+The Dropbox Security Team has fixed the following security issues:
+
+1. Shared Link Password Bypass: A vulnerability that allowed attackers to access shared links without passwords.
+2. Paper Notification CSS Injection: A vulnerability that allowed attackers to inject malicious code into Paper notifications.
+3. Gopher SSRF: A vulnerability that allowed attackers to perform server-side request forgery.
+4. They Use a patched version of curl
+*** Top 5 bugs
+1. ImageTragick
+2. App Cache Manifest
+3. Gopher SSRF
+4. Paper Notification CSS Injection
+5. Shared Link Password Bypass
+** Defending against SSRF attacks (with help from our bug bounty program)
+*** GPT summery
+
+**** The Bug:
+   - Dropbox's branded sharing feature had a critical SSRF vulnerability.
+   - Attackers could manipulate requests to make HTTP GET requests to internal endpoints.
+
+**** The Fix:
+   - Addressed inconsistent URL parsing using a more robust serialization process in the URI class.
+   - Considered constructing URLs with the intended domain instead of relying on user input.
+
+**** Secure by Default:
+   - Developed a framework for making web requests that are secure by default.
+   - Centralized parsing URLs, validating IP addresses, and making requests to prevent bypassing.
+
+**** Further Hardening:
+   - Implemented "Auth Everywhere" defense-in-depth approach.
+   - Mandated authentication, authorization, and auditability for all connections in production.
+   - Deployed a sidecar proxy and an HTTP service to accept only mTLS connections from authorized clients.
+
+**** Conclusion:
+   - Emphasized the importance of bug bounty programs.
+   - Fixed the specific SSRF case and implemented broader system hardening measures.
+
+**** Takeaways:
+   - Bug bounty programs play a crucial role in identifying and fixing security vulnerabilities.
+   - Addressing SSRF vulnerabilities through consistent URL parsing and secure-by-default frameworks.
+   - Implementation of defense-in-depth measures to enhance overall system security.

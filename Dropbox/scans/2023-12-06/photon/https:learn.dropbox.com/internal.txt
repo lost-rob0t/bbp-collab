@@ -1,0 +1,7 @@
+https://learn.dropbox.com
+https://learn.dropbox.com/sitemap-live-course.xml
+https://learn.dropbox.com/sitemap-course.xml
+https://learn.dropbox.com/sitemap-video-landing.xml
+https://learn.dropbox.com/sitemap-course-topic.xml
+https://learn.dropbox.com/sitemap-video.xml
+https://learn.dropbox.com/sitemap-landing.xml

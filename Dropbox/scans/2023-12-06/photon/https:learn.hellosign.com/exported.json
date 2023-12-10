@@ -1,0 +1,42 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [
+        "https://learn.hellosign.com/login",
+        "https://learn.hellosign.com/checkout/",
+        "https://learn.hellosign.com/accounts/",
+        "https://learn.hellosign.com/auth/",
+        "https://learn.hellosign.com/invite/",
+        "https://learn.hellosign.com/signup"
+    ],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://learn.hellosign.com/esignature-basics",
+        "https://learn.hellosign.com/checkout/",
+        "https://learn.hellosign.com/accounts/",
+        "https://learn.hellosign.com/auth/.concat(f,",
+        "https://learn.hellosign.com/checkout/2ydcjmcx13y2y",
+        "https://learn.hellosign.com/invite/",
+        "https://learn.hellosign.com/login",
+        "https://learn.hellosign.com/",
+        "https://learn.hellosign.com/.concat(f,",
+        "https://learn.hellosign.com/auth/",
+        "https://learn.hellosign.com/auth/login?next=%2Fesignature-basics",
+        "https://learn.hellosign.com",
+        "https://learn.hellosign.com/signup"
+    ],
+    "scripts": [],
+    "external": [
+        "https://www.hellosign.com/acceptable-use-policy?www_referrer=https%3A%2F%2Fwww.hellosign.com%2Fterms",
+        "https://www.hellosign.com/legal?www_referrer=https%3A%2F%2Fwww.hellosign.com%2Fterms",
+        "https://www.hellosign.com/terms/service-specific-terms?www_referrer=https%3A%2F%2Fwww.hellosign.com%2Fterms",
+        "https://www.hellosign.com/terms?www_referrer=https%3A%2F%2Fwww.hellosign.com%2Fterms",
+        "https://twitter.com/share"
+    ],
+    "fuzzable": [
+        "https://learn.hellosign.com/auth/login?next=%2Fesignature-basics"
+    ],
+    "endpoints": [],
+    "keys": []
+}

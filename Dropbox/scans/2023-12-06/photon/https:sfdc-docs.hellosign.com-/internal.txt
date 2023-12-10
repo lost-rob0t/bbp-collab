@@ -1,0 +1,7 @@
+https://sfdc-docs.hellosign.com/edit/
+https://sfdc-docs.hellosign.com
+https://sfdc-docs.hellosign.com/edit//login?redirect_uri=/edit/
+https://sfdc-docs.hellosign.com/suggested-edits/
+https://sfdc-docs.hellosign.com/
+https://sfdc-docs.hellosign.com/logout
+https://sfdc-docs.hellosign.com/login

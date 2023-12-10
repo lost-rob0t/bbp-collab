@@ -1,0 +1,11 @@
+{
+  "host": "dropbox.com",
+  "description": "OpenID Connect Endpoint (domain: dropbox.com) found at https://login.windows.net/dropbox.com/.well-known/openid-configuration",
+  "url": "https://login.windows.net/dropbox.com/.well-known/openid-configuration"
+}
+  "host": "hellosign.com",
+  "description": "OpenID Connect Endpoint (domain: hellosign.com) found at https://login.windows.net/hellosign.com/.well-known/openid-configuration",
+  "url": "https://login.windows.net/hellosign.com/.well-known/openid-configuration"
+  "host": "docsend.com",
+  "description": "OpenID Connect Endpoint (domain: docsend.com) found at https://login.windows.net/docsend.com/.well-known/openid-configuration",
+  "url": "https://login.windows.net/docsend.com/.well-known/openid-configuration"

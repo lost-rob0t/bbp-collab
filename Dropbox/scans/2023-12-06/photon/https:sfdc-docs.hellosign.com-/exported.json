@@ -1,0 +1,31 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [
+        "https://sfdc-docs.hellosign.com/suggested-edits/",
+        "https://sfdc-docs.hellosign.com/",
+        "https://sfdc-docs.hellosign.com/logout",
+        "https://sfdc-docs.hellosign.com/edit/",
+        "https://sfdc-docs.hellosign.com/login"
+    ],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://sfdc-docs.hellosign.com/edit/",
+        "https://sfdc-docs.hellosign.com",
+        "https://sfdc-docs.hellosign.com/edit//login?redirect_uri=/edit/",
+        "https://sfdc-docs.hellosign.com/suggested-edits/",
+        "https://sfdc-docs.hellosign.com/",
+        "https://sfdc-docs.hellosign.com/logout",
+        "https://sfdc-docs.hellosign.com/login"
+    ],
+    "scripts": [],
+    "external": [
+        "https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/intro_reqs_my_domain.htm"
+    ],
+    "fuzzable": [
+        "https://sfdc-docs.hellosign.com/edit//login?redirect_uri=/edit/"
+    ],
+    "endpoints": [],
+    "keys": []
+}

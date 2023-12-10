@@ -1,0 +1,13 @@
+https://learn.hellosign.com/esignature-basics
+https://learn.hellosign.com/checkout/
+https://learn.hellosign.com/accounts/
+https://learn.hellosign.com/auth/.concat(f,
+https://learn.hellosign.com/checkout/2ydcjmcx13y2y
+https://learn.hellosign.com/invite/
+https://learn.hellosign.com/login
+https://learn.hellosign.com/
+https://learn.hellosign.com/.concat(f,
+https://learn.hellosign.com/auth/
+https://learn.hellosign.com/auth/login?next=%2Fesignature-basics
+https://learn.hellosign.com
+https://learn.hellosign.com/signup

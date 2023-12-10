@@ -1,0 +1,5 @@
+{
+  "host": "dsimports.dropbox.com",
+  "protocol": "WSS"
+}
+  "host": "replay-api-live.dropbox.com",

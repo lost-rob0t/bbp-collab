@@ -1,0 +1,18 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [
+        "https://findyouroffice-stg.dropbox.com/"
+    ],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://findyouroffice-stg.dropbox.com/",
+        "https://findyouroffice-stg.dropbox.com"
+    ],
+    "scripts": [],
+    "external": [],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

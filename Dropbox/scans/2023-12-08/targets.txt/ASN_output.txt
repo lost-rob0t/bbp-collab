@@ -1,0 +1,14 @@
+{
+  "asn": "16509",
+  "subnet": "13.226.16.0/21",
+  "name": "AMAZON-02",
+  "description": "Amazon.com, Inc.",
+  "country": "US"
+}
+  "asn": "19679",
+  "subnet": "162.125.248.0/24",
+  "name": "DROPBOX",
+  "description": "Dropbox, Inc.",
+  "subnet": "162.125.0.0/16",
+  "subnet": "2620:100:6040::/48",
+  "subnet": "2620:100:6000::/40",

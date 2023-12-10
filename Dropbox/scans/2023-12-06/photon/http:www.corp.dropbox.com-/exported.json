@@ -1,0 +1,24 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [
+        "http://www.corp.dropbox.com/_/rsrc/",
+        "http://www.corp.dropbox.com/_/",
+        "http://www.corp.dropbox.com/feeds"
+    ],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "http://www.corp.dropbox.com/_/rsrc/",
+        "http://www.corp.dropbox.com/_/",
+        "http://www.corp.dropbox.com",
+        "http://www.corp.dropbox.com/feeds"
+    ],
+    "scripts": [],
+    "external": [
+        "//www.google.com/"
+    ],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

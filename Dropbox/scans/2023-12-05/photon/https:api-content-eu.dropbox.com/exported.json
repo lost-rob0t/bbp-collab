@@ -1,0 +1,17 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://api-content-eu.dropbox.com"
+    ],
+    "scripts": [],
+    "external": [
+        "https://www.dropbox.com/business?_tk=fof"
+    ],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

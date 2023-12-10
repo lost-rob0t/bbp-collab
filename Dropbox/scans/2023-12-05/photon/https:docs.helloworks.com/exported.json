@@ -1,0 +1,21 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [
+        "https://docs.helloworks.com/"
+    ],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://docs.helloworks.com/",
+        "https://docs.helloworks.com"
+    ],
+    "scripts": [],
+    "external": [
+        "https://readme.com?ref_src=hub&amp;project=helloworks",
+        "https://www.cloudflare.com/5xx-error-landing"
+    ],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

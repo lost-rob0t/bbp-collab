@@ -1,0 +1,18 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://sfdc-docs.hellosign.com/",
+        "https://sfdc-docs.hellosign.com/docs"
+    ],
+    "scripts": [],
+    "external": [
+        "https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/intro_reqs_my_domain.htm"
+    ],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

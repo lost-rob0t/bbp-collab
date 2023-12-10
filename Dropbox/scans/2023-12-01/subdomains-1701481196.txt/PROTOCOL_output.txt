@@ -1,0 +1,4 @@
+{
+  "host": "dsimports.dropbox.com",
+  "protocol": "WSS"
+}

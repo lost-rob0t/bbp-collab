@@ -1,0 +1,15 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://api-notify0.dropbox.com"
+    ],
+    "scripts": [],
+    "external": [],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

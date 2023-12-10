@@ -1,0 +1,18 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [
+        "https://service-now.dropboxer.net/"
+    ],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://service-now.dropboxer.net",
+        "https://service-now.dropboxer.net/"
+    ],
+    "scripts": [],
+    "external": [],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

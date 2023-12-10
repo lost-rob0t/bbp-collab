@@ -1,0 +1,17 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://cloud-docs-gdd-test.dropbox.com"
+    ],
+    "scripts": [],
+    "external": [
+        "https://www.dropbox.com/business?_tk=fof"
+    ],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

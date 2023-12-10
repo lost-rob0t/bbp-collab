@@ -1,0 +1,121 @@
+### Drone CI Panel (drone-login) found on https://service-now.dropboxer.net
+
+----
+**Details**: **drone-login** matched at https://service-now.dropboxer.net
+
+**Protocol**: HTTP
+
+**Full URL**: https://service-now.dropboxer.net/welcome
+
+**Timestamp**: Sat Dec 9 12:49:43 +0000 UTC 2023
+
+**Template Information**
+
+| Key | Value |
+| --- | --- |
+| Name | Drone CI Panel |
+| Authors | yuzhe-zhang-0 |
+| Tags | panel, drone-ci, cicd |
+| Severity | info |
+
+**Request**
+```http
+GET /welcome HTTP/1.1
+Host: service-now.dropboxer.net
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2656.18 Safari/537.36
+Connection: close
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip
+
+
+```
+
+**Response**
+```http
+HTTP/1.1 200 OK
+Connection: close
+Transfer-Encoding: chunked
+Cache-Control: no-cache,no-store,must-revalidate,max-age=-1
+Content-Security-Policy: frame-ancestors 'self' teams.microsoft.com *.teams.microsoft.com
+Content-Type: text/html;charset=UTF-8
+Date: Sat, 09 Dec 2023 12:49:43 GMT
+Expires: 0
+Pragma: no-store,no-cache
+Referrer-Policy: same-origin
+Server: snow_adc
+Server-Timing: sem_wait;dur=0, sesh_wait;dur=0
+Set-Cookie: BIGipServerpool_dropboxdev=6fc497f3b96c2862f0e08f140ccf03c1; httponly; secure; path=/; SameSite=None
+Set-Cookie: JSESSIONID=244C43E55D7CFD2C8588E76F2AC05BCD; Path=/; HttpOnly; secure; SameSite=None
+Set-Cookie: glide_user=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; HttpOnly; secure; SameSite=None
+Set-Cookie: glide_user_session=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; HttpOnly; secure; SameSite=None
+Set-Cookie: glide_user_route=glide.507710f0836299893dc796ace57b81e3; Max-Age=2147483647; Expires=Thu, 27-Dec-2091 16:03:50 GMT; Path=/; HttpOnly; secure; SameSite=None
+Strict-Transport-Security: max-age=63072000; includeSubDomains
+X-Is-Logged-In: false
+X-Transaction-Id: 37207f70ae0f
+
+<!DOCTYPE html><html lang="en" class=" ltr " data-doctype="true" dir="ltr" ontouchend="CustomEvent.fireAll('body_clicked', event);"><head><script>document.addEventListener('click', function (event) {
+				CustomEvent.fireAll('body_clicked', event);
+			});
+			document.hasBodyClickedTrigger = 'true';</script><script type="text/javascript"></script><script src="/uxasset/externals/service-worker/loader.jsdbx?uxpcb=1702043869520&amp;sysparm_substitute=false"></script><script>var mswDisabledValue = "false";
+            var disabled = mswDisabledValue === 'true' ? true : false;
+            var serviceWorkers = JSON.parse("[{\"scope\":\"/\",\"serviceWorkerUrl\":\"/uxsw/scope/root.js\"}]");
+            var cacheBuster = "1702043869520";
+            var SERVICE_WORKER_MANAGER_CONFIG = {disabled, serviceWorkers};
+            if (window.serviceWorkerManager) window.serviceWorkerManager.init(SERVICE_WORKER_MANAGER_CONFIG);
+            var prefetchedAssetsStr = "";
+            var defaultPrefetchedAssets = [
+                '/uxasset/externals/amb-client-js/index.jsdbx',
+                '/uxasset/externals/@devsnc/library-uxf/index.jsdbx',
+                '/uxasset/externals/@servicenow/ui-mega/index.jsdbx',
+                '/uxasset/externals/nds-megabundle/bundled-assets.jsdbx',
+                '/uxasset/externals/polaris-app-shell/index.jsdbx',
+                '/uxasset/externals/js-common-mega/bundled-assets.jsdbx',
+                '/uxasset/externals/sn-canvas-common/latest/index.jsdbx',
+                '/uxasset/externals/sn-canvas-chrome/index.jsdbx',
+                '/uxasset/externals/sn-canvas-core/index.jsdbx',
+                '/uxasset/externals/sn-canvas-blank/index.jsdbx',
+                '/uxasset/externals/sn-canvas-core-addon/latest/index.jsdbx',
+                '/uxasset/externals/@devsnc/ux-metrics-runtime/index.jsdbx',
+                '/uxasset/externals/@devsnc/sn-layout/index.jsdbx',
+                '/uxasset/externals/controls-mono/bundled-assets.jsdbx',
+                '/uxasset/externals/path-to-regexp/latest/index.jsdbx',
+                '/uxasset/externals/lodash/latest/index.jsdbx',
+                '/uxasset/externals/@devsnc/ux-metrics/index.jsdbx',
+                '/uxasset/externals/@devsnc/ux-metrics-client-interaction-subscriber/index.jsdbx',
+                '/uxasset/externals/sn-search-input-wrapper/index.jsdbx',
+                '/uxasset/externals/fflate/latest/index.jsdbx',
+                '/uxasset/externals/cuid/latest/index.jsdbx',
+                '/uxasset/externals/date-fns/latest/index.jsdbx',
+                '/uxasset/externals/dompurify/latest/index.jsdbx',
+                '/uxasset/externals/sn-http-request/latest/index.jsdbx',
+                '/uxasset/externals/@servicenow/ui-renderer-react/index.jsdbx',
+                '/uxasset/externals/react-dnd/latest/index.jsdbx',
+                '/uxasset/externals/react-dnd-html5-backend/latest/index.jsdbx',
+                '/uxasset/externals/@devsnc/ux-metrics-appsee-subscriber/index.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/chevronDown.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/star.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/pencilPage.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/close.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/home.jsdbx',
+                '/uxasset/externals/sn-component-workspace-global-search/index.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/ellipsisVertical.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/user.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/gear.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/eye.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/openLinkRight.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/squareArrowLeft.jsdbx',
+                '/uxasset/e.... Truncated ....
+```
+
+References: 
+- https://www.shodan.io/search?query=http.title%3a%22drone%22+http.favicon.hash%3a1354079303
+
+**CURL command**
+```sh
+curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2656.18 Safari/537.36' 'https://service-now.dropboxer.net/welcome'
+```
+
+----
+
+Generated by [Nuclei v3.1.0-dev](https://github.com/projectdiscovery/nuclei)

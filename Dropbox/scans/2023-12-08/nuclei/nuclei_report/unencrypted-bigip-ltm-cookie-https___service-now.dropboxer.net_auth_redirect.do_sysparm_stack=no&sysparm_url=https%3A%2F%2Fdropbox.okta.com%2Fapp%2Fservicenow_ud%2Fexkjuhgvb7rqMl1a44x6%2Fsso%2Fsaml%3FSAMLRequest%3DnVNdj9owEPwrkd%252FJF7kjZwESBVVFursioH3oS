@@ -1,0 +1,123 @@
+### F5 BIGIP Unencrypted Cookie (unencrypted-bigip-ltm-cookie) found on https://service-now.dropboxer.net
+
+----
+**Details**: **unencrypted-bigip-ltm-cookie** matched at https://service-now.dropboxer.net
+
+**Protocol**: HTTP
+
+**Full URL**: https://service-now.dropboxer.net/auth_redirect.do?sysparm_stack=no&sysparm_url=https%3A%2F%2Fdropbox.okta.com%2Fapp%2Fservicenow_ud%2Fexkjuhgvb7rqMl1a44x6%2Fsso%2Fsaml%3FSAMLRequest%3DnVNdj9owEPwrkd%252FJF7kjZwESBVVFursioH3oS7XYC7iX2DmvE9J%252Ff0mAA1U9pPZ1dzw7O7MeEuRZXPBJ6fZ6ia8lkvPqPNPEj50RK63mBkgR15AjcSf4avL0yGM%252F5IU1zgiTMW9ChNYpo6dGU5mjXaGtlMBvy8cR2ztXEA8COtZ62hx8aU2xMTVaX6MLNFQF7NCXhnmzRoPS0JJdnp7gvnlx4AuTB1AUZ76G7mcpA6xffpX7XbUZ2NenLIIkqe8DIhO0mzDvs7ECuz1HbAsZIfPmsxFbPU%252F7fTHYDAREURJHSZqCTB8GgzTGJLkL7%252B9aIC2ASFV4eUpU4lyTA%252B1GLA7jfi%252BKe%252BHDOkx5nPB%252B7KdJ%252BIN5i5NDn5SWSu9u27k5goh%252FWa8XvcXX1bojqJRE%252B9yg%252F9XJ72ipc7EhZ%252BNhlyjvlNvrkG%252BLgnOybPxHGBIr%252F1pIE8swuB5yGlnwVvx8tjCZEr%252B9SZaZw9QiuGYhZ0vsssnBfawj8qOuomRv20E55qCyiZQWiVjwPuh0wii7oJtbdFg7b2ryAqyi1gqsQbh3M65h06xZdYnb%252F7LmJkxw0XI35faMDsbK9ixQNDrXFjQVxrqzc39TND41P9jv0r7%252BxuM3%26RelayState%3Dhttps%253A%252F%252Fservice-now.dropboxer.net%252Fnavpage.do
+
+**Timestamp**: Sat Dec 9 08:24:35 +0000 UTC 2023
+
+**Template Information**
+
+| Key | Value |
+| --- | --- |
+| Name | F5 BIGIP Unencrypted Cookie |
+| Authors | pr3r00t |
+| Tags | misc |
+| Severity | info |
+
+**Request**
+```http
+GET / HTTP/1.1
+Host: service-now.dropboxer.net
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 Safari/537.36
+Connection: close
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip
+
+
+```
+
+**Response**
+```http
+HTTP/1.1 200 OK
+Connection: close
+Transfer-Encoding: chunked
+Cache-Control: no-cache,no-store,must-revalidate,max-age=-1
+Content-Security-Policy: frame-ancestors 'self' teams.microsoft.com *.teams.microsoft.com
+Content-Type: text/html;charset=UTF-8
+Date: Sat, 09 Dec 2023 08:24:34 GMT
+Expires: 0
+Pragma: no-store,no-cache
+Referrer-Policy: same-origin
+Server: snow_adc
+Server-Timing: sem_wait;dur=0, sesh_wait;dur=0
+Set-Cookie: BIGipServerpool_dropboxdev=d074fe281b9308ecb4cf9455cec53e44; httponly; secure; path=/; SameSite=None
+Set-Cookie: glide_user=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; HttpOnly; secure; SameSite=None
+Set-Cookie: glide_user_session=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; HttpOnly; secure; SameSite=None
+Strict-Transport-Security: max-age=63072000; includeSubDomains
+X-Is-Logged-In: false
+X-Transaction-Id: 7b73323074cb
+
+<!DOCTYPE html><html lang="en" class=" ltr " data-doctype="true" dir="ltr" ontouchend="CustomEvent.fireAll('body_clicked', event);"><head><script>document.addEventListener('click', function (event) {
+				CustomEvent.fireAll('body_clicked', event);
+			});
+			document.hasBodyClickedTrigger = 'true';</script><script type="text/javascript"></script><script src="/uxasset/externals/service-worker/loader.jsdbx?uxpcb=1702043870452&amp;sysparm_substitute=false"></script><script>var mswDisabledValue = "false";
+            var disabled = mswDisabledValue === 'true' ? true : false;
+            var serviceWorkers = JSON.parse("[{\"scope\":\"/\",\"serviceWorkerUrl\":\"/uxsw/scope/root.js\"}]");
+            var cacheBuster = "1702043870452";
+            var SERVICE_WORKER_MANAGER_CONFIG = {disabled, serviceWorkers};
+            if (window.serviceWorkerManager) window.serviceWorkerManager.init(SERVICE_WORKER_MANAGER_CONFIG);
+            var prefetchedAssetsStr = "";
+            var defaultPrefetchedAssets = [
+                '/uxasset/externals/amb-client-js/index.jsdbx',
+                '/uxasset/externals/@devsnc/library-uxf/index.jsdbx',
+                '/uxasset/externals/@servicenow/ui-mega/index.jsdbx',
+                '/uxasset/externals/nds-megabundle/bundled-assets.jsdbx',
+                '/uxasset/externals/polaris-app-shell/index.jsdbx',
+                '/uxasset/externals/js-common-mega/bundled-assets.jsdbx',
+                '/uxasset/externals/sn-canvas-common/latest/index.jsdbx',
+                '/uxasset/externals/sn-canvas-chrome/index.jsdbx',
+                '/uxasset/externals/sn-canvas-core/index.jsdbx',
+                '/uxasset/externals/sn-canvas-blank/index.jsdbx',
+                '/uxasset/externals/sn-canvas-core-addon/latest/index.jsdbx',
+                '/uxasset/externals/@devsnc/ux-metrics-runtime/index.jsdbx',
+                '/uxasset/externals/@devsnc/sn-layout/index.jsdbx',
+                '/uxasset/externals/controls-mono/bundled-assets.jsdbx',
+                '/uxasset/externals/path-to-regexp/latest/index.jsdbx',
+                '/uxasset/externals/lodash/latest/index.jsdbx',
+                '/uxasset/externals/@devsnc/ux-metrics/index.jsdbx',
+                '/uxasset/externals/@devsnc/ux-metrics-client-interaction-subscriber/index.jsdbx',
+                '/uxasset/externals/sn-search-input-wrapper/index.jsdbx',
+                '/uxasset/externals/fflate/latest/index.jsdbx',
+                '/uxasset/externals/cuid/latest/index.jsdbx',
+                '/uxasset/externals/date-fns/latest/index.jsdbx',
+                '/uxasset/externals/dompurify/latest/index.jsdbx',
+                '/uxasset/externals/sn-http-request/latest/index.jsdbx',
+                '/uxasset/externals/@servicenow/ui-renderer-react/index.jsdbx',
+                '/uxasset/externals/react-dnd/latest/index.jsdbx',
+                '/uxasset/externals/react-dnd-html5-backend/latest/index.jsdbx',
+                '/uxasset/externals/@devsnc/ux-metrics-appsee-subscriber/index.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/chevronDown.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/star.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/pencilPage.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/close.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/home.jsdbx',
+                '/uxasset/externals/sn-component-workspace-global-search/index.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/ellipsisVertical.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/user.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/gear.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/eye.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/openLinkRight.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/squareArrowLeft.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/loader.jsdbx',
+                '/uxasset/externals/nds-megabundle/icons/presenceAvailable.jsdbx',
+                '/uxasset/externals/@devsnc/library-appsee-web-sdk/latest/index.jsdbx',
+                '/uxasset/externals/nds-megabundle/.... Truncated ....
+```
+
+References: 
+- https://www.intelisecure.com/how-to-decode-big-ip-f5-persistence-cookie-values
+- https://support.f5.com/csp/article/k23254150
+
+**CURL command**
+```sh
+curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 Safari/537.36' 'https://service-now.dropboxer.net'
+```
+
+----
+
+Generated by [Nuclei v3.1.0-dev](https://github.com/projectdiscovery/nuclei)

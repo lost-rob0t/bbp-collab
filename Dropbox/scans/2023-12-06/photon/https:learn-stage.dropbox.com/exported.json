@@ -1,0 +1,21 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://learn-stage.dropbox.com/sitemap-landing.xml",
+        "https://learn-stage.dropbox.com/sitemap-course.xml",
+        "https://learn-stage.dropbox.com/sitemap-live-course.xml",
+        "https://learn-stage.dropbox.com/sitemap-video.xml",
+        "https://learn-stage.dropbox.com"
+    ],
+    "scripts": [],
+    "external": [
+        "https://www.dropboxforum.com/"
+    ],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

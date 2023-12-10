@@ -1,0 +1,32 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [
+        "https://api.hellofax.com/api/",
+        "https://api.hellofax.com/account/recoverPassword$",
+        "https://api.hellofax.com/",
+        "https://api.hellofax.com/info/",
+        "https://api.hellofax.com/account/signUp$",
+        "https://api.hellofax.com/account/logIn$",
+        "https://api.hellofax.com/$",
+        "https://api.hellofax.com/solutions/"
+    ],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://api.hellofax.com/api/",
+        "https://api.hellofax.com/account/recoverPassword$",
+        "https://api.hellofax.com",
+        "https://api.hellofax.com/",
+        "https://api.hellofax.com/info/",
+        "https://api.hellofax.com/account/signUp$",
+        "https://api.hellofax.com/account/logIn$",
+        "https://api.hellofax.com/$",
+        "https://api.hellofax.com/solutions/"
+    ],
+    "scripts": [],
+    "external": [],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

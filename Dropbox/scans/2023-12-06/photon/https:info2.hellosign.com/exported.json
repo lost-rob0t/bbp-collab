@@ -1,0 +1,18 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [
+        "https://info2.hellosign.com/"
+    ],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://info2.hellosign.com/",
+        "https://info2.hellosign.com"
+    ],
+    "scripts": [],
+    "external": [],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

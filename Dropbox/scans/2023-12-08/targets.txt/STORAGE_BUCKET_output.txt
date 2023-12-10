@@ -1,0 +1,6 @@
+{
+  "name": "dropbox",
+  "url": "https://dropbox.fra1.digitaloceanspaces.com"
+}
+  "name": "hellosign",
+  "url": "https://hellosign.s3.amazonaws.com"

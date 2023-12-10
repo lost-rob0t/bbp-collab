@@ -1,0 +1,91 @@
+### HTTP Missing Security Headers (http-missing-security-headers:access-control-allow-credentials) found on https://msoid.dropbox.com
+
+----
+**Details**: **http-missing-security-headers:access-control-allow-credentials** matched at https://msoid.dropbox.com
+
+**Protocol**: HTTP
+
+**Full URL**: https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=4765445b-32c6-49b0-83e6-1d93765276ca&redirect_uri=https%3A%2F%2Fwww.office.com%2Flandingv2&response_type=code%20id_token&scope=openid%20profile%20https%3A%2F%2Fwww.office.com%2Fv2%2FOfficeHome.All&response_mode=form_post&nonce=638377305286919729.OWQxYTAzYjQtYjUxYi00Zjc4LTk0YzAtODZhYWZlNmM3OWMyOTA0NzVkOWUtZDJkZi00NTYzLWFhMWYtZDI5OTc3MTU2MDIw&ui_locales=en&mkt=en&client-request-id=be489b8d-2e2b-42f0-b62b-96ab25f9404e&state=jGUcMBg8LZsDS1hbiGWk7gJEa6E-m0NTDsivHoPl40lT4laV5alYoQf82jPs0THyEdHY-eNkpe_8bQz-et01OHz5OBl8uIcdT7tu_UoV-sASk0IynnZPpvnCxAIioVN7gEQzU_Cv4XiaqZoyByJyl-c8oP4y0iQUp_kyeV68UvmXjc9Pnz_mIKRfv_lKh17pFIOTyEXiyGuknzEZT2r1oZ_DhDM6KdSwt_41oZF0fUeMqa4nsi2eSO9uTxzShY6jZ3y2jcDe2ctbUMicrecrKw&x-client-SKU=ID_NET6_0&x-client-ver=6.34.0.0
+
+**Timestamp**: Sat Dec 9 14:55:29 +0000 UTC 2023
+
+**Template Information**
+
+| Key | Value |
+| --- | --- |
+| Name | HTTP Missing Security Headers |
+| Authors | socketz, geeknik, g4l1t0, convisoappsec, kurohost, dawid-czarnecki |
+| Tags | misconfig, generic |
+| Severity | info |
+| Description | It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty. |
+
+**Request**
+```http
+GET / HTTP/1.1
+Host: msoid.dropbox.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36
+Connection: close
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip
+
+
+```
+
+**Response**
+```http
+HTTP/1.1 200 OK
+Connection: close
+Cache-Control: no-store, no-cache
+Content-Type: text/html; charset=utf-8
+Date: Sat, 09 Dec 2023 14:55:29 GMT
+Expires: -1
+Nel: {"report_to":"network-errors","max_age":86400,"success_fraction":0.001,"failure_fraction":1.0}
+P3p: CP="DSP CUR OTPi IND OTRi ONL FIN"
+Pragma: no-cache
+Referrer-Policy: strict-origin-when-cross-origin
+Report-To: {"group":"network-errors","max_age":86400,"endpoints":[{"url":"https://identity.nel.measure.office.net/api/report?catId=GW+estsfd+chi"}]}
+Set-Cookie: fpc=Atx9ujc2jX9EsiMZJ_x_H7s; expires=Mon, 08-Jan-2024 14:55:29 GMT; path=/; secure; HttpOnly; SameSite=None
+Set-Cookie: x-ms-gateway-slice=estsfd; path=/; secure; samesite=none; httponly
+Set-Cookie: stsservicecookie=estsfd; path=/; secure; samesite=none; httponly
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+Vary: Accept-Encoding
+X-Content-Type-Options: nosniff
+X-Ms-Clitelem: 1,50168,0,,
+X-Ms-Ests-Server: 2.1.16878.5 - NCUS ProdSlices
+X-Ms-Request-Id: 799db01f-518e-4fc6-8673-281f936e1600
+X-Xss-Protection: 0
+
+
+
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta name="PageID" content="BssoInterrupt" />
+    <meta name="SiteID" content="" />
+    <meta name="ReqLC" content="9" />
+    <meta name="LocLC" content="en" />
+
+    
+<meta name="robots" content="none" />
+
+<script type="text/javascript">//<![CDATA[
+$Config={"iMaxStackForKnockoutAsyncComponents":10000,"fShowButtons":true,"urlCdn":"https://aadcdn.msftauth.net/shared/1.0/","urlDefaultFavicon":"https://aadcdn.msftauth.net/shared/1.0/content/images/favicon_a_eupayfgghqiai7k9sol6lg2.ico","urlPost":"/common/oauth2/v2.0/authorize?client_id=4765445b-32c6-49b0-83e6-1d93765276ca\u0026redirect_uri=https%3a%2f%2fwww.office.com%2flandingv2\u0026response_type=code+id_token\u0026scope=openid+profile+https%3a%2f%2fwww.office.com%2fv2%2fOfficeHome.All\u0026response_mode=form_post\u0026nonce=638377305286919729.OWQxYTAzYjQtYjUxYi00Zjc4LTk0YzAtODZhYWZlNmM3OWMyOTA0NzVkOWUtZDJkZi00NTYzLWFhMWYtZDI5OTc3MTU2MDIw\u0026ui_locales=en\u0026mkt=en\u0026client-request-id=be489b8d-2e2b-42f0-b62b-96ab25f9404e\u0026state=jGUcMBg8LZsDS1hbiGWk7gJEa6E-m0NTDsivHoPl40lT4laV5alYoQf82jPs0THyEdHY-eNkpe_8bQz-et01OHz5OBl8uIcdT7tu_UoV-sASk0IynnZPpvnCxAIioVN7gEQzU_Cv4XiaqZoyByJyl-c8oP4y0iQUp_kyeV68UvmXjc9Pnz_mIKRfv_lKh17pFIOTyEXiyGuknzEZT2r1oZ_DhDM6KdSwt_41oZF0fUeMqa4nsi2eSO9uTxzShY6jZ3y2jcDe2ctbUMicrecrKw\u0026x-client-SKU=ID_NET6_0\u0026x-client-ver=6.34.0.0\u0026sso_reload=True","iPawnIcon":0,"sPOST_Username":"","sFTName":"flowToken","dynamicTenantBranding":null,"staticTenantBranding":null,"oAppCobranding":{},"iBackgroundImage":2,"fApplicationInsightsEnabled":false,"iApplicationInsightsEnabledPercentage":0,"urlSetDebugMode":"https://login.microsoftonline.com/common/debugmode","fEnableCssAnimation":true,"fAllowGrayOutLightBox":true,"fIsRemoteNGCSupported":true,"desktopSsoConfig":{"isEdgeAnaheimAllowed":true,"iwaEndpointUrlFormat":"https://autologon.microsoftazuread-sso.com/{0}/winauth/sso?client-request-id=be489b8d-2e2b-42f0-b62b-96ab25f9404e","iwaSsoProbeUrlFormat":"https://autologon.microsoftazuread-sso.com/{0}/winauth/ssoprobe?client-request-id=be489b8d-2e2b-42f0-b62b-96ab25f9404e","iwaIFrameUrlFormat":"https://autologon.microsoftazuread-sso.com/{0}/winauth/iframe?client-request-id=be489b8d-2e2b-42f0-b62b-96ab25f9404e\u0026isAdalRequest=False","iwaRequestTimeoutInMs":10000,"startDesktopSsoOnPageLoad":false,"progressAnimationTimeout":10000,"isEdgeAllowed":false,"minDssoEdgeVersion":"17","isSafariAllowed":true,"redirectUri":"","isIEAllowedForSsoProbe":true,"edgeRedirectUri":"https://autologon.microsoftazuread-sso.com/common/winauth/sso/edgeredirect?client-request-id=be489b8d-2e2b-42f0-b62b-96ab25f9404e\u0026origin=login.microsoftonline.com\u0026is_redirected=1","isFlowTokenPassedInEdge":true},"iSessionPullType":2,"fUseSameSite":true,"isGlobalTenant":true,"uiflavor":1001,"fOfflineAccountVisible":false,"fEnableUserStateFix":true,"fShowAccessPassPeek":true,"fUpdateSessionPollingLogic":true,"fEnableShowPickerCredObservable":true,"fFetchSessionsSkipDsso":true,"fUseNonMicrosoftDefaultBrandingForCiam":true,"fMergeComplexBrandingProperties":true,"fUseAltText":true,"fRemoveCustomCss":true,"fAddRtlCustomCssSupport":true,"fFixLightboxHeaderMargin":true,"fFixUICrashForApiRequestHandler":true,"fDeprecateBrandingProperties":true,"fFixDynamicTenantBranding":true,"fShowUpdatedKoreanPrivacyFooter":true,"fUsePostCssHotfix":true,"scid":1013,"hpgact":1800,"hpgid":6,"apiCanary":"PAQABAAEAAAAmoFfGtYxvRrNriQdPKIZ-dxVhZv8Bvk1WXAfvSUz7XkXNFNc5Z_cATtq1VATGtb4G3u4masEYuv0-6n0Zr9nkUvEgnJCE-OPE-Qz1dTxv4Skkm19Ku7kUNjZEG58j0mzVwfpDGOV_e4L7hyQCGlppSYqls6lKxNOxt7.... Truncated ....
+```
+
+
+**CURL command**
+```sh
+curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36' 'https://msoid.dropbox.com'
+```
+
+----
+
+Generated by [Nuclei v3.1.0-dev](https://github.com/projectdiscovery/nuclei)

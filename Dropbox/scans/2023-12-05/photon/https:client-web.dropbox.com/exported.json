@@ -1,0 +1,17 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://client-web.dropbox.com"
+    ],
+    "scripts": [],
+    "external": [
+        "https://www.dropbox.com/home"
+    ],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

@@ -1,0 +1,465 @@
+### Possible phone numbers extractor (extract-possible-phonenumbers) found on https://help.dropbox.com
+
+----
+**Details**: **extract-possible-phonenumbers** matched at https://help.dropbox.com
+
+**Protocol**: HTTP
+
+**Full URL**: https://help.dropbox.com
+
+**Timestamp**: Sat Dec 9 00:01:06 +0000 UTC 2023
+
+**Template Information**
+
+| Key | Value |
+| --- | --- |
+| Name | Possible phone numbers extractor |
+| Authors | cipher387 |
+| Tags | osint, juicy-info |
+| Severity | info |
+| Description | Extract possible phone numbers from web page body |
+
+**Request**
+```http
+GET / HTTP/1.1
+Host: help.dropbox.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36
+Connection: close
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip
+
+
+```
+
+**Response**
+```http
+HTTP/1.1 200 OK
+Connection: close
+Cache-Control: max-age=0
+Content-Type: text/html;charset=utf-8
+Date: Sat, 09 Dec 2023 00:01:04 GMT
+Expires: Sat, 09 Dec 2023 00:01:03 GMT
+Server: Apache
+Vary: Accept-Encoding
+Via: 1.1 887aba73f027fe4e82f965d15238ed3e.cloudfront.net (CloudFront)
+X-Amz-Cf-Id: VzCLHHa0CcvDa6JhV-bpta03bOX86ML3lc0L-BqvOv6iUiwXiiaffg==
+X-Amz-Cf-Pop: CDG52-P4
+X-Cache: Miss from cloudfront
+X-Content-Type-Options: nosniff
+X-Dispatcher: dispatcher1uswest1
+X-Frame-Options: SAMEORIGIN
+X-Vhost: dropbox-prod.adobemsbasic.com
+
+<!doctype html>
+
+
+    
+    
+    
+
+    
+
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+
+    <html data-cms-lang="en-us">
+    <head>
+        
+
+<meta charset="utf-8"/>
+
+
+
+
+    <title>Dropbox Help Center - How to use Dropbox - Dropbox Help</title>
+
+
+
+<meta name="coveopagetitle" content="Dropbox Help Center - How to use Dropbox"/>
+
+
+
+
+<meta name="description" content="Explore the Dropbox Help Center to learn how to use Dropbox on your computer, phone, and tablet, and find answers to common questions."/>
+
+
+<meta name="page-id" content="en-us-help"/>
+
+    <link rel="canonical" href="https://help.dropbox.com/"/>
+
+
+
+
+<meta name="uxAnalyticsEnabled" content="true"/>
+
+
+
+
+
+<link rel="icon" href="https://aem.dropbox.com/cms/content/dam/dropbox/aem/favicon32.ico" type="image/x-icon"/>
+
+
+ 
+<script>
+    window.utag_cfg_ovrd = window.utag_cfg_ovrd || {};
+    window.utag_cfg_ovrd.noview = true;
+    window.utag_data = window.utag_data || {};
+    window.utag_data.evidon_enabled = true;
+    if(window.utag_data.consent_categories == undefined){
+        window.utag_data.consent_categories = "";
+    }
+</script>
+<script src="https://www.dropbox.com/pithos/privacy_consent,top_frame_marketing_tracker,ux_analytics" async="true"></script>
+
+
+
+
+
+
+<meta property="og:url" content="https://help.dropbox.com/"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Dropbox Help Center - How to use Dropbox"/>
+<meta property="og:description" content="Explore the Dropbox Help Center to learn how to use Dropbox on your computer, phone, and tablet, and find answers to common questions."/>
+
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+
+
+
+<meta content="width=device-width,initial-scale=1.0,user-scalable=no" name="viewport"/>
+
+
+
+    <link rel="alternate" hreflang="id" href="https://help.dropbox.com/id-id"/>
+    <link rel="alternate" hreflang="ms" href="https://help.dropbox.com/ms-my"/>
+    <link rel="alternate" hreflang="da" href="https://help.dropbox.com/da-dk"/>
+    <link rel="alternate" hreflang="de" href="https://help.dropbox.com/de-de"/>
+    
+    
+    <link rel="alternate" hreflang="en" href="https://help.dropbox.com/"/>
+    <link rel="alternate" hreflang="es-ES" href="https://help.dropbox.com/es-es"/>
+    <link rel="alternate" hreflang="es" href="https://help.dropbox.com/es-la"/>
+    <link rel="alternate" hreflang="fr" href="https://help.dropbox.com/fr-fr"/>
+    <link rel="alternate" hreflang="it" href="https://help.dropbox.com/it-it"/>
+    <link rel="alternate" hreflang="nl" href="https://help.dropbox.com/nl-nl"/>
+    <link rel="alternate" hreflang="no" href="https://help.dropbox.com/nb-no"/>
+    <link rel="alternate" hreflang="pl" href="https://help.dropbox.com/pl-pl"/>
+    <link rel="alternate" hreflang="pt-BR" href="https://help.dropbox.com/pt-br"/>
+    <link rel="alternate" hreflang="ru" href="https://help.dropbox.com/ru-ru"/>
+    <link rel="alternate" hreflang="sv" href="https://help.dropbox.com/sv-se"/>
+    
+    <link rel="alternate" hreflang="zh-CN" href="https://help.dropbox.com/zh-cn"/>
+    <link rel="alternate" hreflang="zh-TW" href="https://help.dropbox.com/zh-tw"/>
+    <link rel="alternate" hreflang="ja" href="https://help.dropbox.com/ja-jp"/>
+    <link rel="alternate" hreflang="ko" href="https://help.dropbox.com/ko-kr"/>
+
+
+
+
+<!--/* Calling the tealium utag sync to avoid adobe target flickering */ -->
+
+
+
+    
+         
+          <!-- CMS-5456 : Optimizing target calls -->
+                
+         
+    
+
+<!-- /* Calling the tealium utag sync to avoid adobe target flickering */  -->
+
+    
+        <script type="text/javascript">
+            var attr = "tealium_event$cms".split(",");
+            var utag_data = window.utag_data || {}
+            attr.forEach(function (item) {
+                if (item && item.indexOf("$") > -1)
+                    utag_data[item.split("$")[0]] = item.split("$")[1];
+            })
+        </script>
+        <script type="text/javascript">
+            (function (a, b, c, d) {
+                a = "\/\/tags.tiqcdn.com\/utag\/dropbox\/main\/prod\/utag.js";
+                b = document;
+                c = 'script';
+                d = b.createElement(c);
+                d.src = a;
+                d.type = 'text/java' + c;
+                d.async = true;
+                a = b.getElementsByTagName(c)[0];
+                a.parentNode.insertBefore(d, a);
+            })();
+        </script>
+    
+
+
+
+
+ .... Truncated ....
+```
+
+**Extra Information**
+
+**Extracted results:**
+
+- 0 2.67-1.08
+- 0 3.43-1.57
+- 0 0 24 24
+- 7.81-8.16
+- 55 3.56
+- 2.72 6.1
+- 74.89-4.56
+- 5.18-3.61
+- 1663612925331
+- 733803
+- 04 3.09 3
+- 8.22 4.66
+- 05 3.07
+- 00183
+- 1663358779329
+- 06 24.84
+- 86256
+- 146.6 14
+- 4.31 2.11
+- 0-5.1-2.67
+- 495511
+- 002969
+- 0052-440
+- 76 8.42
+- 3.44-5.34
+- 3.55 4.32
+- 2.96 5.8
+- 9.24-8.61
+- 8.97 5.72
+- 283105
+- 85072
+- 044960
+- 44403
+- 2.821 2.025
+- 1663613747891
+- 1663700183200
+- 242121
+- 892055
+- 734242
+- 88 2.07 2
+- 0-5.21-2.91
+- 0 8.33333
+- 5.5 7.6 5
+- 39 3.09 5
+- 845909
+- 63200
+- 33.3333333
+- 30.318 9.136
+- 9.08-5.7
+- 777471
+- 278618716
+- 745-62
+- 6.504 6.222
+- 4.45-3.64
+- 4 2.26 0 3
+- 003280
+- 5.834-9.037
+- 8.22 4.67
+- 8.97-5.72
+- 9-2.65 0-3
+- 0-4.43 1.43
+- 5.18 0 0
+- 2.10092
+- 637282
+- 77751
+- 3.75 2.07
+- 9.02-5.75
+- 9.02-5.76
+- 00125
+- 731976
+- 88-2.67
+- 055463
+- 94.96 14.03
+- 8.96-5.7
+- 33.33333
+- 8-6783-42
+- 0-4.36.94-5
+- 8.22 7.88
+- 05 2.2 0
+- 84.3076923
+- 29.218
+- 7.88 8.33
+- 4.35-3.6
+- 3.16-4.4
+- 8-4525-80
+- 64181
+- 4.24 3.45
+- 624894
+- 3-9105
+- 0 7.14286
+- 735148
+- 4.41-3.57
+- 5-2.91 8.5
+- 175641
+- 2.10107
+- 1663880483855
+- 0 5.34 2.89
+- 4.31 3.33
+- 146.15 30
+- 4.35-2.3
+- 8.23-5.68
+- 84-448
+- 0 0 33.333333
+- 1695748777648
+- 1663880583451
+- 0 0 164 40
+- 11.75 15.5
+- 0 0 35 25
+- 1663880553864
+- 33.3333333333
+- 49 3.05 5
+- 6-4648
+- 8.39-4.51
+- 7.9-6.15-7
+- 5741780393
+- 24.484 0
+- 2.84 4.81
+- 3.04-4.81
+- 44 0 6.1
+- 600220
+- 75646
+- 117.3 27
+- 5.97 4.9
+- 0-5.4-3.2
+- 10.98 8.17
+- 34-5.46 3
+- 696663
+- 242321
+- 4.16667
+- 195466
+- 130.54 22
+- 8.96 5.7
+- 54717485-2
+- 0 7.81-2.82
+- 8.97 5.71
+- 161313
+- 67615
+- 0 0 100
+- 1.434-4.099
+- 1663612673791
+- 75 0 3.07
+- 674671
+- 66.9491525424
+- 1663358463962
+- 64 0 5.8
+- 0-2.76 1.08
+- 17.5 6.5
+- 5.9-8.23
+- 0 3.47 1.23
+- 79-3.68-3
+- 41188
+- 1663612730103
+- 4.41-2.5
+- 8.97-5.71
+- 1.625 4.247
+- 52889
+- 3.23 5.34
+- 8.39-7.8
+- 4.4 3.6-4
+- 007891
+- 89.2508143
+- 0-3.58-1.7
+- 8.25-2.55
+- 3.47 4.2
+- 0 3.84615
+- 64481
+- 11.9 16.14
+- 1663880502826
+- 2.37.05-3
+- 684505
+- 682760
+- 76260
+- 39567
+- 28865
+- 0-3.16-1.76
+- 34 11.309
+- 9.03-5.75
+- 8.96 5.71
+- 83.33333
+- 8-4181
+- 0 3.55 1.57
+- 9.02 5.75
+- 5.25 9.25
+- 1663611967893
+- 0 3.05-1.22
+- 87 1.88 2
+- 06 3.05 3
+- 7.8-8.16
+- 25.966 4.099
+- 46312
+- 393633
+- 9.516-11.21
+- 58 1.65 3
+- 0-3.43-1.85
+- 30 4.68
+- 8.96-5.72
+- 87856-6777-4
+- 4.24 2.47
+- 83.28 1
+- 637381
+- 8.082 10.469
+- 1663700194547
+- 3.43-4.5
+- 8.39-4.5
+- 675418
+- 435109
+- 46135
+- 55417
+- 3 0-4.82 1
+- 78286
+- 0-6.42-4.19
+- 9.03 5.75
+- 0-2.85 1.02
+- 3.75 5.31
+- 30 27.6
+- 283750
+- 1663880521233
+- 10815
+- 4.45-2.22
+- 4.03 0 8
+- 624442
+- 1663612598900
+- 0 2.67-1.32
+- 95-2.75-3
+- 0 7.8-2.82
+- 2.9856
+- 3.58-4.34
+- 4.97 4.1
+- 82.7683616
+- 0-7.88 2.88
+- 0-2.85 1.36
+- 76.59 22.28
+- 75529
+- 5.308 8.494
+- 8.129 10.568
+- 732039
+- 8.22 7.87
+- 45.96 10.04
+- 18.25 9.25
+
+
+
+**CURL command**
+```sh
+curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36' 'https://help.dropbox.com'
+```
+
+----
+
+Generated by [Nuclei v3.1.0-dev](https://github.com/projectdiscovery/nuclei)

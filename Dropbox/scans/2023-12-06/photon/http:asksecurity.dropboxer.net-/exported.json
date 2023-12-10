@@ -1,0 +1,19 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "http://asksecurity.dropboxer.net",
+        "http://asksecurity.dropboxer.net//",
+        "http://asksecurity.dropboxer.net/"
+    ],
+    "scripts": [],
+    "external": [
+        "https://www.okta.com"
+    ],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

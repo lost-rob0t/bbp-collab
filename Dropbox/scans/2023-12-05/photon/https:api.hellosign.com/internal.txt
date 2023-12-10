@@ -1,0 +1,9 @@
+https://api.hellosign.com/account/recoverPassword$
+https://api.hellosign.com/info/
+https://api.hellosign.com/account/logIn$
+https://api.hellosign.com/api/
+https://api.hellosign.com/$
+https://api.hellosign.com/solutions/
+https://api.hellosign.com
+https://api.hellosign.com/
+https://api.hellosign.com/account/signUp$

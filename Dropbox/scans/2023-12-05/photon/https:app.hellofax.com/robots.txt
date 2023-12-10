@@ -1,0 +1,8 @@
+https://app.hellofax.com/account/signUp$
+https://app.hellofax.com/
+https://app.hellofax.com/$
+https://app.hellofax.com/info/
+https://app.hellofax.com/account/logIn$
+https://app.hellofax.com/solutions/
+https://app.hellofax.com/account/recoverPassword$
+https://app.hellofax.com/api/

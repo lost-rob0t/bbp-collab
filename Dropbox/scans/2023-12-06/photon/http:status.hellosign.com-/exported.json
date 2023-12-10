@@ -1,0 +1,34 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "http://status.hellosign.com//",
+        "http://status.hellosign.com/history",
+        "http://status.hellosign.com//uptime",
+        "http://status.hellosign.com//history",
+        "http://status.hellosign.com/uptime",
+        "http://status.hellosign.com/",
+        "http://status.hellosign.com"
+    ],
+    "scripts": [],
+    "external": [
+        "https://twitter.com/DropboxSupport",
+        "https://www.atlassian.com/software/statuspage?utm_campaign=status.hellosign.com&amp;utm_content=SP-notifications&amp;utm_medium=powered-by&amp;utm_source=inapp",
+        "https://www.hellosign.com",
+        "https://status.hellosign.com/history",
+        "https://status.hellosign.com/history.rss",
+        "https://status.hellosign.com/uptime",
+        "https://community.atlassian.com/t5/Statuspage-articles/Attention-SMS-notifications-will-be-disabled-on-August-1st-2023/ba-p/2424398",
+        "https://www.atlassian.com/legal/privacy-policy",
+        "https://status.hellosign.com/incidents/hnxbs18s5q4q",
+        "https://faq.hellosign.com/",
+        "https://policies.google.com/terms",
+        "https://subscriptions.statuspage.io/slack_authentication/kickoff?page_code=djw9397fmqd1"
+    ],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}

@@ -1,0 +1,110 @@
+### Drone CI Panel (drone-login) found on https://jira-update.dropboxer.net
+
+----
+**Details**: **drone-login** matched at https://jira-update.dropboxer.net
+
+**Protocol**: HTTP
+
+**Full URL**: https://dropbox.okta.com/oauth2/v1/authorize?client_id=0oandf23jXc95LFrB4x6&redirect_uri=https%3A%2F%2Fjira-update.dropboxer.net%2Foauth2%2Fidpresponse&response_type=code&scope=openid&state=nnqS8JQoRU%2BjKVY5Xbp7MdBEYUX4g%2FnaWktXEl%2Fm9umgLoArWdeqFsA%2BbUnqyh2cqq%2FyUIal0TOrhnFd19%2Bfh3sFn%2BD%2BGxNKbJUVK1%2BO9ZWNaEMFsG%2FwUbkK%2Fa%2FPXgKTgVX1nH0tfq%2FEeNDGhLoWEFlbbv9CbdjgfLvVD28n1S%2BBv2b7foie8jReH6AZvCmUg47K6ax6eh5e97CQSIpvaXS2P7BzBaDB6kJFTaES4%2BKQWZ8mD2qJCzhtnCI%3D
+
+**Timestamp**: Sat Dec 9 12:49:31 +0000 UTC 2023
+
+**Template Information**
+
+| Key | Value |
+| --- | --- |
+| Name | Drone CI Panel |
+| Authors | yuzhe-zhang-0 |
+| Tags | panel, drone-ci, cicd |
+| Severity | info |
+
+**Request**
+```http
+GET /welcome HTTP/1.1
+Host: jira-update.dropboxer.net
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36
+Connection: close
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip
+
+
+```
+
+**Response**
+```http
+HTTP/1.1 200 OK
+Connection: close
+Transfer-Encoding: chunked
+Cache-Control: no-cache, no-store
+Content-Language: en
+Content-Security-Policy: default-src 'self' dropbox.okta.com *.oktacdn.com; connect-src 'self' dropbox.okta.com dropbox-admin.okta.com *.oktacdn.com *.mixpanel.com *.mapbox.com app.pendo.io data.pendo.io pendo-static-5634101834153984.storage.googleapis.com pendo-static-5391521872216064.storage.googleapis.com *.mtls.okta.com dropbox.kerberos.okta.com *.authenticatorlocalprod.com:8769 http://localhost:8769 http://127.0.0.1:8769 *.authenticatorlocalprod.com:65111 http://localhost:65111 http://127.0.0.1:65111 *.authenticatorlocalprod.com:65121 http://localhost:65121 http://127.0.0.1:65121 *.authenticatorlocalprod.com:65131 http://localhost:65131 http://127.0.0.1:65131 *.authenticatorlocalprod.com:65141 http://localhost:65141 http://127.0.0.1:65141 *.authenticatorlocalprod.com:65151 http://localhost:65151 http://127.0.0.1:65151 https://oinmanager.okta.com data:; script-src 'unsafe-inline' 'unsafe-eval' 'self' dropbox.okta.com *.oktacdn.com; style-src 'unsafe-inline' 'self' dropbox.okta.com *.oktacdn.com app.pendo.io cdn.pendo.io pendo-static-5634101834153984.storage.googleapis.com pendo-static-5391521872216064.storage.googleapis.com; frame-src 'self' dropbox.okta.com dropbox-admin.okta.com login.okta.com com-okta-authenticator: api-37ec43d7.duosecurity.com; img-src 'self' dropbox.okta.com *.oktacdn.com *.tiles.mapbox.com *.mapbox.com app.pendo.io data.pendo.io cdn.pendo.io pendo-static-5634101834153984.storage.googleapis.com pendo-static-5391521872216064.storage.googleapis.com data: blob:; font-src 'self' dropbox.okta.com data: *.oktacdn.com fonts.gstatic.com
+Content-Type: text/html;charset=utf-8
+Date: Sat, 09 Dec 2023 12:49:31 GMT
+Expires: 0
+P3p: CP="HONK"
+Pragma: no-cache
+Public-Key-Pins-Report-Only: pin-sha256="r5EfzZxQVvQpKo3AgYRaT7X2bDO/kj3ACwmxfdT2zt8="; pin-sha256="MaqlcUgk2mvY/RFSGeSwBRkI+rZ6/dxe/DuQfBT/vnQ="; pin-sha256="72G5IEvDEWn+EThf3qjR7/bQSWaS2ZSLqolhnO6iyJI="; pin-sha256="rrV6CLCCvqnk89gWibYT0JO6fNQ8cCit7GGoiVTjCOg="; max-age=60; report-uri="https://okta.report-uri.com/r/default/hpkp/reportOnly"
+Referrer-Policy: no-referrer
+Server: nginx
+Set-Cookie: sid="";Version=1;Path=/;Max-Age=0
+Set-Cookie: autolaunch_triggered=""; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/
+Set-Cookie: JSESSIONID=1EB2309C690CB1D72BFA883F04247626; Path=/; Secure; HttpOnly
+Set-Cookie: t=blue-dark; Path=/
+Set-Cookie: DT=DI157Jk4ZdMSSiiXJnw8ZkkwA;Version=1;Path=/;Max-Age=63072000;Secure;Expires=Mon, 08 Dec 2025 12:49:31 GMT;HttpOnly
+Strict-Transport-Security: max-age=315360000; includeSubDomains
+Vary: Accept-Encoding
+X-Content-Type-Options: nosniff
+X-Okta-Request-Id: ZXRiWzQYOhs52vWwTgMIhAAABGU
+X-Rate-Limit-Limit: 2000
+X-Rate-Limit-Remaining: 1787
+X-Rate-Limit-Reset: 1702126172
+X-Robots-Tag: noindex,nofollow
+X-Ua-Compatible: IE=edge
+X-Xss-Protection: 0
+
+<!DOCTYPE html>
+<!--[if IE 7]><html lang="en" class="lt-ie10 lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html lang="en" class="lt-ie10 lt-ie9"> <![endif]-->
+<!--[if IE 9]><html lang="en" class="lt-ie10"><![endif]-->
+<!--[if gt IE 9]><html lang="en"><![endif]-->
+<!--[if !IE]><!--><html lang="en"><!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+
+    <script type="text/javascript" nonce="FdJ-_eMRoMBkbwUzJ-_RYnWcIB5Wodqssx11BzaswFk">if (typeof module === 'object') {window.module = module; module = undefined;}</script><style type="text/css" nonce="FdJ-_eMRoMBkbwUzJ-_RYnWcIB5Wodqssx11BzaswFk">
+        .bgStyle {
+          background-image: url('https://ok11static.oktacdn.com/fs/bco/7/fs06sidug2JhbFj6V4x7')
+        }
+        .bgStyleIE8 {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='https://ok11static.oktacdn.com/fs/bco/7/fs06sidug2JhbFj6V4x7', sizingMethod='scale')
+        }
+        .copyright a:focus-visible, 
+        .privacy-policy a:focus-visible {
+          border-radius: 6px;
+          outline: rgb(84, 107, 231) solid 1px;
+          outline-offset: 2px;
+          text-decoration: none !important;
+        }
+    </style><title>Dropbox Okta - Sign In</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+
+    <script type="text/javascript" nonce="FdJ-_eMRoMBkbwUzJ-_RYnWcIB5Wodqssx11BzaswFk">window.cspNonce = 'FdJ-_eMRoMBkbwUzJ-_RYnWcIB5Wodqssx11BzaswFk';</script><script src="https://ok11static.oktacdn.com/assets/js/sdk/okta-signin-widget/7.12.2/js/okta-sign-in.min.js" type="text/javascript"></script>
+    <link href="https://ok11static.oktacdn.com/assets/js/sdk/okta-signin-widget/7.12.2/css/okta-sign-in.min.css" type="text/css" rel="stylesheet"/>
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+<link href="https://ok11static.oktacdn.com/assets/loginpage/css/loginpage-theme.7266b8318cd7a71710311515ab15c462.css" rel="stylesheet" type="text/css"/><link href="/api/internal/brand/theme/style-sheet?touch-point=SIGN_IN_PAGE&v=abc4780733b2999dc5536ea4bf18a7237d32beafe91e2f7611b8af3ecb8ae0d0dfb208992a3b1ecefd0c0f9333f4b59d" r.... Truncated ....
+```
+
+References: 
+- https://www.shodan.io/search?query=http.title%3a%22drone%22+http.favicon.hash%3a1354079303
+
+**CURL command**
+```sh
+curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36' 'https://jira-update.dropboxer.net/welcome'
+```
+
+----
+
+Generated by [Nuclei v3.1.0-dev](https://github.com/projectdiscovery/nuclei)

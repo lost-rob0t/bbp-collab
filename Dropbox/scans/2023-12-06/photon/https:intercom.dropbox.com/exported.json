@@ -1,0 +1,18 @@
+{
+    "files": [],
+    "intel": [],
+    "robots": [
+        "https://intercom.dropbox.com/"
+    ],
+    "custom": [],
+    "failed": [],
+    "internal": [
+        "https://intercom.dropbox.com",
+        "https://intercom.dropbox.com/"
+    ],
+    "scripts": [],
+    "external": [],
+    "fuzzable": [],
+    "endpoints": [],
+    "keys": []
+}
