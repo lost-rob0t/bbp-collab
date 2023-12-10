@@ -1,0 +1,96 @@
+#+title: Url
+
+* Notes about this template
+Create checklist per url you want to test.
+* Domain :url::domain: [0/4]
++ target: dsimports.dropbox.com
+
+** Domain
+get ip
+#+begin_src sh :results output replace
+dig +short dsimports.dropbox.com
+#+end_src
+
+#+RESULTS:
+: 99.84.160.75
+: 99.84.160.124
+: 99.84.160.97
+: 99.84.160.41
+
+*** Recon
+** TODO  Make List of parameters
+
+#+NAME: Parameters
+| Path | code | location (url/body) | notes/tags |
+|------+------+---------------------+------------|
+|      |      |                     |            |
+
+
+** TODO Fuzzing
+The following are just ideas incase you come across something applicable
+*** IDEA test authentcation
+*** IDEA SSTI
+*** IDEA HTMLI
+*** IDEA XSS
+*** IDEA SQLI
+
+** TODO Misc tasks
+*** TODO take screenshot
+*** TODO Add to changedection
+*** TODO js recon
+
+
+** TODO Interact
+* Notes
+** Readme
+#+begin_quote
+Welcome to Companion v4.5.0
+===================================
+
+Congratulations on setting up Companion! Thanks for joining our cause, you have taken
+the first step towards the future of file uploading! We
+hope you are as excited about this as we are!
+
+While you did an awesome job on getting Companion running, this is just the welcome
+message, so let's talk about the places that really matter:
+
+- Be sure to add https://dsimports.dropbox.com/connect/drive/redirect, https://dsimports.dropbox.com/connect/dropbox/redirect, https://dsimports.dropbox.com/connect/box/redirect, https://dsimports.dropbox.com/connect/instagram/redirect, https://dsimports.dropbox.com/connect/facebook/redirect, https://dsimports.dropbox.com/connect/onedrive/redirect, https://dsimports.dropbox.com/connect/zoom/redirect, https://dsimports.dropbox.com/connect/unsplash/redirect as your Oauth redirect uris on their corresponding developer interfaces.
+- The URL https://dsimports.dropbox.com/metrics is available for  statistics to keep Companion running smoothly
+- https://github.com/transloadit/uppy/issues - report your bugs here
+
+So quit lollygagging, start uploading and experience the future!
+#+end_quote
+** git
+This is a file client that is mentioned being used
+https://github.com/transloadit/uppy/issues
+what i think is notable is the "client side" validation. If its being used, this is a ripe place for flaws.
+
+*** Features
+important features
+Why not use <input type="file">?
+
+Having no JavaScript beats having a lot of it, so that’s a fair question! Running an uploading & encoding business for ten years though we found that in cases, the file input leaves some to be desired:
+
+We received complaints about broken uploads and found that resumable uploads are important, especially for big files and to be inclusive towards people on poorer connections (we also launched tus.io to attack that problem). Uppy uploads can survive network outages and browser crashes or accidental navigate-aways.
+Uppy supports editing meta information before uploading.
+Uppy allows cropping images before uploading.
+There’s the situation where people are using their mobile devices and want to upload on the go, but they have their picture on Instagram, files in Dropbox or a plain file URL from anywhere on the open web. Uppy allows to pick files from those and push it to the destination without downloading it to your mobile device first.
+Accurate upload progress reporting is an issue on many platforms.
+Some file validation — size, type, number of files — can be done on the client with Uppy.
+Uppy integrates webcam support, in case your users want to upload a picture/video/audio that does not exist yet :)
+A larger drag and drop surface can be pleasant to work with. Some people also like that you can control the styling, language, etc.
+Uppy is aware of encoding backends. Often after an upload, the server needs to rotate, detect faces, optimize for iPad, or what have you. Uppy can track progress of this and report back to the user in different ways.
+Sometimes you might want your uploads to happen while you continue to interact on the same single page.
+** Endpoints
+ https://dsimports.dropbox.com/connect/drive/redirect
+ https://dsimports.dropbox.com/connect/dropbox/redirect
+ https://dsimports.dropbox.com/connect/box/redirect
+ https://dsimports.dropbox.com/connect/instagram/redirect
+ https://dsimports.dropbox.com/connect/facebook/redirect
+ https://dsimports.dropbox.com/connect/onedrive/redirect
+ https://dsimports.dropbox.com/connect/zoom/redirect
+ https://dsimports.dropbox.com/connect/unsplash/redirect
+
+** Tech
++ cowboy server, check for http request smuggeling
++ "companion 4.5.0"

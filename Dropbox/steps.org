@@ -3,7 +3,7 @@
 :END:
 #+title: bug bounty methods
 #+CREATED: [2023-11-07 Tue 09:35]
-#+LAST_MODIFIED: [2023-12-09 Sat 10:40]
+#+LAST_MODIFIED: [2023-12-09 Sat 23:33]
 #+STARTUP: overview
 
 + Version: 0.4
@@ -1261,13 +1261,16 @@ a{{7*7}}
 + https://cheatsheetseries.owasp.org/assets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet_SSRF_Bible.pdf
 + https://portswigger.net/web-security/ssrf
 
- | Url                                                                                                                                  | method | tags | notes | other |
- |--------------------------------------------------------------------------------------------------------------------------------------+--------+------+-------+-------|
- | https://www.dropbox.com/pithos/host:app.hellosign.com/marketing_tracker_client,ux_analytics,hellosign_marketing_utils,privacy_consen | get    |      |       |       |
+ | Url                                                                                                                                  | method | tags | notes         | other |
+ |--------------------------------------------------------------------------------------------------------------------------------------+--------+------+---------------+-------|
+ | https://www.dropbox.com/pithos/host:app.hellosign.com/marketing_tracker_client,ux_analytics,hellosign_marketing_utils,privacy_consen | get    |      |               |       |
+ | https://app.hellosign.com                                                                                                            | N/A    | SSRF | SSRF from pdf | nil   |
 
 
 #+DOWNLOADED: screenshot @ 2023-11-07 09:36:30
 [[file:SSRF/2023-11-07_09-36-30_screenshot.png]]
+
+- [-] [[file:checklists/app.hellosign.com-checklist.org][app.hellosign.com]]
 
 ** TODO [#A] File Descriptors
 This is usful in clouds or chared hosting, remeber the remote htop fuzzer!
@@ -1312,7 +1315,10 @@ Get the instance metadata
 #+begin_example
 http://169.254.169.254/
 #+end_example
-* API
+
+
+* Misc/stratch pad
+** API
 #+NAME: jwt
 #+begin_src sh :results output replace :async :var api_id="cta4IiIytVd0aqhk" :var key="YjmVwsHJCc5BkeXmJALeCTJymlgcQnBIm9iJc5hX"
 curl -X GET https://api.helloworks.com/v3/token/$api_id \

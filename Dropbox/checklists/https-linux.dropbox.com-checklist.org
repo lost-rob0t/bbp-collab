@@ -1,0 +1,33 @@
+#+title: Url
+
+* Notes about this template
+Create checklist per url you want to test.
+* Url :url: [4/4]
++ target: https://linux.dropbox.com/
+
+
+** NO Make List of parameters
+
+#+NAME: Parameters
+| Path | code | location (url/body) | notes/tags |
+|------+------+---------------------+------------|
+|      |      |                     |            |
+
+
+** NO Fuzzing
+The following are just ideas incase you come across something applicable
+*** NO test authentcation
+*** NO SSTI
+*** NO HTMLI
+*** NO XSS
+*** NO SQLI
+
+** NO Misc tasks
+*** NO take screenshot
+*** NO Add to changedection
+*** NO js recon
+
+
+** NO Interact
+* Notes
+It is a open directory listing of packages dropbox has made

