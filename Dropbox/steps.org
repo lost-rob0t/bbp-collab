@@ -3,7 +3,7 @@
 :END:
 #+title: bug bounty methods
 #+CREATED: [2023-11-07 Tue 09:35]
-#+LAST_MODIFIED: [2023-12-13 Wed 17:37]
+#+LAST_MODIFIED: [2023-12-13 Wed 18:19]
 #+STARTUP: overview
 
 + Version: 0.4
@@ -941,12 +941,12 @@ https://github.com/transloadit/uppy/issues
 unconfirmed
 **** Pithos
 + url:  https://www.dropbox.com/pithos/host%3Aconsent.dropbox.com/privacy_consent_service
-This is loaded in as if it was a object torage, it might be loading in iframes?
+This is loaded in as if it was a object storage, it might be loading in iframes?
 But here is possible documentation
 https://www.synnefo.org/docs/synnefo/0.14.10/pithos.html
 *** TODO Software versions
 *** TODO Github [0/3]
-**** TODO Make List of public repos
+**** DONE Make List of public repos
 #+NAME: FOSS-REPOS
 | org     | link                                                  |
 | Dropbox | https://github.com/dropbox/image-search               |
