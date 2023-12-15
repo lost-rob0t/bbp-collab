@@ -54,10 +54,12 @@ whatweb http://dsimports.dropbox.com/
 ** http://file-imports.dropbox.com/ :iframe:
 ** https://opensource.dropbox.com/ :github::foss:
 ** https://portal.helloworks.com/api/graphql :graphql:
+** http://www.corp.dropbox.com/feeds :gdata:
+15 Dec 2023 21:12:21 WRN preflight result statuscode=400 title="GData requests must use HTTPS" url=
 * WAF
 ** Cloudflare
 + https://sfdc-docs.hellosign.com/
-
++ https://blog.dropbox.com
 
 
 * Security Blog
