@@ -3,7 +3,7 @@
 :END:
 #+title: bug bounty methods
 #+CREATED: [2023-11-07 Tue 09:35]
-#+LAST_MODIFIED: [2023-12-13 Wed 18:19]
+#+LAST_MODIFIED: [2023-12-15 Fri 17:41]
 #+STARTUP: overview
 
 + Version: 0.4
@@ -934,7 +934,6 @@ maltego
 | CloudOn         | https://www.crunchbase.com/organization/CloudOn         |                                                      |            |
 
 
-* Tech Workers
 *** Tech stack
 **** uppy
 https://github.com/transloadit/uppy/issues
@@ -944,8 +943,22 @@ unconfirmed
 This is loaded in as if it was a object storage, it might be loading in iframes?
 But here is possible documentation
 https://www.synnefo.org/docs/synnefo/0.14.10/pithos.html
+
+#+Name: pithos-endpoints
+| Url                                                                               | method | tags    | notes    |
+|-----------------------------------------------------------------------------------+--------+---------+----------|
+| https://www.dropbox.com/pithos/host%3Aconsent.dropbox.com/privacy_consent_service | GET    | Iframe  | loads in |
+| https://file-imports.dropbox.com/                                                 | GET    | iframes |          |
+
+
 **** Envoy Proxy
-+ https://www.dropbox.com/pithos/
+
+#+Name: envoy-endpoints
+| Url                             | method | tags | notes |
+|---------------------------------+--------+------+-------|
+| https://www.dropbox.com/pithos/ | get    |      |       |
+|                                 |        |      |       |
+
 * Tech Workers
 *** TODO Software versions
 *** TODO Github [0/3]
